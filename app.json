@@ -1,7 +1,19 @@
 {
   "expo": {
-    "name": "reset-app",
-    "slug": "reset-app",
-    "version": "1.0.0"
+    "name": "quitminder",
+    "slug": "quitminder",
+    "schema": "quitminder",
+    "version": "1.0.0",
+    "android": {
+      "package": "com.victorsoares.quitminder",
+      "edgeToEdgeEnable": true
+    },
+    "ios": {
+      "bundleIdentifier": "com.victorsoares.quitminder"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font"
+    ]
   }
 }

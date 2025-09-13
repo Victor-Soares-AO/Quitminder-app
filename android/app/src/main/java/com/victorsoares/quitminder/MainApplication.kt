@@ -1,4 +1,4 @@
-package com.resetapp
+package com.victorsoares.quitminder
 
 import android.app.Application
 import android.content.res.Configuration
