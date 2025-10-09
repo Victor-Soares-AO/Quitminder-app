@@ -3,16 +3,23 @@ import { colors, fontFamily } from "@/theme";
 
 export const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
-        gap: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 20,
         width: '100%',
-        height: 56,
-        backgroundColor: colors.button.primary
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: colors.background.secondary,
+        borderRadius: 20,
+        paddingVertical: 16,
+        paddingHorizontal: 20,
+        gap: 12
+    },
+    icon: {
+        width: 40,
+        height: 40,
+        borderRadius: 999,
+        backgroundColor: '#0A84FF'
     },
     title: {
+        color: colors.white,
         fontSize: 16,
         fontFamily: fontFamily.semibold
     }

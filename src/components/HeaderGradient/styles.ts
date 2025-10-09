@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
         height: 160,
         position: 'absolute',
         top: 0,
+        left: 0,
         alignSelf: 'center'
     }
 })

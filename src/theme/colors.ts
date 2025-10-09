@@ -1,19 +1,21 @@
 export const colors = {
     background: {
-        primary: "#000000",
-        secondary: "#121214",
-        // tertiary: "#3f3f46",
+        primary: "#FFFFFF",
+        secondary: "#F5F5F7",
     },
-    indigo: {
-        950: "#1e1b4b"
+    text: {
+        primary: "#1C1C1E",
+        secondary: "#787B82",
+        tertiary: "#9C9FA6",
+    },
+    button: {
+        primary: "#1C1C1E",
+        secondary: "#F5F5F7",
     },
     gray: {
-        100: "#f1f5f5",
-        200: "#e9ecef",
-        300: "#dee2e6",
-        400: "#ced4da",
-        500: "#6c757d",
-        600: "#767680",
+        400: "#AFB1B8",
+        700: "#787B82",
+        900: "#55585E",
     },
     white: "#ffffff",
     black: "#000000",

@@ -6,7 +6,7 @@ import { colors } from "@/theme";
 export function HeaderGradient(){
     return(
         <LinearGradient
-            colors={[colors.indigo[950],colors.background.primary]}
+            colors={[colors.background.secondary,colors.background.primary]}
             style={styles.container}
         />
     )

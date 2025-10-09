@@ -7,10 +7,11 @@ export const styles = StyleSheet.create({
         gap: 8,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 20,
-        width: '100%',
-        height: 56,
-        backgroundColor: colors.button.primary
+        borderRadius: 999,
+        width: 40,
+        height: 40,
+        padding: 10,
+        backgroundColor: colors.background.secondary
     },
     title: {
         fontSize: 16,

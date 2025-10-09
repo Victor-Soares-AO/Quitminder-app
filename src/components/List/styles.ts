@@ -3,10 +3,7 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        borderWidth: 1,
-        borderColor: "red",
-        marginTop: 32,
+        flex: 1
     },
     listContent: {
         paddingBottom: 72
