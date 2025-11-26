@@ -4,6 +4,7 @@
     "slug": "quitminder",
     "schema": "quitminder",
     "version": "1.0.0",
+    "userInterfaceStyle": "automatic",
     "android": {
       "package": "com.victorsoares.quitminder",
       "edgeToEdgeEnable": true
@@ -13,7 +14,8 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      "expo-font",
+      "expo-sqlite"
     ]
   }
 }

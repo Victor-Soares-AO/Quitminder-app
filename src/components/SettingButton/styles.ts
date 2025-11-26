@@ -6,9 +6,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         width: '100%',
-        paddingVertical: 16,
-        paddingHorizontal: 20,
-        // borderRadius: 20,
+        padding: 16,
         backgroundColor: colors.background.secondary
     },
     cover: {
@@ -23,6 +21,6 @@ export const styles = StyleSheet.create({
         flex: 1,
         fontSize: 16,
         fontFamily: fontFamily.medium,
-        color: colors.white
+        color: colors.text.primary
     }
 })

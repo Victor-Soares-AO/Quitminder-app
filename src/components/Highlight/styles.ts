@@ -7,19 +7,19 @@ export const styles = StyleSheet.create({
         alignItems: 'flex-end',
         justifyContent: 'space-between',
         marginHorizontal: 16,
-        marginTop: 32,
-        marginBottom: 24
+        marginTop: 24,
+        marginBottom: 16
     },
     wrapper: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 8
+        gap: 6
     },
-    habits: {
-        fontSize: 20,
-        fontFamily: fontFamily.semibold,
-        color: colors.white,
-    },
+    // habits: {
+    //     fontSize: 20,
+    //     fontFamily: fontFamily.semibold,
+    //     color: colors.text.primary,
+    // },
     label: {
         fontSize: 14,
         fontFamily: fontFamily.medium,

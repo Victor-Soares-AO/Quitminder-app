@@ -7,30 +7,32 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: colors.background.secondary,
         marginHorizontal: 16,
-        marginBottom: 20,
-        paddingHorizontal: 20,
-        paddingVertical: 16,
-        borderRadius: 20
+        marginBottom: 16,
+        paddingHorizontal: 16,
+        paddingVertical: 20,
+        borderRadius: 16
     },
     cover: {
-        width: 40,
-        height: 40,
+        width: 44,
+        height: 44,
         borderRadius: 999,
-        backgroundColor: '#007AFF'
+        backgroundColor: '#007AFF',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     wrapper: {
         flex: 1,
         gap: 4,
         marginLeft: 12,
     },
-    title: {
-        color: colors.white,
-        fontSize: 18,
-        fontFamily: fontFamily.semibold
-    },
     time: {
-        color: colors.gray[400],
         fontSize: 14,
-        fontFamily: fontFamily.medium
+        fontFamily: fontFamily.medium,
+        color: colors.text.secondary
+    },
+    timeWrapper: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 4
     }
 })

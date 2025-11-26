@@ -1,25 +1,33 @@
 import { Text, View } from "react-native";
-import { Quotes } from "phosphor-react-native";
+import { ChatTeardropDotsIcon } from "phosphor-react-native";
 
-import { styles } from "./styles";
 import { colors } from "@/theme";
+import { styles } from "./styles";
+import { Title } from "../Text/Title";
+import { Description } from "../Text/Description";
+import { getQuoteOfTheDay } from "@/utils/getQuoteOfTheDay";
 
 export function QuoteOfTheDay() {
-    return (
-        <View style={styles.container}>
-            <View style={styles.card}>
-                <Text style={styles.title}>
-                    Frase do dia
-                </Text>
+  const quote = getQuoteOfTheDay("pt");
 
-                <Text style={styles.title}>
-                    O sucesso é ir de fracasso em fracasso sem perder o entusiasmo.
-                </Text>
+  return (
+    <View style={styles.container}>
+      <View style={styles.wrapper}>
+        <ChatTeardropDotsIcon weight="fill" color={colors.text.secondary} />
+        <Title color="SECONDARY" fontWeight="SEMIBOLD">
+          Frase do dia
+        </Title>
+      </View>
 
-                <Text style={styles.author}>
-                    @Winston Churchill
-                </Text>
-            </View>
-        </View>
-    )
+      <Title color="SECONDARY" fontWeight="SEMIBOLD">
+        {quote.text}
+      </Title>
+
+      <View style={{ alignItems: "flex-end" }}>
+        <Description color="SECONDARY" fontWeight="SEMIBOLD">
+          @{quote.author}
+        </Description>
+      </View>
+    </View>
+  );
 }

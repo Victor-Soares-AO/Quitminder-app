@@ -1,44 +1,41 @@
-import { SecondaryButton } from "@/components/SecondaryButton";
+import { Alert, StyleSheet, ScrollView } from "react-native";
+
+import { MoonIcon, X } from "phosphor-react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+import { Header } from "@/components/Header";
+import { Heading } from "@/components/Text/Heading";
 import { SettingButton } from "@/components/SettingButton";
-import { colors, fontFamily } from "@/theme";
-import { router } from "expo-router";
-import { ScanFace } from "lucide-react-native";
-import { Bell, ChatCircleIcon, Export, Hand, Heart, ListBulletsIcon, MoonIcon, Star, X } from "phosphor-react-native";
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+
+import { colors } from "@/theme";
 
 export default function Settings() {
+
     return (
-        <ScrollView style={styles.container}>
-            <View style={styles.header}>
-                {/* <View style={{ width: 32 }} /> */}
+        <SafeAreaView style={{ flex: 1 }}>
+            <Header />
+            <ScrollView style={styles.container}>
+                <Heading fontSize="LARGE">
+                    Definições
+                </Heading>
 
-                <Text style={styles.title}>
-                    Settings
-                </Text>
-
-                <TouchableOpacity
-                    style={styles.closeButton}
-                    onPress={() => router.back()}
-                >
-                    <X
-                        size={16}
-                        color="#FFF"
-                        weight="bold"
-                    />
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles.group}>
                 <SettingButton
-                    title="Dark Mode"
+                    title="Modo Escuro"
                     Icon={MoonIcon}
                     backgroundColor="#3A3A3C"
                     rounded="full"
                     isSwitch
                 />
-            </View>
 
-            <View style={styles.group}>
+                <SettingButton
+                    title="Apagar Banco de Dados"
+                    Icon={X}
+                    backgroundColor="#FF3B30"
+                    rounded="full"
+                    onPress={() => Alert.alert('quitminder.db')}
+                />
+
+                {/* <View style={styles.group}>
                 <SettingButton
                     title="Notifications"
                     Icon={Bell}
@@ -103,8 +100,9 @@ export default function Settings() {
                 <Text style={styles.info}>
                     Made with ❤️ in Angola
                 </Text>
-            </View>
-        </ScrollView>
+            </View> */}
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 
@@ -113,7 +111,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.background.primary,
         paddingHorizontal: 16,
-        paddingTop: 24
+        paddingTop: 80
     },
     header: {
         flexDirection: 'row',
@@ -129,23 +127,23 @@ const styles = StyleSheet.create({
         borderRadius: 999,
         backgroundColor: 'rgba(255,255,255,0.15)'
     },
-    title: {
-        color: colors.white,
-        fontSize: 28,
-        fontFamily: fontFamily.semibold
-    },
-    group: {
-        marginBottom: 20
-    },
-    infoWrapper: {
-        gap: 8,
-        marginTop: 16,
-        marginBottom: 64
-    },
-    info: {
-        color: colors.gray[400],
-        fontSize: 14,
-        fontFamily: fontFamily.semibold,
-        alignSelf: 'center'
-    }
+    // title: {
+    //     color: colors.text.primary,
+    //     fontSize: 28,
+    //     fontFamily: fontFamily.semibold
+    // },
+    // group: {
+    //     marginBottom: 20
+    // },
+    // infoWrapper: {
+    //     gap: 8,
+    //     marginTop: 16,
+    //     marginBottom: 64
+    // },
+    // info: {
+    //     color: colors.gray[400],
+    //     fontSize: 14,
+    //     fontFamily: fontFamily.semibold,
+    //     alignSelf: 'center'
+    // }
 })

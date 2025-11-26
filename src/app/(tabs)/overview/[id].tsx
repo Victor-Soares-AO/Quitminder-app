@@ -1,126 +1,293 @@
-import { SecondaryButton } from "@/components/SecondaryButton";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
+import { View, Text, StyleSheet, ScrollView, Alert, Animated, Dimensions } from "react-native";
+
+import { LinearGradient } from "expo-linear-gradient";
+import * as PhosphorIcons from "phosphor-react-native";
+import {
+    ArrowLeftIcon,
+    BookOpenTextIcon,
+    ChatCenteredDotsIcon,
+    ExportIcon,
+    HeartbeatIcon,
+    LightbulbFilamentIcon
+} from "phosphor-react-native";
+
+import { Loading } from "@/components/Loading";
+import { IconButton } from "@/components/IconButton";
 import { SettingButton } from "@/components/SettingButton";
+import { PrimaryButton } from "@/components/PrimaryButton";
+import { AbstinenceCard } from "@/components/AbstinenceCard";
+
 import { colors, fontFamily } from "@/theme";
-import { Link, router } from "expo-router";
-import { Brain } from "lucide-react-native";
-import { Bell, HamburgerIcon, LightbulbIcon, PencilSimpleIcon, X } from "phosphor-react-native";
-import { View, Text, StyleSheet } from "react-native";
+import { HabitResponseDTO } from "@/dtos/habit.dto";
+import { useHabitDatabase } from "@/database/useHabitDatabase";
+import { useAffirmationDatabase } from "@/database/useAffirmationDatabase";
+import { Header } from "@/components/Header";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Heading } from "@/components/Text/Heading";
+
+const { width } = Dimensions.get("window");
 
 export default function Overview() {
+
+    const insets = useSafeAreaInsets();
+
+    const [habit, setHabit] = useState<HabitResponseDTO>(null);
+
+    const [affirmations, setAffirmations] = useState<string[]>([]);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    // const fadeAnim = useRef(new Animated.Value(1)).current;
+
+    const slideAnim = useRef(new Animated.Value(0)).current;
+
+    const affirmationDatabase = useAffirmationDatabase();
+
+    const { id } = useLocalSearchParams();
+    const habitId = Number(id);
+
+    const habitDatabase = useHabitDatabase();
+
+    const handleDeleteHabit = async () => {
+        try {
+            Alert.alert(
+                "Confirmar exclusão",
+                "Tem certeza que deseja deletar este hábito? Todos os registros serão removidos.",
+                [
+                    { text: "Cancelar", style: "cancel" },
+                    {
+                        text: "Deletar",
+                        style: "destructive",
+                        onPress: async () => {
+                            await habitDatabase.remove(habitId);
+                            router.back();
+                        },
+                    },
+                ]
+            );
+        } catch (error) {
+            console.error("Erro ao deletar hábito:", error);
+            Alert.alert("Erro", "Não foi possível deletar o hábito.");
+        }
+    };
+
+    useEffect(() => {
+        const fetchHabit = async () => {
+            try {
+                const data = await habitDatabase.show(habitId);
+                setHabit(data);
+            } catch (error) {
+                console.error("Erro ao buscar hábito:", error);
+                Alert.alert("Erro", "Não foi possível carregar os dados do hábito.");
+            }
+        };
+
+        fetchHabit();
+    }, [habitId]);
+
+    // Carregar frases positivas
+    const fetchAffirmations = async () => {
+        try {
+            const data = await affirmationDatabase.listByHabit(habitId);
+
+            if (data.length > 0)
+                setAffirmations(data.map((a) => a.text));
+
+        } catch (error) {
+            console.error("Erro ao carregar afirmações:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchAffirmations();
+    }, [habit]);
+
+    useFocusEffect(
+        useCallback(() => {
+            fetchAffirmations();
+        }, [])
+    );
+
+    // Animação de swipe lateral
+    useEffect(() => {
+        if (affirmations.length === 0) return;
+
+        const interval = setInterval(() => {
+            Animated.sequence([
+                Animated.timing(slideAnim, {
+                    toValue: -width,
+                    duration: 300,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(slideAnim, {
+                    toValue: width,
+                    duration: 0,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(slideAnim, {
+                    toValue: 0,
+                    duration: 300,
+                    useNativeDriver: true,
+                }),
+            ]).start();
+
+            setCurrentIndex((prev) => (prev + 1) % affirmations.length);
+        }, 4000);
+
+        return () => clearInterval(interval);
+    }, [affirmations]);
+
+    // Loading enquanto carrega
+    if (habit === null) {
+        return <Loading />;
+    }
+
+    const IconComponent = PhosphorIcons[habit.cover];
+
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <SecondaryButton
-                    Icon={X}
-                    iconWeight="bold"
-                    onPress={() => router.back()}
-                />
+        <React.Fragment>
+            <Header transparent />
 
-                <Text style={styles.title}>
-                    Overview
-                </Text>
-
-                <SecondaryButton
-                    Icon={PencilSimpleIcon}
-                    iconWeight="fill"
-                />
-            </View>
-
-            <View style={styles.wrapper}>
-                <View style={styles.habitInfoCard}>
-                    <View style={styles.habitIcon}>
-                        <HamburgerIcon
-                            size={28}
+            <ScrollView style={styles.container} bounces={false}>
+                {/* Highlight */}
+                <LinearGradient
+                    colors={["#DCE6ED", "#F1F4F5"]}
+                    start={{ x: 0, y: 0.5 }}
+                    end={{ x: 1, y: 0.5 }}
+                    style={{
+                        paddingTop: insets.top + 80,
+                        paddingBottom: 32,
+                        alignItems: 'center'
+                    }}
+                >
+                    <View
+                        style={[
+                            styles.habitCover,
+                            { backgroundColor: habit.color }
+                        ]}
+                    >
+                        <IconComponent
+                            size={48}
                             color={colors.white}
                             weight="fill"
                         />
                     </View>
 
-                    <View>
-                        <Text style={styles.habitName}>
-                            Fast Food
-                        </Text>
+                    <View style={{ alignItems: 'center', gap: 8 }}>
+                        <Heading fontSize="LARGE">
+                            {habit?.name}
+                        </Heading>
 
-                        <Text style={styles.startingDate}>
-                            Starting in 21 August 2025
-                        </Text>
+                        <View style={{ width: width * 0.8, overflow: "hidden" }}>
+                            <Animated.Text
+                                style={[
+                                    styles.positiveQuotes,
+                                    { transform: [{ translateX: slideAnim }] },
+                                ]}
+                                numberOfLines={1}
+                            >
+                                {affirmations[currentIndex]}
+                            </Animated.Text>
+                        </View>
                     </View>
-                </View>
+                </LinearGradient>
 
-                <View style={styles.group}>
-                    <Link href="reasons">
+                {/* Conteúdo */}
+                <View style={styles.wrapper}>
+                    <AbstinenceCard lastRelapseDate={habit.last_relapse_date} />
+
+                    <Text style={styles.groupTitle}>
+                        Minha Jornada
+                    </Text>
+
+                    <View style={styles.group}>
                         <SettingButton
-                            Icon={LightbulbIcon}
-                            title="Reasons to Quit"
-                            backgroundColor="#0A84FF"
+                            Icon={BookOpenTextIcon}
+                            title="Diário de Atividades"
+                            backgroundColor="#8A8D94"
                             rounded="top"
-                        // onPress={() => router.push('/reasons')}
+                            onPress={() => router.navigate("/(tabs)/overview/diary")}
                         />
-                    </Link>
 
-                    <SettingButton
-                        Icon={Bell}
-                        title="Notification"
-                        backgroundColor="#FF453A"
-                        rounded="bottom"
+                        <SettingButton
+                            Icon={ChatCenteredDotsIcon}
+                            title="Frases Positivas"
+                            backgroundColor="#0A84FF"
+                            onPress={() => router.navigate("/(tabs)/overview/affirmations")}
+                        />
+
+                        <SettingButton
+                            Icon={HeartbeatIcon}
+                            title="Teste Diagnóstico"
+                            backgroundColor="#6366F1"
+                        />
+
+                        <SettingButton
+                            Icon={LightbulbFilamentIcon}
+                            title="Razões de Desistir"
+                            backgroundColor="#FF453A"
+                            rounded="bottom"
+                            onPress={() => router.navigate("/(tabs)/overview/reasons")}
+                        />
+                    </View>
+
+                    <Text style={styles.groupTitle}>
+                        Opções
+                    </Text>
+
+                    <View style={styles.group}>
+                        <SettingButton
+                            Icon={ExportIcon}
+                            iconWeight="bold"
+                            title="Partilhar Progresso"
+                            backgroundColor="#3A3A3C"
+                            rounded="full"
+                        />
+                    </View>
+
+                    <PrimaryButton
+                        label="Deletar Hábito"
+                        onPress={handleDeleteHabit}
                     />
                 </View>
-            </View>
-        </View>
+            </ScrollView>
+        </React.Fragment>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.background.primary
     },
     wrapper: {
-        marginHorizontal: 16,
-        gap: 20
-    },
-    header: {
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        flex: 1,
+        backgroundColor: colors.background.primary,
+        paddingVertical: 24,
         paddingHorizontal: 16,
-        paddingTop: 80,
-        paddingBottom: 12,
-        backgroundColor: colors.background.primary
     },
-    title: {
-        color: colors.white,
-        fontSize: 18
-    },
-    startingDate: {
-        color: colors.gray[400],
-        fontSize: 14
-    },
-    habitInfoCard: {
-        padding: 16,
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#0055B2',
-        borderRadius: 20,
-        marginTop: 12,
-    },
-    habitIcon: {
-        width: 56,
-        height: 56,
+    habitCover: {
+        width: 96,
+        height: 96,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 999,
-        backgroundColor: '#0A84FF',
-        marginRight: 12
+        marginBottom: 24
     },
-    habitName: {
-        color: colors.white,
-        fontSize: 18,
+    positiveQuotes: {
+        color: colors.text.secondary,
+        fontSize: 16,
         fontFamily: fontFamily.medium,
-        marginBottom: 4
+        textAlign: 'center',
+        lineHeight: 24
     },
     group: {
 
+    },
+    groupTitle: {
+        fontSize: 16,
+        fontFamily: fontFamily.medium,
+        color: colors.text.secondary,
+        marginTop: 24,
+        marginBottom: 16
     }
 })

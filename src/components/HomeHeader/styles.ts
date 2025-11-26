@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     title: {
         color: colors.text.primary,
         fontSize: 28,
-        fontFamily: fontFamily.semibold
+        fontFamily: fontFamily.bold,
     },
     wrapper: {
         flexDirection: 'row',

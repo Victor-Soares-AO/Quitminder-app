@@ -4,22 +4,23 @@ import { colors, fontFamily } from "@/theme";
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 128,
-        // backgroundColor: 'red',
+        alignItems: 'center',
+        marginTop: 64,
         paddingHorizontal: 48
     },
     heading: {
         fontSize: 20,
-        color: colors.white,
+        color: colors.text.secondary,
         fontFamily: fontFamily.semibold,
         textAlign: 'center',
-        marginBottom: 8
+        marginBottom: 8,
+        marginTop: 16
     },
     text: {
         fontSize: 16,
         lineHeight: 24,
         fontFamily: fontFamily.medium,
-        color: colors.gray[400],
+        color: colors.text.tertiary,
         textAlign: 'center'
     }
 });

@@ -1,0 +1,1832 @@
+[
+    {
+        "id": 1,
+        "author": "Winston Churchill",
+        "text": "O sucesso é ir de fracasso em fracasso sem perder o entusiasmo."
+    },
+    {
+        "id": 2,
+        "author": "Carl Jung",
+        "text": "Quem olha para fora, sonha; quem olha para dentro, desperta."
+    },
+    {
+        "id": 3,
+        "author": "Epicteto",
+        "text": "Não é o que acontece com você, mas como você reage ao que acontece que importa."
+    },
+    {
+        "id": 4,
+        "author": "Friedrich Nietzsche",
+        "text": "Aquele que tem um porquê enfrenta quase qualquer como."
+    },
+    {
+        "id": 5,
+        "author": "Viktor Frankl",
+        "text": "Quando não somos mais capazes de mudar uma situação, somos desafiados a mudar a nós mesmos."
+    },
+    {
+        "id": 6,
+        "author": "Confúcio",
+        "text": "Não importa o quão devagar você vá, desde que não pare."
+    },
+    {
+        "id": 7,
+        "author": "Sêneca",
+        "text": "Nenhum vento é favorável a quem não sabe para onde vai."
+    },
+    {
+        "id": 8,
+        "author": "Aristóteles",
+        "text": "Somos o que fazemos repetidamente. A excelência, portanto, não é um ato, mas um hábito."
+    },
+    {
+        "id": 9,
+        "author": "Buda",
+        "text": "A dor é inevitável, o sofrimento é opcional."
+    },
+    {
+        "id": 10,
+        "author": "Desmond Tutu",
+        "text": "Não há futuro sem perdão."
+    },
+    {
+        "id": 11,
+        "author": "Dalai Lama",
+        "text": "A felicidade não é algo pronto. Ela vem das suas próprias ações."
+    },
+    {
+        "id": 12,
+        "author": "Marcus Aurelius",
+        "text": "Você tem poder sobre sua mente, não sobre os eventos externos. Perceba isso e encontrará força."
+    },
+    {
+        "id": 13,
+        "author": "Sócrates",
+        "text": "A vida não examinada não vale a pena ser vivida."
+    },
+    {
+        "id": 14,
+        "author": "Albert Einstein",
+        "text": "A mente que se abre a uma nova ideia jamais voltará ao seu tamanho original."
+    },
+    {
+        "id": 15,
+        "author": "Lao Tsé",
+        "text": "Dominar os outros é força; dominar a si mesmo é verdadeiro poder."
+    },
+    {
+        "id": 16,
+        "author": "Blaise Pascal",
+        "text": "A verdadeira grandeza consiste em ser senhor de si mesmo."
+    },
+    {
+        "id": 17,
+        "author": "Mahatma Gandhi",
+        "text": "A força não vem da capacidade física, mas de uma vontade indomável."
+    },
+    {
+        "id": 18,
+        "author": "Platão",
+        "text": "A vitória mais importante é conquistar a si mesmo."
+    },
+    {
+        "id": 19,
+        "author": "Ralph Waldo Emerson",
+        "text": "O que está atrás de nós e o que está à nossa frente são pequenas coisas comparadas ao que está dentro de nós."
+    },
+    {
+        "id": 20,
+        "author": "Martin Luther King Jr.",
+        "text": "Se não puder voar, corra. Se não puder correr, ande. Se não puder andar, rasteje, mas continue em frente."
+    },
+    {
+        "id": 21,
+        "author": "Clarice Lispector",
+        "text": "Liberdade é pouco. O que eu desejo ainda não tem nome."
+    },
+    {
+        "id": 22,
+        "author": "C.S. Lewis",
+        "text": "Você nunca é velho demais para estabelecer uma nova meta ou sonhar um novo sonho."
+    },
+    {
+        "id": 23,
+        "author": "Fernando Pessoa",
+        "text": "Valeu a pena? Tudo vale a pena se a alma não é pequena."
+    },
+    {
+        "id": 24,
+        "author": "Desconhecido",
+        "text": "Cada dia sem o vício é uma vitória silenciosa que ninguém vê, mas o futuro agradecerá."
+    },
+    {
+        "id": 25,
+        "author": "Desconhecido",
+        "text": "A liberdade não está em fugir do problema, mas em parar de dar poder ao hábito que te prende."
+    },
+    {
+        "id": 26,
+        "author": "Desconhecido",
+        "text": "Recomeçar não é fraqueza — é coragem em ação."
+    },
+    {
+        "id": 27,
+        "author": "Desconhecido",
+        "text": "Você é mais forte do que imagina; lembre-se disso quando o hábito sussurrar o contrário."
+    },
+    {
+        "id": 28,
+        "author": "Desconhecido",
+        "text": "Não olhe para quanto falta vencer — olhe para quanto já venceu."
+    },
+    {
+        "id": 29,
+        "author": "Desconhecido",
+        "text": "O vício não define quem você é; ele define o que você está deixando para trás."
+    },
+    {
+        "id": 30,
+        "author": "Desconhecido",
+        "text": "Hoje pode ser o dia em que você vira o jogo — o hábito agora serve você, não o contrário."
+    },
+    {
+        "id": 31,
+        "author": "Desconhecido",
+        "text": "Pequenos passos consistentes vencem grandes impulsos."
+    },
+    {
+        "id": 32,
+        "author": "Desconhecido",
+        "text": "A mente vence o que o corpo deseja."
+    },
+    {
+        "id": 33,
+        "author": "Desconhecido",
+        "text": "O primeiro não é sempre o mais difícil — é o mais importante."
+    },
+    {
+        "id": 34,
+        "author": "Desconhecido",
+        "text": "Cada vez que você resiste, prova que é livre."
+    },
+    {
+        "id": 35,
+        "author": "Desconhecido",
+        "text": "Cuidar de si é um ato de amor, não de egoísmo."
+    },
+    {
+        "id": 36,
+        "author": "Desconhecido",
+        "text": "Persistir é continuar mesmo quando a motivação foi dormir."
+    },
+    {
+        "id": 37,
+        "author": "Desconhecido",
+        "text": "Sua melhor versão mora no esforço que ninguém vê."
+    },
+    {
+        "id": 38,
+        "author": "Desconhecido",
+        "text": "Toda mudança começa com uma escolha — e uma escolha de cada vez."
+    },
+    {
+        "id": 39,
+        "author": "Desconhecido",
+        "text": "O silêncio de hoje pode ser o orgulho de amanhã."
+    },
+    {
+        "id": 40,
+        "author": "Desconhecido",
+        "text": "Recaídas não apagam progresso — apenas o interrompem por um momento."
+    },
+    {
+        "id": 41,
+        "author": "Desconhecido",
+        "text": "Não desista nos dias ruins — são eles que provam que você está mudando."
+    },
+    {
+        "id": 42,
+        "author": "Desconhecido",
+        "text": "A cura não é linear, e tudo bem."
+    },
+    {
+        "id": 43,
+        "author": "Desconhecido",
+        "text": "Escolher parar é escolher viver."
+    },
+    {
+        "id": 44,
+        "author": "Desconhecido",
+        "text": "Você não precisa de força infinita, apenas de constância."
+    },
+    {
+        "id": 45,
+        "author": "Desconhecido",
+        "text": "A liberdade vem quando o vício perde o poder sobre suas decisões."
+    },
+    {
+        "id": 46,
+        "author": "Desconhecido",
+        "text": "Não apresse a cura; ela vem com o tempo e com paciência."
+    },
+    {
+        "id": 47,
+        "author": "Desconhecido",
+        "text": "Lembre-se: você não está começando do zero, está começando da experiência."
+    },
+    {
+        "id": 48,
+        "author": "Desconhecido",
+        "text": "Nada muda se você não muda — e tudo muda quando você decide mudar."
+    },
+    {
+        "id": 49,
+        "author": "Desconhecido",
+        "text": "A cada escolha saudável, o antigo você fica mais distante."
+    },
+    {
+        "id": 50,
+        "author": "Desconhecido",
+        "text": "A superação começa quando o motivo de mudar é maior que o prazer do hábito."
+    },
+    {
+        "id": 51,
+        "author": "Desconhecido",
+        "text": "O tempo que leva para mudar passa de qualquer forma — use-o a seu favor."
+    },
+    {
+        "id": 52,
+        "author": "Desconhecido",
+        "text": "Não espere que seja fácil, apenas confie que será possível."
+    },
+    {
+        "id": 53,
+        "author": "Desconhecido",
+        "text": "Cada vez que você escolhe parar, constrói uma versão mais forte de si mesmo."
+    },
+    {
+        "id": 54,
+        "author": "Desconhecido",
+        "text": "A verdadeira liberdade começa na mente."
+    },
+    {
+        "id": 55,
+        "author": "Desconhecido",
+        "text": "Dê a si mesmo o tempo que você nunca deu antes."
+    },
+    {
+        "id": 56,
+        "author": "Desconhecido",
+        "text": "O primeiro passo para se libertar é admitir que está preso."
+    },
+    {
+        "id": 57,
+        "author": "Desconhecido",
+        "text": "O segredo da constância é se levantar todas as vezes, mesmo cansado."
+    },
+    {
+        "id": 58,
+        "author": "Desconhecido",
+        "text": "A mudança é silenciosa até que se torne impossível de ignorar."
+    },
+    {
+        "id": 59,
+        "author": "Desconhecido",
+        "text": "A tentação é passageira, mas a paz é permanente."
+    },
+    {
+        "id": 60,
+        "author": "Desconhecido",
+        "text": "Resistir hoje é viver melhor amanhã."
+    },
+    {
+        "id": 61,
+        "author": "Desconhecido",
+        "text": "A recaída não é o fim, é apenas um lembrete de que você é humano."
+    },
+    {
+        "id": 62,
+        "author": "Desconhecido",
+        "text": "Pare de buscar perfeição — busque progresso."
+    },
+    {
+        "id": 63,
+        "author": "Desconhecido",
+        "text": "Você não está sozinho. Todos enfrentam batalhas que o mundo não vê."
+    },
+    {
+        "id": 64,
+        "author": "Desconhecido",
+        "text": "Às vezes, vencer é simplesmente não desistir."
+    },
+    {
+        "id": 65,
+        "author": "Desconhecido",
+        "text": "A disciplina é o amor próprio em ação."
+    },
+    {
+        "id": 66,
+        "author": "Desconhecido",
+        "text": "Não se trata de ser perfeito, mas de ser fiel à sua decisão."
+    },
+    {
+        "id": 67,
+        "author": "Desconhecido",
+        "text": "Cada escolha diferente cria um novo caminho."
+    },
+    {
+        "id": 68,
+        "author": "Desconhecido",
+        "text": "A coragem cresce no silêncio das escolhas difíceis."
+    },
+    {
+        "id": 69,
+        "author": "Desconhecido",
+        "text": "Você não é o seu erro, é o que faz depois dele."
+    },
+    {
+        "id": 70,
+        "author": "Desconhecido",
+        "text": "Repetir o bem também cria hábito."
+    },
+    {
+        "id": 71,
+        "author": "Desconhecido",
+        "text": "Cuide de si como cuidaria de alguém que ama profundamente."
+    },
+    {
+        "id": 72,
+        "author": "Desconhecido",
+        "text": "Ser gentil consigo mesmo é parte da cura."
+    },
+    {
+        "id": 73,
+        "author": "Desconhecido",
+        "text": "Não é sobre vencer sempre, mas sobre nunca parar de tentar."
+    },
+    {
+        "id": 74,
+        "author": "Desconhecido",
+        "text": "A recaída não apaga a força que te trouxe até aqui."
+    },
+    {
+        "id": 75,
+        "author": "Desconhecido",
+        "text": "Quanto mais você se conhece, menos o vício te controla."
+    },
+    {
+        "id": 76,
+        "author": "Desconhecido",
+        "text": "Seja paciente — mudanças profundas levam tempo."
+    },
+    {
+        "id": 77,
+        "author": "Desconhecido",
+        "text": "A mente mente; o coração lembra o que realmente importa."
+    },
+    {
+        "id": 78,
+        "author": "Desconhecido",
+        "text": "Você não precisa provar nada para ninguém, apenas para si mesmo."
+    },
+    {
+        "id": 79,
+        "author": "Desconhecido",
+        "text": "A paz que você busca começa quando para de se punir."
+    },
+    {
+        "id": 80,
+        "author": "Desconhecido",
+        "text": "Permita-se ser um trabalho em progresso."
+    },
+    {
+        "id": 81,
+        "author": "Desconhecido",
+        "text": "A maior mudança acontece no silêncio da consistência."
+    },
+    {
+        "id": 82,
+        "author": "Desconhecido",
+        "text": "Você é o resultado das decisões que repete."
+    },
+    {
+        "id": 83,
+        "author": "Desconhecido",
+        "text": "Nem toda dor é castigo — algumas são parto de uma nova versão de você."
+    },
+    {
+        "id": 84,
+        "author": "Desconhecido",
+        "text": "Você não está desistindo do prazer; está escolhendo paz."
+    },
+    {
+        "id": 85,
+        "author": "Desconhecido",
+        "text": "Cuidar de si é o ato mais revolucionário que existe."
+    },
+    {
+        "id": 86,
+        "author": "Desconhecido",
+        "text": "A jornada é longa, mas a cada passo você se aproxima da liberdade."
+    },
+    {
+        "id": 87,
+        "author": "Desconhecido",
+        "text": "Não se culpe por tropeçar; orgulhe-se por continuar andando."
+    },
+    {
+        "id": 88,
+        "author": "Desconhecido",
+        "text": "A vida não exige perfeição, exige presença."
+    },
+    {
+        "id": 89,
+        "author": "Desconhecido",
+        "text": "A mente calma é o melhor remédio para os impulsos."
+    },
+    {
+        "id": 90,
+        "author": "Desconhecido",
+        "text": "A recuperação não é um evento, é um estilo de vida."
+    },
+    {
+        "id": 91,
+        "author": "Desconhecido",
+        "text": "Um dia de cada vez é tudo o que você precisa."
+    },
+    {
+        "id": 92,
+        "author": "Desconhecido",
+        "text": "A tentação passa; o orgulho de resistir fica."
+    },
+    {
+        "id": 93,
+        "author": "Desconhecido",
+        "text": "Você não precisa vencer o vício para sempre, apenas hoje."
+    },
+    {
+        "id": 94,
+        "author": "Desconhecido",
+        "text": "Cada escolha saudável é uma forma de amor próprio."
+    },
+    {
+        "id": 95,
+        "author": "Desconhecido",
+        "text": "Quando tudo parecer difícil, lembre-se do porquê começou."
+    },
+    {
+        "id": 96,
+        "author": "Desconhecido",
+        "text": "A constância é o verdadeiro milagre da mudança."
+    },
+    {
+        "id": 97,
+        "author": "Desconhecido",
+        "text": "O futuro agradece cada decisão que você toma no presente."
+    },
+    {
+        "id": 98,
+        "author": "Desconhecido",
+        "text": "Você já sobreviveu a dias piores do que este."
+    },
+    {
+        "id": 99,
+        "author": "Desconhecido",
+        "text": "O autocontrole não é prisão, é libertação."
+    },
+    {
+        "id": 100,
+        "author": "Desconhecido",
+        "text": "Há poder em dizer não — principalmente a si mesmo."
+    },
+    {
+        "id": 101,
+        "author": "Desconhecido",
+        "text": "A cada manhã, você tem a chance de recomeçar."
+    },
+    {
+        "id": 102,
+        "author": "Desconhecido",
+        "text": "A paz chega quando você para de lutar contra si mesmo."
+    },
+    {
+        "id": 103,
+        "author": "Desconhecido",
+        "text": "O tempo cura, mas a disciplina acelera."
+    },
+    {
+        "id": 104,
+        "author": "Desconhecido",
+        "text": "Ser livre é ter escolhas, não impulsos."
+    },
+    {
+        "id": 105,
+        "author": "Desconhecido",
+        "text": "Você não precisa ser mais forte que o vício, só mais paciente que ele."
+    },
+    {
+        "id": 106,
+        "author": "Desconhecido",
+        "text": "Toda recaída é uma lição disfarçada."
+    },
+    {
+        "id": 107,
+        "author": "Desconhecido",
+        "text": "A coragem é o combustível da mudança."
+    },
+    {
+        "id": 108,
+        "author": "Desconhecido",
+        "text": "A sua luta é o seu treino para a paz."
+    },
+    {
+        "id": 109,
+        "author": "Desconhecido",
+        "text": "Ser forte não é nunca cair, é levantar-se todas as vezes."
+    },
+    {
+        "id": 110,
+        "author": "Desconhecido",
+        "text": "A força vem quando você age, não quando pensa em agir."
+    },
+    {
+        "id": 111,
+        "author": "Desconhecido",
+        "text": "Não lute contra a vontade, aprenda a atravessá-la."
+    },
+    {
+        "id": 112,
+        "author": "Desconhecido",
+        "text": "A vitória começa no momento em que você decide não desistir."
+    },
+    {
+        "id": 113,
+        "author": "Desconhecido",
+        "text": "As melhores decisões raramente são as mais fáceis."
+    },
+    {
+        "id": 114,
+        "author": "Desconhecido",
+        "text": "A mente que se conhece torna-se sua melhor aliada."
+    },
+    {
+        "id": 115,
+        "author": "Desconhecido",
+        "text": "Resistir é se escolher, todos os dias."
+    },
+    {
+        "id": 116,
+        "author": "Desconhecido",
+        "text": "Você não está atrasado; está amadurecendo."
+    },
+    {
+        "id": 117,
+        "author": "Desconhecido",
+        "text": "As grandes vitórias nascem de pequenas repetições."
+    },
+    {
+        "id": 118,
+        "author": "Desconhecido",
+        "text": "A transformação é silenciosa, mas profunda."
+    },
+    {
+        "id": 119,
+        "author": "Desconhecido",
+        "text": "Seja gentil com quem você foi e firme com quem está se tornando."
+    },
+    {
+        "id": 120,
+        "author": "Desconhecido",
+        "text": "As tentações vêm para testar o quanto você realmente quer mudar."
+    },
+    {
+        "id": 121,
+        "author": "Desconhecido",
+        "text": "Sua mente cria os limites que o coração é capaz de ultrapassar."
+    },
+    {
+        "id": 122,
+        "author": "Desconhecido",
+        "text": "Nada floresce sem constância."
+    },
+    {
+        "id": 123,
+        "author": "Desconhecido",
+        "text": "Todo processo de cura começa com a aceitação."
+    },
+    {
+        "id": 124,
+        "author": "Desconhecido",
+        "text": "Há dias em que resistir já é vencer."
+    },
+    {
+        "id": 125,
+        "author": "Desconhecido",
+        "text": "Não há cura sem paciência consigo mesmo."
+    },
+    {
+        "id": 126,
+        "author": "Desconhecido",
+        "text": "Você é o guardião da sua própria liberdade."
+    },
+    {
+        "id": 127,
+        "author": "Desconhecido",
+        "text": "Quanto mais consciência, menos vício."
+    },
+    {
+        "id": 128,
+        "author": "Desconhecido",
+        "text": "O verdadeiro poder é escolher o que te controla."
+    },
+    {
+        "id": 129,
+        "author": "Desconhecido",
+        "text": "Nem toda recaída é fracasso; algumas são parte do aprendizado."
+    },
+    {
+        "id": 130,
+        "author": "Desconhecido",
+        "text": "A mudança começa no instante em que você acredita que é possível."
+    },
+    {
+        "id": 131,
+        "author": "Desconhecido",
+        "text": "Você não precisa correr, apenas continuar andando."
+    },
+    {
+        "id": 132,
+        "author": "Desconhecido",
+        "text": "Cada dia limpo é uma semente de liberdade."
+    },
+    {
+        "id": 133,
+        "author": "Desconhecido",
+        "text": "A disciplina é a ponte entre o desejo e a conquista."
+    },
+    {
+        "id": 134,
+        "author": "Desconhecido",
+        "text": "A autocompaixão é o combustível da persistência."
+    },
+    {
+        "id": 135,
+        "author": "Desconhecido",
+        "text": "Você não está começando de novo, está começando melhor."
+    },
+    {
+        "id": 136,
+        "author": "Desconhecido",
+        "text": "Cada vez que você resiste, constrói força."
+    },
+    {
+        "id": 137,
+        "author": "Desconhecido",
+        "text": "A recaída não define seu destino."
+    },
+    {
+        "id": 138,
+        "author": "Desconhecido",
+        "text": "Mudar dói, mas permanecer igual dói mais."
+    },
+    {
+        "id": 139,
+        "author": "Desconhecido",
+        "text": "Seu futuro está sendo moldado por suas escolhas silenciosas."
+    },
+    {
+        "id": 140,
+        "author": "Desconhecido",
+        "text": "A mente que aprende a esperar, vence."
+    },
+    {
+        "id": 141,
+        "author": "Desconhecido",
+        "text": "Você é a prova viva de que o tempo cura."
+    },
+    {
+        "id": 142,
+        "author": "Desconhecido",
+        "text": "Tudo o que é difícil hoje, um dia será natural."
+    },
+    {
+        "id": 143,
+        "author": "Desconhecido",
+        "text": "A mudança acontece quando a dor de permanecer supera o medo de mudar."
+    },
+    {
+        "id": 144,
+        "author": "Desconhecido",
+        "text": "A força vem do desconforto que você enfrenta."
+    },
+    {
+        "id": 145,
+        "author": "Desconhecido",
+        "text": "Ser paciente consigo mesmo é sinal de sabedoria."
+    },
+    {
+        "id": 146,
+        "author": "Desconhecido",
+        "text": "Você não precisa apagar o passado, apenas aprender com ele."
+    },
+    {
+        "id": 147,
+        "author": "Desconhecido",
+        "text": "A paz não chega de repente; ela se constrói."
+    },
+    {
+        "id": 148,
+        "author": "Desconhecido",
+        "text": "Você não é o que fez, é o que escolhe fazer agora."
+    },
+    {
+        "id": 149,
+        "author": "Desconhecido",
+        "text": "Cada pensamento consciente é uma semente de mudança."
+    },
+    {
+        "id": 150,
+        "author": "Desconhecido",
+        "text": "A liberdade é silenciosa e vem devagar."
+    },
+    {
+        "id": 151,
+        "author": "Desconhecido",
+        "text": "A maior recompensa é olhar para trás e ver o quanto evoluiu."
+    },
+    {
+        "id": 152,
+        "author": "Desconhecido",
+        "text": "A dor é temporária, a paz é permanente."
+    },
+    {
+        "id": 153,
+        "author": "Desconhecido",
+        "text": "Permita-se ser principiante quantas vezes forem necessárias."
+    },
+    {
+        "id": 154,
+        "author": "Desconhecido",
+        "text": "Os erros do passado não definem o que você pode se tornar."
+    },
+    {
+        "id": 155,
+        "author": "Desconhecido",
+        "text": "Cada novo amanhecer é uma nova chance de recomeçar."
+    },
+    {
+        "id": 156,
+        "author": "Desconhecido",
+        "text": "As grandes vitórias são construídas em silêncio."
+    },
+    {
+        "id": 157,
+        "author": "Desconhecido",
+        "text": "Você é mais forte do que o impulso do momento."
+    },
+    {
+        "id": 158,
+        "author": "Desconhecido",
+        "text": "O progresso nem sempre é visível, mas está acontecendo."
+    },
+    {
+        "id": 159,
+        "author": "Desconhecido",
+        "text": "Aceitar a dificuldade é parte da transformação."
+    },
+    {
+        "id": 160,
+        "author": "Desconhecido",
+        "text": "Nada floresce sem esforço constante."
+    },
+    {
+        "id": 161,
+        "author": "Desconhecido",
+        "text": "Seja paciente com o processo, mas firme com o propósito."
+    },
+    {
+        "id": 162,
+        "author": "Desconhecido",
+        "text": "A paz nasce da aceitação, não da negação."
+    },
+    {
+        "id": 163,
+        "author": "Desconhecido",
+        "text": "Tudo o que você repete com amor, cria raízes."
+    },
+    {
+        "id": 164,
+        "author": "Desconhecido",
+        "text": "O silêncio também cura."
+    },
+    {
+        "id": 165,
+        "author": "Desconhecido",
+        "text": "A cura emocional acontece um dia de cada vez."
+    },
+    {
+        "id": 166,
+        "author": "Desconhecido",
+        "text": "A mente disciplinada cria liberdade verdadeira."
+    },
+    {
+        "id": 167,
+        "author": "Desconhecido",
+        "text": "Você não é o seu passado, é a escolha que faz hoje."
+    },
+    {
+        "id": 168,
+        "author": "Desconhecido",
+        "text": "Tudo o que é repetido com propósito vira progresso."
+    },
+    {
+        "id": 169,
+        "author": "Desconhecido",
+        "text": "A mudança dói antes de libertar."
+    },
+    {
+        "id": 170,
+        "author": "Desconhecido",
+        "text": "Sua força se constrói nos dias silenciosos."
+    },
+    {
+        "id": 171,
+        "author": "Desconhecido",
+        "text": "Não tema o recomeço, tema não tentar."
+    },
+    {
+        "id": 172,
+        "author": "Desconhecido",
+        "text": "A persistência transforma dor em poder."
+    },
+    {
+        "id": 173,
+        "author": "Desconhecido",
+        "text": "Você é o arquiteto da sua recuperação."
+    },
+    {
+        "id": 174,
+        "author": "Desconhecido",
+        "text": "As vitórias invisíveis são as mais importantes."
+    },
+    {
+        "id": 175,
+        "author": "Desconhecido",
+        "text": "Nada muda até que você mude sua mente."
+    },
+    {
+        "id": 176,
+        "author": "Desconhecido",
+        "text": "Cada nova manhã é uma segunda chance."
+    },
+    {
+        "id": 177,
+        "author": "Desconhecido",
+        "text": "Resistir é escolher liberdade."
+    },
+    {
+        "id": 178,
+        "author": "Desconhecido",
+        "text": "O autocontrole é a mais alta forma de respeito próprio."
+    },
+    {
+        "id": 179,
+        "author": "Desconhecido",
+        "text": "A esperança é a cola que mantém a força unida."
+    },
+    {
+        "id": 180,
+        "author": "Desconhecido",
+        "text": "Você é a mudança que esperava."
+    },
+    {
+        "id": 181,
+        "author": "Desconhecido",
+        "text": "A liberdade começa com uma escolha corajosa."
+    },
+    {
+        "id": 182,
+        "author": "Desconhecido",
+        "text": "O tempo é o aliado de quem não desiste."
+    },
+    {
+        "id": 183,
+        "author": "Desconhecido",
+        "text": "A mente calma é a melhor forma de resistência."
+    },
+    {
+        "id": 184,
+        "author": "Desconhecido",
+        "text": "O progresso é invisível até que se torne impossível de negar."
+    },
+    {
+        "id": 185,
+        "author": "Desconhecido",
+        "text": "A recaída não é derrota, é redirecionamento."
+    },
+    {
+        "id": 186,
+        "author": "Desconhecido",
+        "text": "Você não precisa correr, apenas não pare."
+    },
+    {
+        "id": 187,
+        "author": "Desconhecido",
+        "text": "A constância transforma vontade em resultado."
+    },
+    {
+        "id": 188,
+        "author": "Desconhecido",
+        "text": "Cada escolha certa é um tijolo na construção da sua liberdade."
+    },
+    {
+        "id": "189",
+        "author": "Desconhecido",
+        "text": "Ser disciplinado é lembrar do que mais importa quando o impulso fala alto."
+    },
+    {
+        "id": 190,
+        "author": "Desconhecido",
+        "text": "Você não precisa vencer o mundo, apenas vencer o hábito."
+    },
+    {
+        "id": 191,
+        "author": "Desconhecido",
+        "text": "Os dias difíceis também contam como vitória."
+    },
+    {
+        "id": 192,
+        "author": "Desconhecido",
+        "text": "A força não é ausência de fraqueza, é a decisão de continuar apesar dela."
+    },
+    {
+        "id": 193,
+        "author": "Desconhecido",
+        "text": "A cada não que você diz ao vício, um sim nasce dentro de você."
+    },
+    {
+        "id": 194,
+        "author": "Desconhecido",
+        "text": "A mente treinada para resistir é uma mente livre."
+    },
+    {
+        "id": 195,
+        "author": "Desconhecido",
+        "text": "Não há liberdade sem limites conscientes."
+    },
+    {
+        "id": 196,
+        "author": "Desconhecido",
+        "text": "O controle de hoje é a confiança de amanhã."
+    },
+    {
+        "id": 197,
+        "author": "Desconhecido",
+        "text": "Nada é mais poderoso do que a decisão de mudar."
+    },
+    {
+        "id": 198,
+        "author": "Desconhecido",
+        "text": "Cada vez que você escolhe o autocontrole, escolhe a paz."
+    },
+    {
+        "id": 199,
+        "author": "Desconhecido",
+        "text": "Você não é o vício que tenta te definir."
+    },
+    {
+        "id": 200,
+        "author": "Desconhecido",
+        "text": "A cada passo longe do hábito, você se aproxima de quem quer ser."
+    },
+    {
+        "id": 201,
+        "author": "Desconhecido",
+        "text": "A paz de amanhã depende da disciplina de hoje."
+    },
+    {
+        "id": 202,
+        "author": "Desconhecido",
+        "text": "O progresso acontece quando você insiste em ser melhor do que ontem."
+    },
+    {
+        "id": 203,
+        "author": "Desconhecido",
+        "text": "Ser livre é ser dono das próprias decisões."
+    },
+    {
+        "id": 204,
+        "author": "Desconhecido",
+        "text": "As pequenas vitórias são as que realmente mudam tudo."
+    },
+    {
+        "id": 205,
+        "author": "Desconhecido",
+        "text": "A tentação é passageira, a liberdade é permanente."
+    },
+    {
+        "id": 206,
+        "author": "Desconhecido",
+        "text": "O autocontrole é a forma mais pura de poder."
+    },
+    {
+        "id": 207,
+        "author": "Desconhecido",
+        "text": "A força que você busca está sendo construída agora mesmo."
+    },
+    {
+        "id": 208,
+        "author": "Desconhecido",
+        "text": "A cura não é rápida, mas é real."
+    },
+    {
+        "id": 209,
+        "author": "Desconhecido",
+        "text": "Não há recaída que apague o desejo sincero de mudar."
+    },
+    {
+        "id": 210,
+        "author": "Desconhecido",
+        "text": "Um dia você vai agradecer por não ter desistido."
+    },
+    {
+        "id": 211,
+        "author": "Desconhecido",
+        "text": "A constância é o segredo das transformações duradouras."
+    },
+    {
+        "id": 212,
+        "author": "Desconhecido",
+        "text": "Você não precisa provar força, apenas continuar mostrando presença."
+    },
+    {
+        "id": 213,
+        "author": "Desconhecido",
+        "text": "A mente viciada busca prazer, a mente livre busca paz."
+    },
+    {
+        "id": 214,
+        "author": "Desconhecido",
+        "text": "A recuperação começa quando o prazer deixa de mandar em você."
+    },
+    {
+        "id": 215,
+        "author": "Desconhecido",
+        "text": "Nem tudo o que te alivia te liberta."
+    },
+    {
+        "id": 216,
+        "author": "Desconhecido",
+        "text": "Há coragem em se reinventar todos os dias."
+    },
+    {
+        "id": 217,
+        "author": "Desconhecido",
+        "text": "A disciplina é a arte de lembrar o que você quer mais, e não o que quer agora."
+    },
+    {
+        "id": 218,
+        "author": "Desconhecido",
+        "text": "Recaídas não apagam coragem."
+    },
+    {
+        "id": 219,
+        "author": "Desconhecido",
+        "text": "Você não é a sua vontade, é a sua escolha."
+    },
+    {
+        "id": 220,
+        "author": "Desconhecido",
+        "text": "Ser livre é ter consciência."
+    },
+    {
+        "id": 221,
+        "author": "Desconhecido",
+        "text": "A mudança começa no instante em que você para de se enganar."
+    },
+    {
+        "id": 222,
+        "author": "Desconhecido",
+        "text": "Toda força começa em um pensamento diferente."
+    },
+    {
+        "id": 223,
+        "author": "Desconhecido",
+        "text": "A cura começa no momento em que você aceita ser vulnerável."
+    },
+    {
+        "id": 224,
+        "author": "Desconhecido",
+        "text": "A vontade de mudar é o primeiro passo da liberdade."
+    },
+    {
+        "id": 225,
+        "author": "Desconhecido",
+        "text": "O tempo recompensa quem é fiel ao próprio propósito."
+    },
+    {
+        "id": 226,
+        "author": "Desconhecido",
+        "text": "Você não precisa se comparar, apenas continuar crescendo."
+    },
+    {
+        "id": 227,
+        "author": "Desconhecido",
+        "text": "Cada escolha consciente é um voto pela sua liberdade."
+    },
+    {
+        "id": 228,
+        "author": "Desconhecido",
+        "text": "Não se trata de resistir para sempre, mas de resistir hoje."
+    },
+    {
+        "id": 229,
+        "author": "Desconhecido",
+        "text": "Os hábitos mudam quando você muda a forma de pensar sobre eles."
+    },
+    {
+        "id": 230,
+        "author": "Desconhecido",
+        "text": "A mente livre não se deixa enganar pelo prazer momentâneo."
+    },
+    {
+        "id": 231,
+        "author": "Desconhecido",
+        "text": "Você é o único responsável por escrever o seu novo começo."
+    },
+    {
+        "id": 232,
+        "author": "Desconhecido",
+        "text": "A constância é mais poderosa que a motivação."
+    },
+    {
+        "id": 233,
+        "author": "Desconhecido",
+        "text": "Cada tentativa é um passo mais longe da velha versão de você."
+    },
+    {
+        "id": 234,
+        "author": "Desconhecido",
+        "text": "O que você alimenta, cresce."
+    },
+    {
+        "id": 235,
+        "author": "Desconhecido",
+        "text": "A liberdade exige responsabilidade."
+    },
+    {
+        "id": 236,
+        "author": "Desconhecido",
+        "text": "A mente viciada busca fuga, a mente curada busca presença."
+    },
+    {
+        "id": 237,
+        "author": "Desconhecido",
+        "text": "O desejo é passageiro, mas a escolha é permanente."
+    },
+    {
+        "id": 238,
+        "author": "Desconhecido",
+        "text": "Você já tem tudo o que precisa para vencer — só precisa usar."
+    },
+    {
+        "id": 239,
+        "author": "Desconhecido",
+        "text": "A recaída não é fraqueza, é oportunidade de entender o que falta curar."
+    },
+    {
+        "id": 240,
+        "author": "Desconhecido",
+        "text": "Nada é pequeno quando se faz com intenção."
+    },
+    {
+        "id": 241,
+        "author": "Desconhecido",
+        "text": "Cada novo dia é uma nova chance de vencer a si mesmo."
+    },
+    {
+        "id": 242,
+        "author": "Desconhecido",
+        "text": "Você não precisa eliminar o hábito de uma vez — basta enfraquecê-lo todos os dias."
+    },
+    {
+        "id": 243,
+        "author": "Desconhecido",
+        "text": "A força de vontade cresce com o uso."
+    },
+    {
+        "id": 244,
+        "author": "Desconhecido",
+        "text": "A mudança é lenta, mas é certa."
+    },
+    {
+        "id": 245,
+        "author": "Desconhecido",
+        "text": "Tudo o que você suporta com propósito, transforma."
+    },
+    {
+        "id": 246,
+        "author": "Desconhecido",
+        "text": "A mente que se observa é a mente que se liberta."
+    },
+    {
+        "id": 247,
+        "author": "Desconhecido",
+        "text": "A paciência é a disciplina do coração."
+    },
+    {
+        "id": 248,
+        "author": "Desconhecido",
+        "text": "A cada vez que você escolhe o bem, o vício perde força."
+    },
+    {
+        "id": 249,
+        "author": "Desconhecido",
+        "text": "A verdadeira força é continuar mesmo quando ninguém vê."
+    },
+    {
+        "id": 250,
+        "author": "Desconhecido",
+        "text": "Você não está lutando contra algo externo, mas a favor de si mesmo."
+    },
+    {
+        "id": 251,
+        "author": "Desconhecido",
+        "text": "A mente saudável cria hábitos saudáveis."
+    },
+    {
+        "id": 252,
+        "author": "Desconhecido",
+        "text": "Você é o resultado das pequenas decisões diárias."
+    },
+    {
+        "id": 253,
+        "author": "Desconhecido",
+        "text": "Não tenha pressa — a liberdade é construída aos poucos."
+    },
+    {
+        "id": 254,
+        "author": "Desconhecido",
+        "text": "A mente focada não se distrai com tentações."
+    },
+    {
+        "id": 255,
+        "author": "Desconhecido",
+        "text": "Você está evoluindo, mesmo quando parece parado."
+    },
+    {
+        "id": 256,
+        "author": "Desconhecido",
+        "text": "A vontade é o músculo da alma."
+    },
+    {
+        "id": 257,
+        "author": "Desconhecido",
+        "text": "Não é a recaída que importa, mas o retorno."
+    },
+    {
+        "id": 258,
+        "author": "Desconhecido",
+        "text": "A clareza é o antídoto do vício."
+    },
+    {
+        "id": 259,
+        "author": "Desconhecido",
+        "text": "Ser forte é escolher o que o seu futuro vai agradecer."
+    },
+    {
+        "id": 260,
+        "author": "Desconhecido",
+        "text": "Você é mais constante do que imagina."
+    },
+    {
+        "id": 261,
+        "author": "Desconhecido",
+        "text": "A cura é silenciosa, mas acontece todos os dias."
+    },
+    {
+        "id": 262,
+        "author": "Desconhecido",
+        "text": "A vontade de mudar é prova de que o velho já não te serve mais."
+    },
+    {
+        "id": 263,
+        "author": "Desconhecido",
+        "text": "Você não precisa controlar tudo, apenas o próximo passo."
+    },
+    {
+        "id": 264,
+        "author": "Desconhecido",
+        "text": "A paz é o prêmio da persistência."
+    },
+    {
+        "id": 265,
+        "author": "Desconhecido",
+        "text": "Você não está atrasado, está aprendendo."
+    },
+    {
+        "id": 266,
+        "author": "Desconhecido",
+        "text": "A recuperação é uma dança entre força e paciência."
+    },
+    {
+        "id": 267,
+        "author": "Desconhecido",
+        "text": "O autocontrole é o alicerce da liberdade."
+    },
+    {
+        "id": 268,
+        "author": "Desconhecido",
+        "text": "Cada dia de resistência é uma conquista invisível."
+    },
+    {
+        "id": 269,
+        "author": "Desconhecido",
+        "text": "Você é o autor da sua própria cura."
+    },
+    {
+        "id": 270,
+        "author": "Desconhecido",
+        "text": "Tudo o que você alimenta com consciência floresce."
+    },
+    {
+        "id": 271,
+        "author": "Desconhecido",
+        "text": "A verdadeira liberdade começa quando o vício deixa de mandar em você."
+    },
+    {
+        "id": 272,
+        "author": "Desconhecido",
+        "text": "Você está mais perto da paz do que imagina."
+    },
+    {
+        "id": 273,
+        "author": "Desconhecido",
+        "text": "A força está em continuar, mesmo sem motivação."
+    },
+    {
+        "id": 274,
+        "author": "Desconhecido",
+        "text": "Não é sobre apagar o passado, mas sobre não repeti-lo."
+    },
+    {
+        "id": 275,
+        "author": "Desconhecido",
+        "text": "A disciplina é a arte de escolher o que te faz bem a longo prazo."
+    },
+    {
+        "id": 276,
+        "author": "Desconhecido",
+        "text": "Você não precisa vencer o vício hoje, apenas vencê-lo agora."
+    },
+    {
+        "id": 277,
+        "author": "Desconhecido",
+        "text": "As quedas ensinam mais do que as vitórias fáceis."
+    },
+    {
+        "id": 278,
+        "author": "Desconhecido",
+        "text": "O que hoje dói, amanhã se tornará força."
+    },
+    {
+        "id": 279,
+        "author": "Desconhecido",
+        "text": "O maior passo não é o primeiro, é o próximo."
+    },
+    {
+        "id": 280,
+        "author": "Desconhecido",
+        "text": "A mudança é feita de mil pequenas decisões."
+    },
+    {
+        "id": 281,
+        "author": "Desconhecido",
+        "text": "A força nasce da repetição de boas escolhas."
+    },
+    {
+        "id": 282,
+        "author": "Desconhecido",
+        "text": "Você é o exemplo que seu futuro precisa."
+    },
+    {
+        "id": 283,
+        "author": "Desconhecido",
+        "text": "Ser livre é escolher o caminho, não o impulso."
+    },
+    {
+        "id": 284,
+        "author": "Desconhecido",
+        "text": "A recuperação é uma construção, não um evento."
+    },
+    {
+        "id": 285,
+        "author": "Desconhecido",
+        "text": "Cada tentação vencida é uma vitória silenciosa."
+    },
+    {
+        "id": 286,
+        "author": "Desconhecido",
+        "text": "A mente forte nasce de pensamentos disciplinados."
+    },
+    {
+        "id": 287,
+        "author": "Desconhecido",
+        "text": "Você não está lutando contra o hábito, está lutando por si mesmo."
+    },
+    {
+        "id": 288,
+        "author": "Desconhecido",
+        "text": "O esforço de hoje constrói a leveza de amanhã."
+    },
+    {
+        "id": 289,
+        "author": "Desconhecido",
+        "text": "A cura acontece quando você se escolhe todos os dias."
+    },
+    {
+        "id": 290,
+        "author": "Desconhecido",
+        "text": "Cada dia limpo é uma medalha invisível de coragem."
+    },
+    {
+        "id": 291,
+        "author": "Desconhecido",
+        "text": "O passado é um professor, não uma sentença."
+    },
+    {
+        "id": 292,
+        "author": "Desconhecido",
+        "text": "A verdadeira força é continuar gentil mesmo durante a dor."
+    },
+    {
+        "id": 293,
+        "author": "Desconhecido",
+        "text": "A mudança acontece quando o desejo de crescer supera o de repetir."
+    },
+    {
+        "id": 294,
+        "author": "Desconhecido",
+        "text": "A paz é o som da mente quando o vício se cala."
+    },
+    {
+        "id": 295,
+        "author": "Desconhecido",
+        "text": "Tudo o que você enfrenta hoje será o motivo do seu orgulho amanhã."
+    },
+    {
+        "id": 296,
+        "author": "Desconhecido",
+        "text": "Ser paciente é confiar que o tempo trabalha a seu favor."
+    },
+    {
+        "id": 297,
+        "author": "Desconhecido",
+        "text": "A cada nova tentativa, você está mais preparado que antes."
+    },
+    {
+        "id": 298,
+        "author": "Desconhecido",
+        "text": "Você é a soma das vezes em que decidiu continuar."
+    },
+    {
+        "id": 299,
+        "author": "Desconhecido",
+        "text": "O progresso é silencioso, mas consistente."
+    },
+    {
+        "id": 300,
+        "author": "Desconhecido",
+        "text": "O vício é apenas uma parte da história — você é o autor do final."
+    },
+    {
+        "id": 301,
+        "author": "Desconhecido",
+        "text": "A liberdade vem quando a vontade de mudar vence o medo."
+    },
+    {
+        "id": 302,
+        "author": "Desconhecido",
+        "text": "Cada pequeno passo é um ato de coragem."
+    },
+    {
+        "id": 303,
+        "author": "Desconhecido",
+        "text": "Você não precisa correr, apenas não desistir."
+    },
+    {
+        "id": 304,
+        "author": "Desconhecido",
+        "text": "O controle é a base da paz interior."
+    },
+    {
+        "id": 305,
+        "author": "Desconhecido",
+        "text": "A disciplina é a melhor forma de amor próprio."
+    },
+    {
+        "id": 306,
+        "author": "Desconhecido",
+        "text": "Você não é o erro, é o aprendizado que veio dele."
+    },
+    {
+        "id": 307,
+        "author": "Desconhecido",
+        "text": "Nada é mais libertador do que estar em paz consigo mesmo."
+    },
+    {
+        "id": 308,
+        "author": "Desconhecido",
+        "text": "A cada vez que você diz não ao vício, diz sim à vida."
+    },
+    {
+        "id": 309,
+        "author": "Desconhecido",
+        "text": "A paciência é o que separa os fortes dos impulsivos."
+    },
+    {
+        "id": 310,
+        "author": "Desconhecido",
+        "text": "A recuperação é um caminho, não um destino."
+    },
+    {
+        "id": 311,
+        "author": "Desconhecido",
+        "text": "A consciência é o primeiro passo para a liberdade."
+    },
+    {
+        "id": 312,
+        "author": "Desconhecido",
+        "text": "O tempo mostra que as escolhas certas valem o esforço."
+    },
+    {
+        "id": 313,
+        "author": "Desconhecido",
+        "text": "Não subestime o poder de um pequeno avanço diário."
+    },
+    {
+        "id": 314,
+        "author": "Desconhecido",
+        "text": "A força nasce do enfrentamento, não da fuga."
+    },
+    {
+        "id": 315,
+        "author": "Desconhecido",
+        "text": "Você está mais curado hoje do que ontem."
+    },
+    {
+        "id": 316,
+        "author": "Desconhecido",
+        "text": "A paz não é ausência de tentação, é controle sobre ela."
+    },
+    {
+        "id": 317,
+        "author": "Desconhecido",
+        "text": "O hábito perde força quando você ganha consciência."
+    },
+    {
+        "id": 318,
+        "author": "Desconhecido",
+        "text": "Você não precisa de sorte, precisa de constância."
+    },
+    {
+        "id": 319,
+        "author": "Desconhecido",
+        "text": "Ser livre é estar em paz com as próprias escolhas."
+    },
+    {
+        "id": 320,
+        "author": "Desconhecido",
+        "text": "A coragem não é ausência de medo, é agir apesar dele."
+    },
+    {
+        "id": 321,
+        "author": "Desconhecido",
+        "text": "A recuperação não apaga o passado, mas muda o futuro."
+    },
+    {
+        "id": 322,
+        "author": "Desconhecido",
+        "text": "Você já provou que é capaz — continue."
+    },
+    {
+        "id": 323,
+        "author": "Desconhecido",
+        "text": "A constância é o segredo das transformações duradouras."
+    },
+    {
+        "id": 324,
+        "author": "Desconhecido",
+        "text": "A cada novo dia, o vício enfraquece e você se fortalece."
+    },
+    {
+        "id": 325,
+        "author": "Desconhecido",
+        "text": "O controle emocional é a forma mais nobre de força."
+    },
+    {
+        "id": 326,
+        "author": "Desconhecido",
+        "text": "A recaída não apaga o que você já conquistou."
+    },
+    {
+        "id": 327,
+        "author": "Desconhecido",
+        "text": "A persistência vence quando o entusiasmo acaba."
+    },
+    {
+        "id": 328,
+        "author": "Desconhecido",
+        "text": "O poder de mudar sempre esteve em você."
+    },
+    {
+        "id": 329,
+        "author": "Desconhecido",
+        "text": "Você está se tornando alguém que o vício não reconhece mais."
+    },
+    {
+        "id": 330,
+        "author": "Desconhecido",
+        "text": "A paz é a prova de que o esforço valeu a pena."
+    },
+    {
+        "id": 331,
+        "author": "Desconhecido",
+        "text": "As vitórias internas são as mais valiosas."
+    },
+    {
+        "id": 332,
+        "author": "Desconhecido",
+        "text": "A recuperação não é linha reta, é caminho de aprendizado."
+    },
+    {
+        "id": 333,
+        "author": "Desconhecido",
+        "text": "Você é mais do que o que precisa deixar."
+    },
+    {
+        "id": 334,
+        "author": "Desconhecido",
+        "text": "A força se constrói no silêncio das escolhas diárias."
+    },
+    {
+        "id": 335,
+        "author": "Desconhecido",
+        "text": "O vício te puxa para o ontem, a esperança te leva para o amanhã."
+    },
+    {
+        "id": 336,
+        "author": "Desconhecido",
+        "text": "Cada novo dia limpo é um novo capítulo escrito por você."
+    },
+    {
+        "id": 337,
+        "author": "Desconhecido",
+        "text": "A liberdade é construída em silêncio e sustentada com paciência."
+    },
+    {
+        "id": 338,
+        "author": "Desconhecido",
+        "text": "A recaída não apaga o progresso; apenas ensina um novo caminho."
+    },
+    {
+        "id": 339,
+        "author": "Desconhecido",
+        "text": "A paz é o som da consciência tranquila."
+    },
+    {
+        "id": 340,
+        "author": "Desconhecido",
+        "text": "Você é mais forte que qualquer impulso passageiro."
+    },
+    {
+        "id": 341,
+        "author": "Desconhecido",
+        "text": "A constância é o verdadeiro milagre da mudança."
+    },
+    {
+        "id": 342,
+        "author": "Desconhecido",
+        "text": "A força cresce onde antes havia dor."
+    },
+    {
+        "id": 343,
+        "author": "Desconhecido",
+        "text": "Não é sobre nunca falhar, é sobre nunca desistir."
+    },
+    {
+        "id": 344,
+        "author": "Desconhecido",
+        "text": "Você é a prova viva de que mudança é possível."
+    },
+    {
+        "id": 345,
+        "author": "Desconhecido",
+        "text": "Cada dia de autocontrole é um investimento em paz futura."
+    },
+    {
+        "id": 346,
+        "author": "Desconhecido",
+        "text": "A cura é um processo, não uma promessa."
+    },
+    {
+        "id": 347,
+        "author": "Desconhecido",
+        "text": "O que importa é continuar tentando."
+    },
+    {
+        "id": 348,
+        "author": "Desconhecido",
+        "text": "A mente treinada para resistir é a mente que domina o vício."
+    },
+    {
+        "id": 349,
+        "author": "Desconhecido",
+        "text": "Você não está sozinho — milhões também decidiram mudar."
+    },
+    {
+        "id": 350,
+        "author": "Desconhecido",
+        "text": "A paz é o presente que a disciplina te entrega."
+    },
+    {
+        "id": 351,
+        "author": "Desconhecido",
+        "text": "Ser forte é escolher o que te faz crescer."
+    },
+    {
+        "id": 352,
+        "author": "Desconhecido",
+        "text": "Nada é em vão quando feito com intenção."
+    },
+    {
+        "id": 353,
+        "author": "Desconhecido",
+        "text": "A cada novo dia, a liberdade se aproxima."
+    },
+    {
+        "id": 354,
+        "author": "Desconhecido",
+        "text": "A recaída não é fraqueza, é um lembrete do quanto você quer mudar."
+    },
+    {
+        "id": 355,
+        "author": "Desconhecido",
+        "text": "O poder de dizer não é o que define a liberdade."
+    },
+    {
+        "id": 356,
+        "author": "Desconhecido",
+        "text": "Você está reaprendendo a viver — e isso é belo."
+    },
+    {
+        "id": 357,
+        "author": "Desconhecido",
+        "text": "A disciplina é o amor que se pratica."
+    },
+    {
+        "id": 358,
+        "author": "Desconhecido",
+        "text": "A mente curada encontra prazer em estar em paz."
+    },
+    {
+        "id": 359,
+        "author": "Desconhecido",
+        "text": "Você já venceu o mais difícil: decidiu mudar."
+    },
+    {
+        "id": 360,
+        "author": "Desconhecido",
+        "text": "O progresso é o acúmulo de pequenas resistências."
+    },
+    {
+        "id": 361,
+        "author": "Desconhecido",
+        "text": "Você não está lutando para ser perfeito, mas para ser livre."
+    },
+    {
+        "id": 362,
+        "author": "Desconhecido",
+        "text": "A liberdade vem de dentro, não de fora."
+    },
+    {
+        "id": 363,
+        "author": "Desconhecido",
+        "text": "A paz interior é o maior prêmio da constância."
+    },
+    {
+        "id": 364,
+        "author": "Desconhecido",
+        "text": "Você é o resultado das escolhas que faz todos os dias."
+    },
+    {
+        "id": 365,
+        "author": "Desconhecido",
+        "text": "A superação é uma soma de pequenos atos de coragem."
+    },
+    {
+        "id": 366,
+        "author": "Desconhecido",
+        "text": "Você é a prova de que mudar é possível, mesmo que leve tempo."
+    }
+]

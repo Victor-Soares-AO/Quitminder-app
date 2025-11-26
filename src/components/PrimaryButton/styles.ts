@@ -7,13 +7,14 @@ export const styles = StyleSheet.create({
         gap: 8,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 20,
+        borderRadius: 16,
         width: '100%',
         height: 56,
         backgroundColor: colors.button.primary
     },
     title: {
         fontSize: 16,
-        fontFamily: fontFamily.semibold
+        fontFamily: fontFamily.semibold,
+        color: colors.background.primary
     }
 });

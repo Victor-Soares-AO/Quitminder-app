@@ -4,18 +4,17 @@ import { colors, fontFamily } from "@/theme";
 export const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        gap: 8,
+        gap: 6,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 999,
-        width: 110,
         height: 40,
-        padding: 10,
+        paddingHorizontal: 10,
         backgroundColor: '#007AFF'
     },
     title: {
-        color: '#FFF',
-        fontSize: 16,
+        color: colors.white,
+        fontSize: 14,
         fontFamily: fontFamily.semibold
     }
 });

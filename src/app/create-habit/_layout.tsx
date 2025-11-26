@@ -6,13 +6,13 @@ export default function Layout() {
         <Stack
             screenOptions={{
                 headerStyle: { backgroundColor: colors.background.primary },
-                headerTintColor: colors.white
+                headerTintColor: colors.text.primary
             }}
         >
             <Stack.Screen
                 name="index"
                 options={{
-                    title: "Add",
+                    title: "Novo Hábito",
                     headerBackButtonMenuEnabled: false,
                     headerBackButtonDisplayMode: "minimal"
                 }}
@@ -21,7 +21,7 @@ export default function Layout() {
             <Stack.Screen
                 name="edit/[id]"
                 options={{
-                    title: "Edit"
+                    title: "Editar"
                 }}
             />
         </Stack>

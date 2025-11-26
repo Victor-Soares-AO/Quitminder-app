@@ -1,10 +1,11 @@
 import { View, Text } from "react-native";
 import { styles } from "./styles";
 
-import { SecondaryButton } from "../SecondaryButton";
-import { GearSixIcon } from "phosphor-react-native";
+// import { SecondaryButton } from "../SecondaryButton";
+import { GearFineIcon, GearSixIcon, NutIcon } from "phosphor-react-native";
 import { UpgradeButton } from "@/components/UpgradeButton";
 import { router } from "expo-router";
+import { IconButton } from "../IconButton";
 
 export function HomeHeader() {
     return (
@@ -15,10 +16,11 @@ export function HomeHeader() {
 
 
             <View style={styles.wrapper}>
-                <UpgradeButton title="Upgrade" />
+                <UpgradeButton title="Ativar Pro" />
 
-                <SecondaryButton 
-                    Icon={GearSixIcon} 
+                <IconButton 
+                    Icon={NutIcon} 
+                    iconWeight="fill"
                     onPress={() => router.navigate('/settings')}
                 />
             </View>

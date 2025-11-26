@@ -12,7 +12,7 @@ type Props = TouchableOpacityProps & {
     isSwitch?: boolean;
 }
 
-export function SettingButton({ title, backgroundColor, Icon, iconWeight = "fill", rounded, isSwitch }: Props) {
+export function SettingButton({ title, backgroundColor, Icon, iconWeight = "fill", rounded, isSwitch, ...rest }: Props) {
     return (
         <TouchableOpacity
             activeOpacity={0.8}
@@ -22,6 +22,7 @@ export function SettingButton({ title, backgroundColor, Icon, iconWeight = "fill
                 rounded === "top" && { borderTopLeftRadius: 20, borderTopRightRadius: 20 },
                 rounded === "bottom" && { borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }
             ]}
+            {...rest}
         >
             <View style={[styles.cover, { backgroundColor: backgroundColor }]}>
                 <Icon
@@ -39,7 +40,6 @@ export function SettingButton({ title, backgroundColor, Icon, iconWeight = "fill
                 ? <Switch />
                 : <CaretRightIcon size={16} color="rgba(255,255,255,0.3)" weight="bold" />
             }
-
         </TouchableOpacity>
     )
 }
