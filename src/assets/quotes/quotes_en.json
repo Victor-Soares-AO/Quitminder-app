@@ -1,0 +1,153 @@
+[
+    {
+        "id": 1,
+        "author": "Winston Churchill",
+        "text": "Success is going from failure to failure without losing your enthusiasm."
+    },
+    {
+        "id": 2,
+        "author": "Carl Jung",
+        "text": "Who looks outside, dreams; who looks inside, awakes."
+    },
+    {
+        "id": 3,
+        "author": "Epictetus",
+        "text": "It's not what happens to you, but how you react to it that matters."
+    },
+    {
+        "id": 4,
+        "author": "Friedrich Nietzsche",
+        "text": "He who has a why to live can bear almost any how."
+    },
+    {
+        "id": 5,
+        "author": "Maya Angelou",
+        "text": "You may encounter many defeats, but you must not be defeated."
+    },
+    {
+        "id": 6,
+        "author": "Nelson Mandela",
+        "text": "The greatest glory in living lies not in never falling, but in rising every time we fall."
+    },
+    {
+        "id": 7,
+        "author": "Albert Einstein",
+        "text": "Life is like riding a bicycle. To keep your balance, you must keep moving."
+    },
+    {
+        "id": 8,
+        "author": "Eleanor Roosevelt",
+        "text": "You must do the thing you think you cannot do."
+    },
+    {
+        "id": 9,
+        "author": "Viktor Frankl",
+        "text": "When we are no longer able to change a situation, we are challenged to change ourselves."
+    },
+    {
+        "id": 10,
+        "author": "Confucius",
+        "text": "It does not matter how slowly you go as long as you do not stop."
+    },
+    {
+        "id": 11,
+        "author": "Rumi",
+        "text": "The wound is the place where the Light enters you."
+    },
+    {
+        "id": 12,
+        "author": "Marcus Aurelius",
+        "text": "You have power over your mind - not outside events. Realize this, and you will find strength."
+    },
+    {
+        "id": 13,
+        "author": "Helen Keller",
+        "text": "The only way to do great work is to love what you do."
+    },
+    {
+        "id": 14,
+        "author": "Steve Jobs",
+        "text": "Your time is limited, don't waste it living someone else's life."
+    },
+    {
+        "id": 15,
+        "author": "Oprah Winfrey",
+        "text": "The biggest adventure you can take is to live the life of your dreams."
+    },
+    {
+        "id": 16,
+        "author": "Ralph Waldo Emerson",
+        "text": "What lies behind us and what lies before us are tiny matters compared to what lies within us."
+    },
+    {
+        "id": 17,
+        "author": "Mark Twain",
+        "text": "The two most important days in your life are the day you are born and the day you find out why."
+    },
+    {
+        "id": 18,
+        "author": "Muhammad Ali",
+        "text": "It's not the mountains ahead to climb that wear you out; it's the pebble in your shoe."
+    },
+    {
+        "id": 19,
+        "author": "Theodore Roosevelt",
+        "text": "Believe you can and you're halfway there."
+    },
+    {
+        "id": 20,
+        "author": "Walt Disney",
+        "text": "All our dreams can come true, if we have the courage to pursue them."
+    },
+    {
+        "id": 21,
+        "author": "Thomas Edison",
+        "text": "I have not failed. I've just found 10,000 ways that won't work."
+    },
+    {
+        "id": 22,
+        "author": "Abraham Lincoln",
+        "text": "The best way to predict your future is to create it."
+    },
+    {
+        "id": 23,
+        "author": "Mother Teresa",
+        "text": "Be faithful in small things because it is in them that your strength lies."
+    },
+    {
+        "id": 24,
+        "author": "Dalai Lama",
+        "text": "The purpose of our lives is to be happy."
+    },
+    {
+        "id": 25,
+        "author": "Bruce Lee",
+        "text": "I fear not the man who has practiced 10,000 kicks once, but I fear the man who has practiced one kick 10,000 times."
+    },
+    {
+        "id": 26,
+        "author": "Henry Ford",
+        "text": "Whether you think you can or you think you can't, you're right."
+    },
+    {
+        "id": 27,
+        "author": "J.K. Rowling",
+        "text": "It is our choices that show what we truly are, far more than our abilities."
+    },
+    {
+        "id": 28,
+        "author": "C.S. Lewis",
+        "text": "You are never too old to set another goal or to dream a new dream."
+    },
+    {
+        "id": 29,
+        "author": "Oscar Wilde",
+        "text": "Be yourself; everyone else is already taken."
+    },
+    {
+        "id": 30,
+        "author": "Rosa Parks",
+        "text": "I have learned over the years that when one's mind is made up, this diminishes fear."
+    }
+]
+

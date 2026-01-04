@@ -9,13 +9,14 @@ type Props = TouchableOpacityProps & {
     label: string;
     Icon?: React.FC<IconProps>;
     IconWeight?: IconWeight;
+    backgroundColor?: string;
 }
 
-export function PrimaryButton({ label, Icon, IconWeight = "bold", ...rest }: Props) {
+export function PrimaryButton({ label, Icon, IconWeight = "bold", backgroundColor, ...rest }: Props) {
     return (
         <TouchableOpacity 
             activeOpacity={0.8} 
-            style={styles.container} 
+            style={[styles.container, backgroundColor && { backgroundColor }]} 
             {...rest}
         >
             {Icon && <Icon color={colors.background.primary} size={18} weight={IconWeight} />}

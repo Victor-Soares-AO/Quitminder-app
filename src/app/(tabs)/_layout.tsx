@@ -81,6 +81,16 @@ export default function TabsLayout() {
                 />
 
                 <Tabs.Screen
+                    name="overview/diary/create"
+                    options={{ href: null, tabBarStyle: { display: "none" } }}
+                />
+
+                <Tabs.Screen
+                    name="overview/diary/[id]"
+                    options={{ href: null, tabBarStyle: { display: "none" } }}
+                />
+
+                <Tabs.Screen
                     name="overview/affirmations"
                     options={{ href: null, tabBarStyle: { display: "none" } }}
                 />

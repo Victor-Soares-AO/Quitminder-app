@@ -4,6 +4,7 @@ import { TouchableOpacity, TouchableOpacityProps, Text, Button } from "react-nat
 import { styles } from "./styles";
 import { Fire, Star } from "phosphor-react-native";
 import { colors } from "@/theme";
+import { GlassView } from "expo-glass-effect";
 
 type Props = TouchableOpacityProps & {
     title: string;
@@ -11,14 +12,20 @@ type Props = TouchableOpacityProps & {
 
 export function UpgradeButton({ title }: Props) {
     return (
-        <TouchableOpacity activeOpacity={0.8} style={styles.container}>
-            <Fire 
-                size={20} 
-                weight="fill" 
-                color={colors.white} 
-            />
+        <GlassView
+            isInteractive
+            glassEffectStyle="regular"
+            style={styles.container}
+        >
+            <TouchableOpacity activeOpacity={0.8} >
+                <Fire
+                    size={20}
+                    weight="fill"
+                    color={colors.white}
+                />
 
-            {title && <Text style={styles.title}>{title}</Text>}
-        </TouchableOpacity>
+                {title && <Text style={styles.title}>{title}</Text>}
+            </TouchableOpacity>
+        </GlassView>
     )
 }

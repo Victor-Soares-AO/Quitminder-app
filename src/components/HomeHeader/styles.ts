@@ -16,6 +16,6 @@ export const styles = StyleSheet.create({
     },
     wrapper: {
         flexDirection: 'row',
-        gap: 12
+        gap: 8
     }
 })

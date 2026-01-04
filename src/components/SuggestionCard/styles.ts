@@ -16,10 +16,12 @@ export const styles = StyleSheet.create({
         width: 40,
         height: 40,
         borderRadius: 999,
-        backgroundColor: '#0A84FF'
+        backgroundColor: '#0A84FF',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     title: {
-        color: colors.white,
+        color: colors.text.primary,
         fontSize: 16,
         fontFamily: fontFamily.semibold
     }

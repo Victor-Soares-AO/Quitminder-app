@@ -10,7 +10,6 @@ export const styles = StyleSheet.create({
         borderRadius: 999,
         width: 40,
         height: 40,
-        padding: 10,
         backgroundColor: colors.background.secondary
     },
     title: {

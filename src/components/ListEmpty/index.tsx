@@ -2,8 +2,12 @@ import { View, Text} from "react-native";
 import { styles } from "./styles";
 
 import AddFilesIcon from "@/assets/addfiles-white.svg";
+import { Heading } from "../Text/Heading";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export function ListEmpty(){
+    const { t } = useTranslation();
+    
     return(
         <View style={styles.container}> 
             <AddFilesIcon 
@@ -13,12 +17,12 @@ export function ListEmpty(){
                 color="red"
             />
 
-            <Text style={styles.heading}>
-                Vamos Começar
-            </Text>
+            <Heading>
+                {t("habit.create")}
+            </Heading>
 
             <Text style={styles.text}>
-                Adicione o vício ou mau hábito{'\n'}que deseja abandonar.
+                {t("habit.createDescription")}
             </Text>
         </View>
     )

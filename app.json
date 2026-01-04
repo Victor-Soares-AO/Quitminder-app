@@ -6,11 +6,12 @@
     "version": "1.0.0",
     "userInterfaceStyle": "automatic",
     "android": {
-      "package": "com.victorsoares.quitminder",
-      "edgeToEdgeEnable": true
+      "icon": "./assets/icon.png",
+      "package": "com.victorsoares.quitminder"
     },
     "ios": {
-      "bundleIdentifier": "com.victorsoares.quitminder"
+      "bundleIdentifier": "com.victorsoares.quitminder",
+      "icon": "./assets/icon.png"
     },
     "plugins": [
       "expo-router",

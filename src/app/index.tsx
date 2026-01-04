@@ -19,6 +19,8 @@ import { HabitResponseDTO } from "@/dtos/habit.dto";
 import { ONBOARDING_COLLECTION } from "@/storage/storageConfig";
 import { useHabitDatabase } from "@/database/useHabitDatabase";
 import { useHabit } from "@/contexts/useHabit";
+import GlassContainerDemo from "@/components/GlassContainerDemo";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export type HabitCardProps = {
     id: string;
@@ -38,6 +40,7 @@ export default function Index() {
 
     const habitDatabase = useHabitDatabase();
     const { setHabit } = useHabit();
+    const { t } = useTranslation();
 
     useEffect(() => {
         const checkOnboardingStatus = async () => {
@@ -130,13 +133,15 @@ export default function Index() {
                             <QuoteOfTheDay />
                             <View style={{ paddingHorizontal: 16, marginTop: 16 }}>
                                 <PrimaryButton
-                                    onPress={() => router.navigate('/edit-habit/1')}
+                                    onPress={() => router.navigate('/create-habit')}
                                     Icon={PlusIcon}
-                                    label="Adicionar"
+                                    label={t("common.add")}
                                 />
                             </View>
 
                             {habits.length > 0 && <Highlight amount={habits.length} />}
+
+                            
                         </View>
                     }
                     ListEmptyComponent={<ListEmpty />}

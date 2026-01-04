@@ -1,9 +1,10 @@
 import React from "react";
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 
+import { GlassView } from 'expo-glass-effect';
 import { IconProps, IconWeight } from "phosphor-react-native";
 
-import { colors } from "@/theme";
+import { useColors } from "@/hooks/useColors";
 
 import { styles } from "./styles";
 
@@ -12,18 +13,26 @@ type Props = TouchableOpacityProps & {
     IconWeight?: IconWeight;
 }
 
-export function IconButton({ Icon, IconWeight="fill", ...rest }: Props) {
+export function IconButton({ Icon, IconWeight = "fill", ...rest }: Props) {
+    const colors = useColors();
+    
     return (
-        <TouchableOpacity 
-            activeOpacity={0.8} 
-            style={styles.container}
-            {...rest}    
+        <GlassView 
+            isInteractive 
+            glassEffectStyle="regular"
+            style={styles.container}    
         >
-            <Icon 
-                color={colors.gray[700]} 
-                size={20} 
-                weight={IconWeight} 
-            />
-        </TouchableOpacity>
+            <TouchableOpacity
+                activeOpacity={0.8}
+                
+                {...rest}
+            >
+                <Icon
+                    color={colors.text.primary}
+                    size={20}
+                    weight={IconWeight}
+                />
+            </TouchableOpacity>
+        </GlassView>
     )
 }

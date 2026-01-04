@@ -25,7 +25,7 @@ export function useHabitDatabase() {
         )
     `);
 
-        await statement.executeAsync({
+        const result = await statement.executeAsync({
             $name: data.name,
             $cover: data.cover,
             $color: data.color,
@@ -34,6 +34,9 @@ export function useHabitDatabase() {
             $daily_spent_money: data.daily_spent_money,
             $default_currency: data.default_currency,
         });
+
+        const habitId = result.lastInsertRowId;
+        return habitId;
     };
 
     const list = () => {
@@ -79,6 +82,7 @@ export function useHabitDatabase() {
             name = COALESCE($name, name),
             cover = COALESCE($cover, cover),
             color = COALESCE($color, color),
+            last_relapse_date = COALESCE($last_relapse_date, last_relapse_date),
             daily_spent_time = COALESCE($daily_spent_time, daily_spent_time),
             daily_spent_money = COALESCE($daily_spent_money, daily_spent_money),
             default_currency = COALESCE($default_currency, default_currency),
@@ -91,6 +95,7 @@ export function useHabitDatabase() {
             $name: data.name,
             $cover: data.cover,
             $color: data.color,
+            $last_relapse_date: data.last_relapse_date ? data.last_relapse_date.toISOString() : null,
             $daily_spent_time: data.daily_spent_time,
             $daily_spent_money: data.daily_spent_money,
             $default_currency: data.default_currency,

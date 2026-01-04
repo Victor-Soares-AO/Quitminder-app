@@ -1,5 +1,6 @@
-import { router } from "expo-router";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { router, Redirect } from "expo-router";
+import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import { useEffect, useState } from "react";
 
 import { InfinityIconIcon, LightningIcon, LockKeyIcon, X } from "phosphor-react-native";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -8,23 +9,53 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { IconButton } from "@/components/IconButton";
 import { OnboardingCard } from "@/components/OnboardingCard";
 import { PrimaryButton } from "@/components/PrimaryButton";
+import { Loading } from "@/components/Loading";
 
 import { colors, fontFamily } from "@/theme";
 import { ONBOARDING_COLLECTION } from "@/storage/storageConfig";
 
 export default function Onboarding() {
-
     const insets = useSafeAreaInsets();
+    const [hasViewedOnboarding, setHasViewedOnboarding] = useState<boolean | null>(null);
+
+    useEffect(() => {
+        const checkOnboardingStatus = async () => {
+            try {
+                const value = await AsyncStorage.getItem(ONBOARDING_COLLECTION);
+                const viewed = value === 'true';
+                setHasViewedOnboarding(viewed);
+                if (viewed) {
+                    // Se já foi visto, redirecionar imediatamente
+                    router.replace('/');
+                }
+            } catch (error) {
+                console.error("Erro ao verificar status do Onboarding:", error);
+                setHasViewedOnboarding(false);
+            }
+        };
+
+        checkOnboardingStatus();
+    }, []);
 
     const handleCloseOnboarding = async () => {
         try {
             await AsyncStorage.setItem(ONBOARDING_COLLECTION, 'true');
-            router.navigate('/'); 
+            router.replace('/'); 
         } catch (error) {
             console.error("Erro ao salvar o status do Onboarding:", error);
-            router.navigate('/');
+            router.replace('/');
         }
     };
+
+    // Se ainda está verificando, mostrar loading
+    if (hasViewedOnboarding === null) {
+        return <Loading />;
+    }
+
+    // Se já foi visto, redirecionar
+    if (hasViewedOnboarding === true) {
+        return <Redirect href="/" />;
+    }
 
     return (
         <>
@@ -32,12 +63,15 @@ export default function Onboarding() {
                 <View style={styles.header}>
                     <IconButton
                         Icon={X}
-                        iconWeight="bold"
+                        IconWeight="bold"
                         onPress={handleCloseOnboarding}
                     />
                 </View>
 
-                <View style={styles.icon} />
+                <Image 
+                    source={require('@/assets/icon.png')} 
+                    style={styles.icon} 
+                />
 
                 <View style={styles.textWrapper}>
                     <Text style={styles.heading}>

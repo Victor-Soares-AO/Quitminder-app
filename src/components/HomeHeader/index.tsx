@@ -16,7 +16,9 @@ export function HomeHeader() {
 
 
             <View style={styles.wrapper}>
+                {/*
                 <UpgradeButton title="Ativar Pro" />
+                */}
 
                 <IconButton 
                     Icon={NutIcon} 

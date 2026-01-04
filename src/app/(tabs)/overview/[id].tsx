@@ -5,7 +5,6 @@ import { View, Text, StyleSheet, ScrollView, Alert, Animated, Dimensions } from 
 import { LinearGradient } from "expo-linear-gradient";
 import * as PhosphorIcons from "phosphor-react-native";
 import {
-    ArrowLeftIcon,
     BookOpenTextIcon,
     ChatCenteredDotsIcon,
     ExportIcon,
@@ -14,7 +13,6 @@ import {
 } from "phosphor-react-native";
 
 import { Loading } from "@/components/Loading";
-import { IconButton } from "@/components/IconButton";
 import { SettingButton } from "@/components/SettingButton";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { AbstinenceCard } from "@/components/AbstinenceCard";
@@ -26,6 +24,7 @@ import { useAffirmationDatabase } from "@/database/useAffirmationDatabase";
 import { Header } from "@/components/Header";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Heading } from "@/components/Text/Heading";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const { width } = Dimensions.get("window");
 
@@ -37,7 +36,6 @@ export default function Overview() {
 
     const [affirmations, setAffirmations] = useState<string[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
-    // const fadeAnim = useRef(new Animated.Value(1)).current;
 
     const slideAnim = useRef(new Animated.Value(0)).current;
 
@@ -47,16 +45,17 @@ export default function Overview() {
     const habitId = Number(id);
 
     const habitDatabase = useHabitDatabase();
+    const { t } = useTranslation();
 
     const handleDeleteHabit = async () => {
         try {
             Alert.alert(
-                "Confirmar exclusão",
-                "Tem certeza que deseja deletar este hábito? Todos os registros serão removidos.",
+                t("habit.deleteConfirm"),
+                t("habit.deleteMessage"),
                 [
-                    { text: "Cancelar", style: "cancel" },
+                    { text: t("common.cancel"), style: "cancel" },
                     {
-                        text: "Deletar",
+                        text: t("common.delete"),
                         style: "destructive",
                         onPress: async () => {
                             await habitDatabase.remove(habitId);
@@ -67,23 +66,30 @@ export default function Overview() {
             );
         } catch (error) {
             console.error("Erro ao deletar hábito:", error);
-            Alert.alert("Erro", "Não foi possível deletar o hábito.");
+            Alert.alert(t("common.error"), t("habit.deleteError"));
+        }
+    };
+
+    const fetchHabit = async () => {
+        try {
+            const data = await habitDatabase.show(habitId);
+            setHabit(data);
+        } catch (error) {
+            console.error("Erro ao buscar hábito:", error);
+            Alert.alert(t("common.error"), t("habit.saveError"));
         }
     };
 
     useEffect(() => {
-        const fetchHabit = async () => {
-            try {
-                const data = await habitDatabase.show(habitId);
-                setHabit(data);
-            } catch (error) {
-                console.error("Erro ao buscar hábito:", error);
-                Alert.alert("Erro", "Não foi possível carregar os dados do hábito.");
-            }
-        };
-
         fetchHabit();
     }, [habitId]);
+
+    // Recarregar hábito quando a tela recebe foco (volta de outras telas)
+    useFocusEffect(
+        useCallback(() => {
+            fetchHabit();
+        }, [habitId])
+    );
 
     // Carregar frases positivas
     const fetchAffirmations = async () => {
@@ -197,13 +203,13 @@ export default function Overview() {
                     <AbstinenceCard lastRelapseDate={habit.last_relapse_date} />
 
                     <Text style={styles.groupTitle}>
-                        Minha Jornada
+                        {t("overview.myJourney")}
                     </Text>
 
                     <View style={styles.group}>
                         <SettingButton
                             Icon={BookOpenTextIcon}
-                            title="Diário de Atividades"
+                            title={t("overview.activities")}
                             backgroundColor="#8A8D94"
                             rounded="top"
                             onPress={() => router.navigate("/(tabs)/overview/diary")}
@@ -211,20 +217,22 @@ export default function Overview() {
 
                         <SettingButton
                             Icon={ChatCenteredDotsIcon}
-                            title="Frases Positivas"
+                            title={t("overview.affirmations")}
                             backgroundColor="#0A84FF"
                             onPress={() => router.navigate("/(tabs)/overview/affirmations")}
                         />
 
+                        {/*
                         <SettingButton
                             Icon={HeartbeatIcon}
-                            title="Teste Diagnóstico"
+                            title={t("overview.diagnostic")}
                             backgroundColor="#6366F1"
                         />
+                        */}
 
                         <SettingButton
                             Icon={LightbulbFilamentIcon}
-                            title="Razões de Desistir"
+                            title={t("overview.reasons")}
                             backgroundColor="#FF453A"
                             rounded="bottom"
                             onPress={() => router.navigate("/(tabs)/overview/reasons")}
@@ -232,21 +240,23 @@ export default function Overview() {
                     </View>
 
                     <Text style={styles.groupTitle}>
-                        Opções
+                        {t("overview.options")}
                     </Text>
-
+                    
+                    {/*
                     <View style={styles.group}>
                         <SettingButton
                             Icon={ExportIcon}
                             iconWeight="bold"
-                            title="Partilhar Progresso"
+                            title={t("overview.shareProgress")}
                             backgroundColor="#3A3A3C"
                             rounded="full"
                         />
                     </View>
+                    */}
 
                     <PrimaryButton
-                        label="Deletar Hábito"
+                        label={t("overview.deleteHabit")}
                         onPress={handleDeleteHabit}
                     />
                 </View>

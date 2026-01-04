@@ -15,7 +15,7 @@ import {
     CalendarBlankIcon,
     CheckFatIcon,
 } from "phosphor-react-native";
-import { colors } from "@/theme";
+import { useColors } from "@/hooks/useColors";
 import { useReasonDatabase } from "@/database/useReasonDatabase";
 import { useHabit } from "@/contexts/useHabit";
 import { formatDateToDayMonth } from "@/utils/formatDate";
@@ -27,6 +27,7 @@ import { Description } from "@/components/Text/Description";
 export default function Reasons() {
 
     const insets = useSafeAreaInsets();
+    const colors = useColors();
 
     const { habit } = useHabit();
     const { create, listByHabit, update, remove } = useReasonDatabase();
@@ -144,6 +145,53 @@ export default function Reasons() {
         fetchReasons();
     }, [habit]);
 
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            padding: 16,
+            backgroundColor: colors.background.primary,
+        },
+        card: {
+            flexDirection: "row",
+            paddingHorizontal: 16,
+            paddingVertical: 20,
+            backgroundColor: colors.background.secondary,
+            borderRadius: 12,
+            marginBottom: 16,
+        },
+        textWrapper: {
+            marginHorizontal: 8,
+            gap: 8
+        },
+        text: {
+            flex: 1,
+            fontSize: 16,
+        },
+        date: {
+            fontSize: 13,
+            color: colors.text.secondary,
+            marginTop: 4,
+        },
+        checkbox: {
+            width: 24,
+            height: 24,
+            borderRadius: 6,
+            borderWidth: 1.5,
+            borderColor: colors.text.secondary,
+            backgroundColor: colors.white,
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        button: {
+            position: "absolute",
+            bottom: 32,
+            right: 24,
+            backgroundColor: colors.text.primary,
+            borderRadius: 999,
+            padding: 16,
+        },
+    });
+
     return (
         <View
             style={[
@@ -231,15 +279,15 @@ export default function Reasons() {
                     );
                 }}
                 ListEmptyComponent={
-                    <Text style={{ color: colors.gray[500], marginTop: 20 }}>
+                    <Text style={{ color: colors.text.secondary, marginTop: 20 }}>
                         Nenhuma razão ainda.
                     </Text>
                 }
                 ListHeaderComponent={
                     <View style={{ marginBottom: 24 }}>
-                    <Heading fontSize="LARGE">
-                        Razões de Desistir
-                    </Heading>
+                        <Heading fontSize="LARGE">
+                            Escreva e tenha em mente suas razões para desistir.
+                        </Heading>
                     </View>
                 }
                 contentContainerStyle={{
@@ -267,49 +315,4 @@ export default function Reasons() {
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 16,
-        backgroundColor: colors.background.primary,
-    },
-    card: {
-        flexDirection: "row",
-        paddingHorizontal: 16,
-        paddingVertical: 20,
-        backgroundColor: colors.background.secondary,
-        borderRadius: 12,
-        marginBottom: 16,
-    },
-    textWrapper: {
-        marginHorizontal: 8,
-        gap: 8
-    },
-    text: {
-        flex: 1,
-        fontSize: 16,
-    },
-    date: {
-        fontSize: 13,
-        color: colors.text.secondary,
-        marginTop: 4,
-    },
-    checkbox: {
-        width: 24,
-        height: 24,
-        borderRadius: 6,
-        borderWidth: 1.5,
-        borderColor: colors.text.secondary,
-        backgroundColor: colors.white,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    button: {
-        position: "absolute",
-        bottom: 32,
-        right: 24,
-        backgroundColor: colors.text.primary,
-        borderRadius: 999,
-        padding: 16,
-    },
-});
+// Styles serão criados dinamicamente no componente

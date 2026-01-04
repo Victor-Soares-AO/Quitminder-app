@@ -1,3 +1,4 @@
+import { useState, useEffect, useCallback } from "react";
 import { ProgressCard } from "@/components/Card/ProgressCard";
 import { Header } from "@/components/Header";
 import { Heading } from "@/components/Text/Heading";
@@ -7,27 +8,63 @@ import { Title } from "@/components/Text/Title";
 import { useHabit } from "@/contexts/useHabit";
 import { colors } from "@/theme";
 import { formatDateToDayMonth } from "@/utils/formatDate";
+import { calculateStatistics } from "@/utils/calculateStatistics";
+import { useHabitRecordDatabase } from "@/database/useHabitRecordDatabase";
 import { ArrowLeftIcon, ClockIcon, CreditCardIcon, HourglassHighIcon, HourglassLowIcon, HourglassMediumIcon, InfinityIconIcon, StarIcon } from "phosphor-react-native";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-
+import { useFocusEffect } from "expo-router";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function Statistic() {
-
     const { habit } = useHabit();
+    const { listByHabit } = useHabitRecordDatabase();
+    const { t } = useTranslation();
+    const [statistics, setStatistics] = useState({
+        totalRelapses: 0,
+        minAbstinencePeriod: "—",
+        avgAbstinencePeriod: "—",
+        maxAbstinencePeriod: "—",
+        totalTimeSpent: "0 minutos",
+        totalMoneySpent: "0.00",
+        currency: "KZ",
+    });
+
+    const loadStatistics = async () => {
+        if (!habit?.id) return;
+
+        try {
+            const records = await listByHabit(habit.id);
+            const stats = calculateStatistics(
+                records,
+                habit.created_at,
+                habit.last_relapse_date
+            );
+            setStatistics(stats);
+        } catch (error) {
+            console.error("Erro ao carregar estatísticas:", error);
+        }
+    };
+
+    useEffect(() => {
+        loadStatistics();
+    }, [habit]);
+
+    useFocusEffect(
+        useCallback(() => {
+            loadStatistics();
+        }, [habit])
+    );
 
     const startDate = formatDateToDayMonth(habit?.created_at);
     const lastRelapse = formatDateToDayMonth(habit?.last_relapse_date);
 
-    // console.log();
-
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: colors.background.primary }}>
             <Header />
             <ScrollView style={[styles.container]}>
                 <Heading fontSize="LARGE">
-                    Estatística
+                    {t("statistics.title")}
                 </Heading>
 
                 <View style={styles.summaryCardWrapper}>
@@ -40,7 +77,7 @@ export default function Statistic() {
 
                         <View style={styles.summaryCardTextWrapper}>
                             <Description>
-                                Data de Início
+                                {t("statistics.startDate")}
                             </Description>
 
                             <Title fontWeight="SEMIBOLD">
@@ -58,7 +95,7 @@ export default function Statistic() {
 
                         <View style={styles.summaryCardTextWrapper}>
                             <Description>
-                                Última Recaída
+                                {t("statistics.lastRelapse")}
                             </Description>
 
                             <Title fontWeight="SEMIBOLD">
@@ -69,53 +106,53 @@ export default function Statistic() {
                 </View>
 
                 <Title>
-                    Progresso
+                    {t("statistics.progress")}
                 </Title>
 
                 <View style={styles.progressCardsWrapper}>
                     <ProgressCard
                         Icon={InfinityIconIcon}
-                        title="Total de recaídas"
-                        value="2 recaídas"
+                        title={t("statistics.totalRelapses")}
+                        value={`${statistics.totalRelapses} ${statistics.totalRelapses !== 1 ? t("statistics.relapses") : t("statistics.relapse")}`}
                     />
 
                     <ProgressCard
                         Icon={HourglassHighIcon}
                         iconWeight="fill"
-                        title="Tempo mínimo de abstinência"
-                        value="3 dias, 17 horas, 54 minutos"
+                        title={t("statistics.minAbstinence")}
+                        value={statistics.minAbstinencePeriod}
                     />
 
                     <ProgressCard
                         Icon={HourglassMediumIcon}
                         iconWeight="fill"
-                        title="Tempo médio de abstinência"
-                        value="3 dias, 17 horas, 54 minutos"
+                        title={t("statistics.avgAbstinence")}
+                        value={statistics.avgAbstinencePeriod}
                     />
 
                     <ProgressCard
                         Icon={HourglassLowIcon}
                         iconWeight="fill"
-                        title="Tempo máximo de abstinência"
-                        value="3 dias, 17 horas, 54 minutos"
+                        title={t("statistics.maxAbstinence")}
+                        value={statistics.maxAbstinencePeriod}
                     />
                 </View>
 
                 <Title>
-                    Tempo e Dinheiro
+                    {t("statistics.timeAndMoney")}
                 </Title>
 
                 <View style={styles.progressCardsWrapper}>
                     <ProgressCard
                         Icon={ClockIcon}
-                        title="Tempo gasto no hábito"
-                        value="2 horas, 30 minutos"
+                        title={t("statistics.timeSpent")}
+                        value={statistics.totalTimeSpent}
                     />
 
                     <ProgressCard
                         Icon={CreditCardIcon}
-                        title="Dinheiro gasto no hábito"
-                        value="189 000 Kz"
+                        title={t("statistics.moneySpent")}
+                        value={`${parseFloat(statistics.totalMoneySpent).toLocaleString("pt-PT")} ${statistics.currency}`}
                     />
                 </View>
             </ScrollView>
@@ -128,7 +165,8 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 16,
         paddingTop: 80,
-        backgroundColor: colors.background.primary
+        backgroundColor: colors.background.primary,
+        paddingBottom: 0,
     },
     title: {
         color: colors.white,

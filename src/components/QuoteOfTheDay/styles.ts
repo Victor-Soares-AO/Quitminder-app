@@ -8,9 +8,10 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 16,
         marginHorizontal: 16,
         minHeight: 128,
-        backgroundColor: colors.background.secondary,
+        backgroundColor: "#F5F5F7",
         borderRadius: 16,
-        gap: 16
+        gap: 16,
+        //backgroundColor: "#EBEBEB"
     },
     wrapper: {
         flexDirection: 'row',

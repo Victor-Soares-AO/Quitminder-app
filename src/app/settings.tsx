@@ -1,74 +1,77 @@
-import { Alert, StyleSheet, ScrollView } from "react-native";
+import { useState, useEffect } from "react";
+import { StyleSheet, ScrollView, View, Alert } from "react-native";
+import { router } from "expo-router";
 
-import { MoonIcon, X } from "phosphor-react-native";
+import { BellIcon, LockKeyIcon } from "phosphor-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Header } from "@/components/Header";
 import { Heading } from "@/components/Text/Heading";
-import { SettingButton } from "@/components/SettingButton";
+
+import { SettingsButton } from "@/components/Button/SettingsButton";
 
 import { colors } from "@/theme";
+import { useTranslation } from "@/hooks/useTranslation";
+import { usePrivacyLock } from "@/contexts/PrivacyLockContext";
 
 export default function Settings() {
+    const { t } = useTranslation();
+    const { isEnabled: privacyLockEnabled, setIsEnabled: setPrivacyLockEnabled, checkBiometricSupport } = usePrivacyLock();
+    const [biometricSupported, setBiometricSupported] = useState(false);
+
+    useEffect(() => {
+        checkBiometricSupport().then(setBiometricSupported);
+    }, []);
+
+    const handlePrivacyLockToggle = async (value: boolean) => {
+        if (value && !biometricSupported) {
+            Alert.alert(
+                t("privacyLock.notSupported"),
+                t("privacyLock.notSupportedMessage"),
+                [{ text: t("common.close") }]
+            );
+            return;
+        }
+
+        try {
+            await setPrivacyLockEnabled(value);
+        } catch (error) {
+            console.error("Erro ao alterar bloqueio:", error);
+            Alert.alert(t("common.error"), t("privacyLock.error"));
+        }
+    };
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <Header />
+            <Header transparent />
             <ScrollView style={styles.container}>
                 <Heading fontSize="LARGE">
-                    Definições
+                    {t("settings.title")}
                 </Heading>
 
-                <SettingButton
-                    title="Modo Escuro"
-                    Icon={MoonIcon}
-                    backgroundColor="#3A3A3C"
-                    rounded="full"
-                    isSwitch
-                />
+                <View style={styles.group}>
+                    <SettingsButton
+                        label={t("settings.notifications")}
+                        Icon={BellIcon}
+                        iconWeight="fill"
+                        onPress={() => router.push("/settings/notifications")}
+                    />
 
-                <SettingButton
-                    title="Apagar Banco de Dados"
-                    Icon={X}
-                    backgroundColor="#FF3B30"
-                    rounded="full"
-                    onPress={() => Alert.alert('quitminder.db')}
-                />
+                    <SettingsButton
+                        label={t("settings.privacyLock")}
+                        Icon={LockKeyIcon}
+                        iconWeight="fill"
+                        isSwitch={privacyLockEnabled}
+                        onPress={() => handlePrivacyLockToggle(!privacyLockEnabled)}
+                    />
+                </View>
 
-                {/* <View style={styles.group}>
-                <SettingButton
-                    title="Notifications"
-                    Icon={Bell}
-                    backgroundColor="#FF453A"
-                    rounded="top"
-                />
-                <SettingButton
-                    title="Privacy & Security"
-                    Icon={Hand}
-                    backgroundColor="#0A84FF"
-                />
-                <SettingButton
-                    title="Unlock with Face ID"
-                    Icon={ScanFace}
-                    backgroundColor="#06BA21"
-                    rounded="bottom"
-                    isSwitch
-                />
-            </View>
+                {/*
+
+                
 
             <View style={styles.group}>
-                <SettingButton
-                    title="Feedback"
-                    Icon={ChatCircleIcon}
-                    backgroundColor="#0A84FF"
-                    rounded="top"
-                />
-                <SettingButton
-                    title="Development Roadmap"
-                    Icon={ListBulletsIcon}
-                    iconWeight="bold"
-                    backgroundColor="#3A3A3C"
-                />
+                
                 <SettingButton
                     title="Tip Jar"
                     Icon={Heart}
@@ -100,7 +103,7 @@ export default function Settings() {
                 <Text style={styles.info}>
                     Made with ❤️ in Angola
                 </Text>
-            </View> */}
+                </View> */}
             </ScrollView>
         </SafeAreaView>
     )
@@ -113,37 +116,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingTop: 80
     },
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 24
+    group: {
+        gap: 24,
+        marginTop: 24
     },
-    closeButton: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 32,
-        height: 32,
-        borderRadius: 999,
-        backgroundColor: 'rgba(255,255,255,0.15)'
-    },
-    // title: {
-    //     color: colors.text.primary,
-    //     fontSize: 28,
-    //     fontFamily: fontFamily.semibold
-    // },
-    // group: {
-    //     marginBottom: 20
-    // },
-    // infoWrapper: {
-    //     gap: 8,
-    //     marginTop: 16,
-    //     marginBottom: 64
-    // },
-    // info: {
-    //     color: colors.gray[400],
-    //     fontSize: 14,
-    //     fontFamily: fontFamily.semibold,
-    //     alignSelf: 'center'
-    // }
 })

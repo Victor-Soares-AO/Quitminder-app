@@ -4,12 +4,15 @@ import { CaretUpDownIcon } from "phosphor-react-native";
 import { styles } from "./styles";
 import { colors } from "@/theme";
 import { Heading } from "../Text/Heading";
+import { useTranslation } from "@/hooks/useTranslation";
 
 type Props = {
     amount: number;
 }
 
 export function Highlight({ amount }: Props) {
+    const { t } = useTranslation();
+    
     return (
         <View style={styles.container}>
             <View style={styles.wrapper}>
@@ -17,10 +20,9 @@ export function Highlight({ amount }: Props) {
                     {amount}
                 </Heading>
 
-                {amount == 1
-                    ? <Heading>Mau Hábito</Heading>
-                    : <Heading>Maus Hábitos</Heading>
-                }
+                <Heading>
+                    {amount === 1 ? t("habit.singular") : t("habit.plural")}
+                </Heading>
             </View>
 
             {/* {amount > 1 &&

@@ -1,8 +1,9 @@
 import quotes_pt from "@/assets/quotes/quotes_pt.json";
+import quotes_en from "@/assets/quotes/quotes_en.json";
 
 const quotesByLang = {
   pt: quotes_pt,
-  // futuramente: en, es, fr...
+  en: quotes_en,
 } as const;
 
 /**
