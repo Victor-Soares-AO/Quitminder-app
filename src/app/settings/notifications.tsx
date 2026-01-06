@@ -1,29 +1,28 @@
 import { useState, useEffect } from "react";
-import { StyleSheet, ScrollView, View, Alert, Switch, Text } from "react-native";
-import { router } from "expo-router";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { StyleSheet, ScrollView, View, Alert, Switch } from "react-native";
+
+import { ClockIcon } from "phosphor-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ClockIcon, X } from "phosphor-react-native";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import { Header } from "@/components/Header";
-import { Heading } from "@/components/Text/Heading";
 import { Title } from "@/components/Text/Title";
-import { Description } from "@/components/Text/Description";
+import { Heading } from "@/components/Text/Heading";
 import { HabitInput } from "@/components/HabitInput";
-import { IconButton } from "@/components/IconButton";
+import { Description } from "@/components/Text/Description";
 
-import { colors, fontFamily } from "@/theme";
-import { useTranslation } from "@/hooks/useTranslation";
 import { useColors } from "@/hooks/useColors";
+import { useTranslation } from "@/hooks/useTranslation";
 import { useLanguage } from "@/contexts/useLanguage";
-import { 
-    getNotificationSettings, 
-    saveNotificationSettings, 
-    scheduleDailyNotification, 
-    cancelAllNotifications 
+import {
+    getNotificationSettings,
+    saveNotificationSettings,
+    scheduleDailyNotification,
+    cancelAllNotifications
 } from "@/services/notifications";
 
 export default function NotificationsSettings() {
+
     const { t } = useTranslation();
     const { language } = useLanguage();
     const colors = useColors();
@@ -40,7 +39,7 @@ export default function NotificationsSettings() {
         try {
             const settings = await getNotificationSettings();
             setNotificationsEnabled(settings.enabled);
-            
+
             if (settings.time) {
                 setNotificationTime(settings.time);
                 formatTime(settings.time);
@@ -66,7 +65,7 @@ export default function NotificationsSettings() {
         try {
             await saveNotificationSettings(value, notificationTime);
             setNotificationsEnabled(value);
-            
+
             if (value && notificationTime) {
                 // Se está ativando, agendar notificação
                 await scheduleDailyNotification(notificationTime, language);
@@ -100,18 +99,17 @@ export default function NotificationsSettings() {
 
     return (
         <SafeAreaView style={[styles.container, { backgroundColor: colors.background.primary }]}>
-            <Header transparent>
-            </Header>
+            <Header transparent />
 
             <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
                 <View style={styles.header}>
-                <Heading fontSize="LARGE" style={styles.heading}>
-                    {t("settings.notifications")}
-                </Heading>
+                    <Heading fontSize="LARGE">
+                        {t("settings.notifications")}
+                    </Heading>
 
-                <Description style={styles.description}>
-                    Receba lembretes diários para acompanhar seus hábitos e manter sua motivação.
-                </Description>
+                    <Title color="SECONDARY" style={styles.description}>
+                        Receba lembretes diários para acompanhar seus hábitos e manter sua motivação.
+                    </Title>
                 </View>
 
                 <View style={[styles.section, { backgroundColor: colors.background.secondary }]}>
@@ -122,6 +120,7 @@ export default function NotificationsSettings() {
                                 Receba lembretes diários sobre seus hábitos
                             </Description>
                         </View>
+
                         <Switch
                             value={notificationsEnabled}
                             onValueChange={handleToggleNotifications}
@@ -136,9 +135,11 @@ export default function NotificationsSettings() {
                         <Title fontSize="MEDIUM" style={styles.sectionTitle}>
                             Horário da Notificação
                         </Title>
+
                         <Description style={styles.sectionDescription}>
                             Escolha o horário em que deseja receber os lembretes diários
                         </Description>
+
                         <HabitInput
                             Icon={ClockIcon}
                             iconWeight="regular"
@@ -146,6 +147,7 @@ export default function NotificationsSettings() {
                             rounded="full"
                             onPress={() => setTimePickerVisible(true)}
                             value={formattedTime || "09:00"}
+                            noPadding
                         />
                     </View>
                 )}
@@ -155,6 +157,8 @@ export default function NotificationsSettings() {
                     mode="time"
                     onConfirm={handleTimeChange}
                     onCancel={() => setTimePickerVisible(false)}
+                    minimumDate={new Date(2024, 0, 1, 0, 0, 0, 0)}
+                    maximumDate={new Date(2024, 0, 1, 23, 59, 0, 0)}
                     confirmTextIOS="Confirmar"
                     cancelTextIOS="Cancelar"
                     display="spinner"
@@ -177,18 +181,19 @@ const styles = StyleSheet.create({
         paddingTop: 80,
         paddingBottom: 40,
     },
-    heading: {
-        marginBottom: 8,
-    },
     header: {
         marginBottom: 24,
+        gap: 4
     },
     description: {
         marginBottom: 32,
+        fontSize: 16,
+        lineHeight: 24
     },
     section: {
         borderRadius: 12,
         padding: 16,
+        paddingBottom: 4,
         marginBottom: 24,
     },
     switchRow: {

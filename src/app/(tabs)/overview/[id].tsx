@@ -255,10 +255,17 @@ export default function Overview() {
                     </View>
                     */}
 
-                    <PrimaryButton
-                        label={t("overview.deleteHabit")}
-                        onPress={handleDeleteHabit}
-                    />
+                    <View style={styles.buttonGroup}>
+                        <PrimaryButton
+                            label={t("overview.editHabit")}
+                            onPress={() => router.push(`/create-habit/edit/${habitId}`)}
+                        />
+
+                        <PrimaryButton
+                            label={t("overview.deleteHabit")}
+                            onPress={handleDeleteHabit}
+                        />
+                    </View>
                 </View>
             </ScrollView>
         </React.Fragment>
@@ -299,5 +306,9 @@ const styles = StyleSheet.create({
         color: colors.text.secondary,
         marginTop: 24,
         marginBottom: 16
+    },
+    buttonGroup: {
+        gap: 12,
+        marginTop: 24
     }
 })

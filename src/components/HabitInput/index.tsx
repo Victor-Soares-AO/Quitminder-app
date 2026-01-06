@@ -11,14 +11,16 @@ type Props = TouchableOpacityProps & {
     iconWeight?: IconWeight;
     rounded?: "top" | "bottom" | "full",
     isSwitch?: boolean;
+    noPadding?: boolean;
 }
 
-export function HabitInput({ title, value = 'Valor', Icon, iconWeight = "fill", rounded, isSwitch, ...rest }: Props) {
+export function HabitInput({ title, value = 'Valor', Icon, iconWeight = "fill", rounded, isSwitch, noPadding, ...rest }: Props) {
     return (
         <TouchableOpacity
             activeOpacity={0.8}
             style={[
                 styles.container,
+                noPadding && {paddingHorizontal: 0},
                 rounded === "full" && { borderRadius: 16 },
                 rounded === "top" && { borderTopLeftRadius: 16, borderTopRightRadius: 16 },
                 rounded === "bottom" && { borderBottomLeftRadius: 16, borderBottomRightRadius: 16 }

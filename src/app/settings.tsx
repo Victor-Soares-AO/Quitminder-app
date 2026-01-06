@@ -61,7 +61,7 @@ export default function Settings() {
                         label={t("settings.privacyLock")}
                         Icon={LockKeyIcon}
                         iconWeight="fill"
-                        isSwitch={privacyLockEnabled}
+                        isSwitch
                         onPress={() => handlePrivacyLockToggle(!privacyLockEnabled)}
                     />
 

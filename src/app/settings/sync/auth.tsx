@@ -74,32 +74,28 @@ export default function AuthScreen() {
 
     return (
         <SafeAreaView style={[styles.container, { backgroundColor: colors.background.primary }]}>
-            <Header transparent>
-                <IconButton
-                    Icon={X}
-                    IconWeight="bold"
-                    onPress={() => router.back()}
-                />
-            </Header>
+            <Header transparent/>
 
             <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
                 <View style={styles.header}>
                     <Heading fontSize="LARGE" style={styles.heading}>
                         {isLogin ? "Fazer Login" : "Criar Conta"}
                     </Heading>
-                    <Description style={styles.description}>
+
+                    <Title color="SECONDARY" style={styles.description}>
                         {isLogin 
                             ? "Entre com sua conta para sincronizar seus dados."
                             : "Crie uma conta para começar a sincronizar seus dados na nuvem."
                         }
-                    </Description>
+                    </Title>
                 </View>
 
                 <View style={[styles.section, { backgroundColor: colors.background.secondary }]}>
                     <View style={styles.inputGroup}>
-                        <Title fontSize="SMALL" style={styles.label}>
+                        <Title style={styles.label}>
                             Email
                         </Title>
+                        
                         <TextInput
                             style={[styles.input, { 
                                 backgroundColor: colors.background.primary,

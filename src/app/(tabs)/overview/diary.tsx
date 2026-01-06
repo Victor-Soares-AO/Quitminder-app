@@ -1,27 +1,33 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
+import { router, useFocusEffect } from "expo-router";
 import {
     View,
     Text,
     StyleSheet,
-    FlatList,
     TouchableOpacity,
     SectionList,
 } from "react-native";
-import { Header } from "@/components/Header";
-import { IconButton } from "@/components/IconButton";
+
 import { PlusIcon } from "phosphor-react-native";
-import { useColors } from "@/hooks/useColors";
-import { useHabitRecordDatabase, HabitRecordResponse } from "@/database/useHabitRecordDatabase";
-import { useHabit } from "@/contexts/useHabit";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Heading } from "@/components/Text/Heading";
+import { 
+    ClockIcon, 
+    CurrencyDollarIcon, 
+    NoteIcon, 
+    XCircleIcon, 
+    CheckCircleIcon 
+} from "phosphor-react-native";
+
+import { Header } from "@/components/Header";
 import { Title } from "@/components/Text/Title";
+import { Heading } from "@/components/Text/Heading";
 import { Description } from "@/components/Text/Description";
-import { router } from "expo-router";
-import { useFocusEffect } from "expo-router";
-import { formatDateToDayMonth } from "@/utils/formatDate";
+
+import { colors, fontFamily } from "@/theme";
+import { useHabit } from "@/contexts/useHabit";
 import { formatDuration } from "@/utils/formatDuration";
-import { ClockIcon, CurrencyDollarIcon, NoteIcon, XCircleIcon, CheckCircleIcon } from "phosphor-react-native";
+import { formatDateToDayMonth } from "@/utils/formatDate";
+import { useHabitRecordDatabase, HabitRecordResponse } from "@/database/useHabitRecordDatabase";
 
 type GroupedRecords = {
     date: string;
@@ -54,7 +60,7 @@ export default function Diary() {
         records.forEach((record) => {
             const date = new Date(record.date_time);
             const dateKey = date.toISOString().split('T')[0]; // YYYY-MM-DD
-            
+
             if (!grouped[dateKey]) {
                 grouped[dateKey] = [];
             }
@@ -217,12 +223,12 @@ export default function Diary() {
         emptyContainer: {
             alignItems: "center",
             justifyContent: "center",
-            paddingVertical: 60,
+            paddingVertical: 80,
         },
         emptyText: {
-            fontSize: 16,
-            fontFamily: "Inter-Medium",
-            color: colors.text.secondary,
+            fontSize: 20,
+            fontFamily: fontFamily.semibold,
+            color: colors.text.primary,
             marginTop: 16,
         },
         button: {
@@ -253,27 +259,40 @@ export default function Diary() {
                 renderSectionHeader={renderSectionHeader}
                 contentContainerStyle={{
                     padding: 16,
+                    paddingTop: 0,
                     paddingBottom: 100,
                 }}
                 ListEmptyComponent={
                     <View style={styles.emptyContainer}>
-                        <NoteIcon size={48} color={colors.text.secondary} />
+                        <NoteIcon size={80} color={colors.text.secondary} />
+                        
                         <Text style={styles.emptyText}>
                             Nenhum registro ainda.
                         </Text>
-                        <Description style={{ marginTop: 8 }}>
-                            Adicione seu primeiro registro para começar a acompanhar sua jornada.
-                        </Description>
+
+                        <Text
+                            style={{
+                                marginTop: 8,
+                                textAlign: 'center',
+                                fontSize: 16,
+                                lineHeight: 24,
+                                fontFamily: fontFamily.medium,
+                                color: colors.text.secondary
+                            }}
+                        >
+                            Adicione seu primeiro registro para{'\n'} começar a acompanhar sua jornada.
+                        </Text>
                     </View>
                 }
                 ListHeaderComponent={
-                    <View style={{ marginBottom: 24 }}>
+                    <View>
                         <Heading fontSize="LARGE">
                             Diário de Atividades
                         </Heading>
-                        <Description style={{ marginTop: 8 }}>
+
+                        <Title color="SECONDARY" style={{ marginTop: 8 }}>
                             Registre suas atividades diárias e acompanhe seu progresso.
-                        </Description>
+                        </Title>
                     </View>
                 }
             />
@@ -293,5 +312,3 @@ export default function Diary() {
         </View>
     );
 }
-
-// Styles serão criados dinamicamente no componente

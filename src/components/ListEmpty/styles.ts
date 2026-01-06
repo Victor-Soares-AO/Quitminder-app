@@ -8,14 +8,14 @@ export const styles = StyleSheet.create({
         marginTop: 64,
         paddingHorizontal: 48
     },
-    heading: {
-        fontSize: 20,
-        color: colors.text.secondary,
-        fontFamily: fontFamily.semibold,
-        textAlign: 'center',
-        marginBottom: 8,
-        marginTop: 16
-    },
+    // heading: {
+    //     fontSize: 20,
+    //     color: colors.text.secondary,
+    //     fontFamily: fontFamily.semibold,
+    //     textAlign: 'center',
+    //     marginBottom: 8,
+    //     marginTop: 16
+    // },
     text: {
         fontSize: 16,
         lineHeight: 24,

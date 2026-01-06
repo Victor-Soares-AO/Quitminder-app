@@ -21,6 +21,7 @@ import { Title } from "@/components/Text/Title";
 import { HabitInput } from "@/components/HabitInput";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { HabitNumericInput } from "@/components/Inputs/HabitNumericInput";
+import { Loading } from "@/components/Loading";
 
 import { colors, fontFamily } from "@/theme";
 import { habitColors } from "@/utils/habitColors";
@@ -30,13 +31,20 @@ import { useAffirmationDatabase } from "@/database/useAffirmationDatabase";
 import { getIconCategories } from "@/constants/icons/getIconCategories";
 import { currencies } from "@/constants/currencies";
 import { useLanguage } from "@/contexts/useLanguage";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function EditHabit() {
 
     const params = useLocalSearchParams();
     const { language } = useLanguage();
+    const { t } = useTranslation();
 
     const iconCategories = getIconCategories(language);
+
+    // Detectar se está editando ou criando
+    const habitIdParam = Array.isArray(params.id) ? params.id[0] : params.id;
+    const isEditing = habitIdParam && !isNaN(Number(habitIdParam));
+    const habitId = isEditing ? Number(habitIdParam) : null;
 
     // Usar useEffect para garantir que os parâmetros sejam lidos corretamente
     const [name, setName] = useState("");
@@ -60,10 +68,11 @@ export default function EditHabit() {
     const [selectedColor, setSelectedColor] = useState("#F44336");
     const [modalVisible, setModalVisible] = useState(false);
     const [currencyModalVisible, setCurrencyModalVisible] = useState(false);
+    const [loading, setLoading] = useState(isEditing);
 
     const IconComponent = PhosphorIcons[selectedIcon];
 
-    const { create } = useHabitDatabase();
+    const { create, update, show } = useHabitDatabase();
     const { create: createAffirmation } = useAffirmationDatabase();
 
     const DEFAULT_AFFIRMATIONS = [
@@ -72,25 +81,74 @@ export default function EditHabit() {
         "Estou no controle das minhas escolhas.",
     ];
 
-    // Carregar parâmetros apenas uma vez quando a tela é montada
+    // Carregar dados do hábito se estiver editando
     useEffect(() => {
-        const nameParam = Array.isArray(params.name) ? params.name[0] : params.name;
-        const iconParam = Array.isArray(params.icon) ? params.icon[0] : params.icon;
-        const colorParam = Array.isArray(params.color) ? params.color[0] : params.color;
+        const loadHabitData = async () => {
+            if (isEditing && habitId) {
+                try {
+                    setLoading(true);
+                    const habitData = await show(habitId);
+                    
+                    if (habitData) {
+                        setName(habitData.name || "");
+                        setSelectedIcon(habitData.cover || "Star");
+                        setSelectedColor(habitData.color || "#F44336");
+                        setDefaultCurrency(habitData.default_currency || "AOA");
+                        setTime(habitData.daily_spent_time || 0);
+                        setAmount(habitData.daily_spent_money || 0);
+                        setAmountDisplay(habitData.daily_spent_money ? habitData.daily_spent_money.toString().replace(".", ",") : "");
+                        
+                        // Formatar tempo
+                        if (habitData.daily_spent_time > 0) {
+                            const formatted = formatDuration(habitData.daily_spent_time);
+                            setFormattedTime(formatted);
+                        }
+                        
+                        // Carregar e formatar data
+                        if (habitData.last_relapse_date) {
+                            const habitDate = new Date(habitData.last_relapse_date);
+                            setDate(habitDate);
+                            
+                            const formatted = new Intl.DateTimeFormat("pt-PT", {
+                                year: "numeric",
+                                month: "short",
+                                day: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                timeZone: "UTC",
+                            }).format(habitDate);
+                            
+                            setFormattedDate(formatted);
+                        }
+                    }
+                } catch (error) {
+                    console.error("Erro ao carregar hábito:", error);
+                    Alert.alert("Erro", "Não foi possível carregar os dados do hábito.");
+                } finally {
+                    setLoading(false);
+                }
+            } else {
+                // Se não está editando, carregar parâmetros de criação
+                const nameParam = Array.isArray(params.name) ? params.name[0] : params.name;
+                const iconParam = Array.isArray(params.icon) ? params.icon[0] : params.icon;
+                const colorParam = Array.isArray(params.color) ? params.color[0] : params.color;
 
-        // Inicializar apenas se os parâmetros existirem
-        // Isso só acontece uma vez na montagem, depois o usuário pode editar livremente
-        if (nameParam) {
-            setName(nameParam);
-        }
-        if (iconParam) {
-            setSelectedIcon(iconParam);
-        }
-        if (colorParam) {
-            setSelectedColor(colorParam);
-        }
+                if (nameParam) {
+                    setName(nameParam);
+                }
+                if (iconParam) {
+                    setSelectedIcon(iconParam);
+                }
+                if (colorParam) {
+                    setSelectedColor(colorParam);
+                }
+                setLoading(false);
+            }
+        };
+
+        loadHabitData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []); // Array vazio = executa apenas uma vez na montagem, não reseta quando params muda
+    }, []); // Array vazio = executa apenas uma vez na montagem
 
     const handleSaveHabit = async () => {
         if (!name.trim()) {
@@ -104,23 +162,39 @@ export default function EditHabit() {
         }
 
         try {
-            const habitId = await create({
-                name: name.trim(),
-                cover: selectedIcon,
-                color: selectedColor,
-                last_relapse_date: date,
-                daily_spent_time: time,
-                daily_spent_money: amount,
-                default_currency: defaultCurrency,
-            });
+            if (isEditing && habitId) {
+                // Atualizar hábito existente
+                await update(habitId, {
+                    name: name.trim(),
+                    cover: selectedIcon,
+                    color: selectedColor,
+                    last_relapse_date: date,
+                    daily_spent_time: time,
+                    daily_spent_money: amount,
+                    default_currency: defaultCurrency,
+                });
+            } else {
+                // Criar novo hábito
+                const newHabitId = await create({
+                    name: name.trim(),
+                    cover: selectedIcon,
+                    color: selectedColor,
+                    last_relapse_date: date,
+                    daily_spent_time: time,
+                    daily_spent_money: amount,
+                    default_currency: defaultCurrency,
+                });
 
-            // Criar afirmações padrão automaticamente
-            for (const text of DEFAULT_AFFIRMATIONS) {
-                await createAffirmation({ habit_id: habitId, text });
+                // Criar afirmações padrão automaticamente apenas para novos hábitos
+                for (const text of DEFAULT_AFFIRMATIONS) {
+                    await createAffirmation({ habit_id: newHabitId, text });
+                }
             }
 
             router.back();
-            router.back(); // Voltar duas vezes para sair do modal
+            if (!isEditing) {
+                router.back(); // Voltar duas vezes apenas se estava criando (para sair do modal)
+            }
         } catch (error) {
             console.error(error);
             Alert.alert("Erro", "Não foi possível salvar o hábito.");
@@ -194,6 +268,11 @@ export default function EditHabit() {
 
         setTimePickerVisibility(false);
     };
+
+    // Mostrar loading enquanto carrega dados do hábito
+    if (loading) {
+        return <Loading />;
+    }
 
     return (
         <View style={{ flex: 1 }}>
@@ -469,8 +548,9 @@ export default function EditHabit() {
             </KeyboardAwareScrollView>
             <View style={styles.footer}>
                 <PrimaryButton
-                    label="Concluir"
+                    label={loading ? t("common.loading") : (isEditing ? t("common.save") : t("common.finish"))}
                     onPress={handleSaveHabit}
+                    disabled={loading}
                 />
             </View>
         </View >

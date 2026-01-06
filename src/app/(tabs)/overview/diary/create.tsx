@@ -69,7 +69,7 @@ export default function CreateRecord() {
                 await updateHabit(habit.id, {
                     last_relapse_date: dateTime,
                 });
-                
+
                 // Recarregar o hábito no contexto para atualizar a tela Overview
                 const updatedHabit = await showHabit(habit.id);
                 if (updatedHabit) {
@@ -135,7 +135,10 @@ export default function CreateRecord() {
                 contentContainerStyle={styles.scrollContent}
             >
                 <View style={styles.header}>
-                    <Title fontSize="LARGE">Novo Registro</Title>
+                    <Title fontSize="LARGE">
+                        Novo Registro
+                    </Title>
+
                     <Description style={{ marginTop: 8 }}>
                         Registre sua atividade diária e acompanhe seu progresso.
                     </Description>
@@ -146,9 +149,9 @@ export default function CreateRecord() {
                         <View style={styles.switchLabel}>
                             <Title>Praticou o hábito?</Title>
                             <Description fontSize="SMALL" style={{ marginTop: 4 }}>
-                            {isReset 
-                                ? "Este registro irá resetar seu tempo de abstinência" 
-                                : "Registro de atividade sem recaída"}
+                                {isReset
+                                    ? "Este registro irá resetar seu tempo de abstinência"
+                                    : "Registro de atividade sem recaída"}
                             </Description>
                         </View>
                         <Switch
@@ -161,7 +164,10 @@ export default function CreateRecord() {
                 </View>
 
                 <View style={styles.group}>
-                    <Title color="SECONDARY">Data e Hora</Title>
+                    <Title color="SECONDARY">
+                        Data e Hora
+                    </Title>
+
                     <HabitInput
                         Icon={CalendarDotsIcon}
                         iconWeight="regular"
@@ -242,6 +248,7 @@ export default function CreateRecord() {
                     onCancel={() => setDateTimePickerVisibility(false)}
                     confirmTextIOS="Confirmar"
                     cancelTextIOS="Cancelar"
+                    maximumDate={new Date()}
                     display="spinner"
                 />
 
@@ -252,6 +259,8 @@ export default function CreateRecord() {
                     onCancel={() => setTimePickerVisibility(false)}
                     confirmTextIOS="Confirmar"
                     cancelTextIOS="Cancelar"
+                    minimumDate={new Date(2024, 0, 1, 0, 0, 0, 0)}
+                    maximumDate={new Date(2024, 0, 1, 23, 59, 0, 0)}
                     display="spinner"
                 />
             </KeyboardAwareScrollView>

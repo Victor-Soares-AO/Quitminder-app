@@ -173,6 +173,7 @@ export const translations = {
             reasons: "Razões de Desistir",
             options: "Opções",
             shareProgress: "Partilhar Progresso",
+            editHabit: "Editar Hábito",
             deleteHabit: "Deletar Hábito",
         },
         // Quote
@@ -354,6 +355,7 @@ export const translations = {
             reasons: "Reasons to Quit",
             options: "Options",
             shareProgress: "Share Progress",
+            editHabit: "Edit Habit",
             deleteHabit: "Delete Habit",
         },
         // Quote

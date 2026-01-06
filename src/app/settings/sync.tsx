@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
-import { StyleSheet, ScrollView, View, Alert, ActivityIndicator, Text } from "react-native";
+import { StyleSheet, ScrollView, View, Alert, ActivityIndicator, Text, TouchableOpacity } from "react-native";
 import { router, useFocusEffect } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { CloudArrowUpIcon, CloudArrowDownIcon, ArrowsClockwiseIcon, SignOutIcon } from "phosphor-react-native";
+import { CloudArrowUpIcon, CloudArrowDownIcon, ArrowsClockwiseIcon, SignOutIcon, UserSwitchIcon } from "phosphor-react-native";
 import { useSQLiteContext } from "expo-sqlite";
 
 import { Header } from "@/components/Header";
@@ -85,7 +85,7 @@ export default function SyncSettings() {
         try {
             setSyncing(true);
             const result = await uploadToCloud(database);
-            
+
             if (result.success) {
                 Alert.alert(
                     "Sucesso",
@@ -114,15 +114,15 @@ export default function SyncSettings() {
         try {
             setSyncing(true);
             const result = await downloadFromCloud(database);
-            
+
             if (result.success) {
                 // Navegar de volta para a tela principal para forçar atualização da UI
                 Alert.alert(
                     "Sucesso",
                     "Dados baixados da nuvem com sucesso!",
                     [
-                        { 
-                            text: "OK", 
+                        {
+                            text: "OK",
                             onPress: () => {
                                 // Navegar para a tela principal para forçar refresh
                                 router.replace("/");
@@ -151,15 +151,15 @@ export default function SyncSettings() {
 
         try {
             setSyncing(true);
-            
+
             // Primeiro fazer upload
             const uploadResult = await uploadToCloud(database);
-            
+
             // Depois fazer download
             const downloadResult = await downloadFromCloud(database);
-            
+
             const allConflicts = [...uploadResult.conflicts, ...downloadResult.conflicts];
-            
+
             if (allConflicts.length > 0) {
                 // Navegar para tela de resolução de conflitos
                 router.push({
@@ -170,11 +170,11 @@ export default function SyncSettings() {
                 });
             } else {
                 Alert.alert(
-                    "Sucesso", 
-                    "Sincronização concluída com sucesso!", 
+                    "Sucesso",
+                    "Sincronização concluída com sucesso!",
                     [
-                        { 
-                            text: "OK", 
+                        {
+                            text: "OK",
                             onPress: () => {
                                 // Navegar para a tela principal para forçar refresh
                                 router.replace("/");
@@ -206,29 +206,31 @@ export default function SyncSettings() {
 
     return (
         <SafeAreaView style={[styles.container, { backgroundColor: colors.background.primary }]}>
-            <Header transparent>
-                <IconButton
-                    Icon={X}
-                    IconWeight="bold"
-                    onPress={() => router.back()}
-                />
-            </Header>
+            <Header transparent />
 
             <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
                 <View style={styles.header}>
                     <Heading fontSize="LARGE" style={styles.heading}>
                         Sincronização
                     </Heading>
-                    <Description style={styles.description}>
+
+                    <Title color="SECONDARY" style={styles.description}>
                         Sincronize seus dados com a nuvem para acessá-los em qualquer dispositivo.
-                    </Description>
+                    </Title>
                 </View>
 
                 {!user ? (
                     <View style={[styles.section, { backgroundColor: colors.background.secondary }]}>
-                        <Description style={styles.sectionDescription}>
-                            Você precisa criar uma conta ou fazer login para sincronizar seus dados.
-                        </Description>
+                        <View style={{ alignItems: 'center', gap: 8 }}>
+                            <UserSwitchIcon
+                                size={80}
+                            />
+
+                            <Text style={styles.sectionDescription}>
+                                Você precisa criar uma conta ou fazer login para sincronizar seus dados.
+                            </Text>
+                        </View>
+
                         <PrimaryButton
                             label="Criar conta ou fazer login"
                             onPress={() => router.push("/settings/sync/auth")}
@@ -236,52 +238,68 @@ export default function SyncSettings() {
                     </View>
                 ) : (
                     <>
-                        <View style={[styles.section, { backgroundColor: colors.background.secondary }]}>
+                        <View
+                            style={[
+                                styles.sectionCard,
+                                {
+                                    backgroundColor: colors.background.secondary,
+                                    flexDirection: 'row',
+                                    alignItems: 'center'
+                                }
+                            ]}
+                        >
                             <View style={styles.userInfo}>
-                                <Title fontSize="MEDIUM">Conectado como</Title>
-                                <Description>{user.email || "Usuário"}</Description>
+                                <Title fontSize="LARGE">
+                                    Conectado como
+                                </Title>
+
+                                <Description>
+                                    {user.email || "Usuário"}
+                                </Description>
                             </View>
-                            <PrimaryButton
-                                label="Sair"
-                                Icon={SignOutIcon}
-                                onPress={handleSignOut}
-                                style={styles.signOutButton}
-                            />
+
+                            <TouchableOpacity onPress={handleSignOut}>
+                                <SignOutIcon color="red" />
+                            </TouchableOpacity>
                         </View>
 
-                        <View style={[styles.section, { backgroundColor: colors.background.secondary }]}>
-                            <Title fontSize="MEDIUM" style={styles.sectionTitle}>
-                                Sincronização
-                            </Title>
-                            <Description style={styles.sectionDescription}>
-                                Escolha como deseja sincronizar seus dados:
-                            </Description>
+                        <View
+                            style={[
+                                styles.section2,
+                                { backgroundColor: colors.background.secondary }
+                            ]}
+                        >
+                            <View>
+                                <Title fontSize="LARGE">
+                                    Sincronização
+                                </Title>
 
-                            <View style={styles.buttonGroup}>
-                                <PrimaryButton
-                                    label="Enviar para nuvem"
-                                    Icon={CloudArrowUpIcon}
-                                    onPress={handleUpload}
-                                    disabled={syncing}
-                                    style={styles.syncButton}
-                                />
+                                <Description style={styles.sectionDescription}>
+                                    Escolha como deseja sincronizar seus dados:
+                                </Description>
+                            </View>
 
-                                <PrimaryButton
-                                    label="Baixar da nuvem"
-                                    Icon={CloudArrowDownIcon}
-                                    onPress={handleDownload}
-                                    disabled={syncing}
-                                    style={styles.syncButton}
-                                />
+                            <PrimaryButton
+                                label="Enviar para nuvem"
+                                Icon={CloudArrowUpIcon}
+                                onPress={handleUpload}
+                                disabled={syncing}
+                            />
 
+                            <PrimaryButton
+                                label="Baixar da nuvem"
+                                Icon={CloudArrowDownIcon}
+                                onPress={handleDownload}
+                                disabled={syncing}
+                            />
+
+                            {/* 
                                 <PrimaryButton
                                     label="Sincronizar (Bidirecional)"
                                     Icon={ArrowsClockwiseIcon}
                                     onPress={handleSync}
                                     disabled={syncing}
-                                    style={styles.syncButton}
-                                />
-                            </View>
+                                />*/}
 
                             {syncing && (
                                 <View style={styles.syncingContainer}>
@@ -326,27 +344,37 @@ const styles = StyleSheet.create({
         marginBottom: 32,
     },
     section: {
+        alignItems: 'center',
         borderRadius: 12,
+        gap: 8,
+        padding: 16,
+
+        marginBottom: 24,
+    },
+    section2: {
+        borderRadius: 12,
+        gap: 8,
         padding: 16,
         marginBottom: 24,
     },
-    sectionTitle: {
-        marginBottom: 8,
+    sectionCard: {
+        borderRadius: 12,
+        gap: 8,
+        padding: 16,
+        marginBottom: 24,
     },
     sectionDescription: {
+        fontSize: 16,
+        lineHeight: 24,
         marginBottom: 16,
+        textAlign: 'center'
     },
     userInfo: {
-        marginBottom: 16,
-    },
-    signOutButton: {
-        marginTop: 8,
+        flex: 1
     },
     buttonGroup: {
+        flex: 1,
         gap: 12,
-    },
-    syncButton: {
-        marginTop: 8,
     },
     syncingContainer: {
         flexDirection: "row",

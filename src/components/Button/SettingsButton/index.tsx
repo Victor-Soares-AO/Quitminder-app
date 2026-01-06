@@ -1,4 +1,4 @@
-import { Switch, TouchableOpacity, TouchableOpacityProps, View } from "react-native";
+import { ColorValue, Switch, TouchableOpacity, TouchableOpacityProps, View } from "react-native";
 
 import { Title } from "@/components/Text/Title";
 
@@ -12,15 +12,16 @@ type Props = TouchableOpacityProps & {
     Icon: React.FC<IconProps>;
     iconWeight?: IconWeight;
     isSwitch?: boolean;
+    iconBackground?: string;
 }
 
-export function SettingsButton({ label, Icon, iconWeight = "fill", isSwitch = false, ...rest }: Props) {
+export function SettingsButton({ label, Icon, iconWeight = "fill", isSwitch = false, iconBackground = "#1c1c1e", ...rest }: Props) {
     return (
         <TouchableOpacity style={styles.container} {...rest}>
             <View style={styles.cover}>
                 <Icon
-                    color="#000"
-                    size={20}
+                    color={iconBackground}
+                    size={24}
                     weight={iconWeight}
                 />
             </View>
@@ -32,7 +33,7 @@ export function SettingsButton({ label, Icon, iconWeight = "fill", isSwitch = fa
             {isSwitch ? <Switch
                 value={isSwitch}
                 onValueChange={rest.onPress ? () => rest.onPress?.() : () => {}}
-                trackColor={{ false: colors.gray[300], true: colors.text.primary }}
+                trackColor={{ false: colors.gray[300], true: '#007FFA' }}
                 thumbColor={colors.white}
             /> : <CaretRightIcon
                 size={16}
