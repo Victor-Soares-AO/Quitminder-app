@@ -114,9 +114,10 @@ export default function AuthScreen() {
                     </View>
 
                     <View style={styles.inputGroup}>
-                        <Title fontSize="SMALL" style={styles.label}>
+                        <Title style={styles.label}>
                             Senha
                         </Title>
+
                         <View style={styles.passwordContainer}>
                             <TextInput
                                 style={[styles.passwordInput, { 
@@ -203,6 +204,7 @@ const styles = StyleSheet.create({
     },
     inputGroup: {
         marginBottom: 20,
+        gap: 8
     },
     label: {
         marginBottom: 8,

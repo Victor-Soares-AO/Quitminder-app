@@ -42,9 +42,12 @@ export default function EditHabit() {
     const iconCategories = getIconCategories(language);
 
     // Detectar se está editando ou criando
+    // Quando está criando, sempre usa "1" como placeholder na rota, então precisamos verificar
+    // se realmente existe um hábito com esse ID antes de assumir que está editando
     const habitIdParam = Array.isArray(params.id) ? params.id[0] : params.id;
-    const isEditing = habitIdParam && !isNaN(Number(habitIdParam));
-    const habitId = isEditing ? Number(habitIdParam) : null;
+    const potentialHabitId = habitIdParam && !isNaN(Number(habitIdParam)) ? Number(habitIdParam) : null;
+    const [isEditing, setIsEditing] = useState(false);
+    const [habitId, setHabitId] = useState<number | null>(null);
 
     // Usar useEffect para garantir que os parâmetros sejam lidos corretamente
     const [name, setName] = useState("");
@@ -84,12 +87,16 @@ export default function EditHabit() {
     // Carregar dados do hábito se estiver editando
     useEffect(() => {
         const loadHabitData = async () => {
-            if (isEditing && habitId) {
+            // Primeiro, tentar verificar se realmente existe um hábito com esse ID
+            if (potentialHabitId) {
                 try {
                     setLoading(true);
-                    const habitData = await show(habitId);
+                    const habitData = await show(potentialHabitId);
                     
                     if (habitData) {
+                        // Hábito encontrado, estamos editando
+                        setIsEditing(true);
+                        setHabitId(potentialHabitId);
                         setName(habitData.name || "");
                         setSelectedIcon(habitData.cover || "Star");
                         setSelectedColor(habitData.color || "#F44336");
@@ -120,15 +127,52 @@ export default function EditHabit() {
                             
                             setFormattedDate(formatted);
                         }
+                    } else {
+                        // Não encontrou hábito, então é criação
+                        setIsEditing(false);
+                        setHabitId(null);
+                        // Carregar parâmetros de criação
+                        const nameParam = Array.isArray(params.name) ? params.name[0] : params.name;
+                        const iconParam = Array.isArray(params.icon) ? params.icon[0] : params.icon;
+                        const colorParam = Array.isArray(params.color) ? params.color[0] : params.color;
+
+                        if (nameParam) {
+                            setName(nameParam);
+                        }
+                        if (iconParam) {
+                            setSelectedIcon(iconParam);
+                        }
+                        if (colorParam) {
+                            setSelectedColor(colorParam);
+                        }
                     }
                 } catch (error) {
-                    console.error("Erro ao carregar hábito:", error);
-                    Alert.alert("Erro", "Não foi possível carregar os dados do hábito.");
+                    // Erro ao buscar ou não encontrado, então é criação
+                    console.log("Hábito não encontrado ou erro ao buscar, assumindo criação:", error);
+                    setIsEditing(false);
+                    setHabitId(null);
+                    // Carregar parâmetros de criação
+                    const nameParam = Array.isArray(params.name) ? params.name[0] : params.name;
+                    const iconParam = Array.isArray(params.icon) ? params.icon[0] : params.icon;
+                    const colorParam = Array.isArray(params.color) ? params.color[0] : params.color;
+
+                    if (nameParam) {
+                        setName(nameParam);
+                    }
+                    if (iconParam) {
+                        setSelectedIcon(iconParam);
+                    }
+                    if (colorParam) {
+                        setSelectedColor(colorParam);
+                    }
                 } finally {
                     setLoading(false);
                 }
             } else {
-                // Se não está editando, carregar parâmetros de criação
+                // Sem ID, definitivamente é criação
+                setIsEditing(false);
+                setHabitId(null);
+                // Carregar parâmetros de criação
                 const nameParam = Array.isArray(params.name) ? params.name[0] : params.name;
                 const iconParam = Array.isArray(params.icon) ? params.icon[0] : params.icon;
                 const colorParam = Array.isArray(params.color) ? params.color[0] : params.color;

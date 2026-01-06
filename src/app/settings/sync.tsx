@@ -152,20 +152,14 @@ export default function SyncSettings() {
         try {
             setSyncing(true);
 
-            // Primeiro fazer upload
-            const uploadResult = await uploadToCloud(database);
+            const result = await syncData(database);
 
-            // Depois fazer download
-            const downloadResult = await downloadFromCloud(database);
-
-            const allConflicts = [...uploadResult.conflicts, ...downloadResult.conflicts];
-
-            if (allConflicts.length > 0) {
+            if (result.conflicts.length > 0) {
                 // Navegar para tela de resolução de conflitos
                 router.push({
                     pathname: "/settings/sync/conflicts",
                     params: {
-                        conflicts: JSON.stringify(allConflicts),
+                        conflicts: JSON.stringify(result.conflicts),
                     },
                 });
             } else {
@@ -293,13 +287,12 @@ export default function SyncSettings() {
                                 disabled={syncing}
                             />
 
-                            {/* 
-                                <PrimaryButton
-                                    label="Sincronizar (Bidirecional)"
-                                    Icon={ArrowsClockwiseIcon}
-                                    onPress={handleSync}
-                                    disabled={syncing}
-                                />*/}
+                            <PrimaryButton
+                                label="Sincronizar (Bidirecional)"
+                                Icon={ArrowsClockwiseIcon}
+                                onPress={handleSync}
+                                disabled={syncing}
+                            />
 
                             {syncing && (
                                 <View style={styles.syncingContainer}>
