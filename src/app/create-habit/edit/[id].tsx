@@ -69,12 +69,14 @@ export default function EditHabit() {
         "Estou no controle das minhas escolhas.",
     ];
 
-    // Carregar parâmetros quando a tela for montada
+    // Carregar parâmetros apenas uma vez quando a tela é montada
     useEffect(() => {
         const nameParam = Array.isArray(params.name) ? params.name[0] : params.name;
         const iconParam = Array.isArray(params.icon) ? params.icon[0] : params.icon;
         const colorParam = Array.isArray(params.color) ? params.color[0] : params.color;
 
+        // Inicializar apenas se os parâmetros existirem
+        // Isso só acontece uma vez na montagem, depois o usuário pode editar livremente
         if (nameParam) {
             setName(nameParam);
         }
@@ -84,7 +86,8 @@ export default function EditHabit() {
         if (colorParam) {
             setSelectedColor(colorParam);
         }
-    }, [params]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // Array vazio = executa apenas uma vez na montagem, não reseta quando params muda
 
     const handleSaveHabit = async () => {
         if (!name.trim()) {
@@ -133,6 +136,15 @@ export default function EditHabit() {
         const localDate = new Date(
             selectedDate.getTime() - selectedDate.getTimezoneOffset() * 60000
         );
+        
+        // Verificar se a data selecionada é no futuro
+        const now = new Date();
+        if (localDate > now) {
+            Alert.alert("Data inválida", "Não é possível selecionar uma data no futuro. Por favor, escolha uma data e hora no passado.");
+            setDateTimePickerVisibility(false);
+            return;
+        }
+        
         console.warn("A date has been picked: ", localDate);
         setDate(localDate);
 
@@ -202,6 +214,7 @@ export default function EditHabit() {
                                 placeholderTextColor={colors.gray[400]}
                                 onChangeText={setName}
                                 value={name}
+                                editable={true}
                             />
                         </View>
 
@@ -298,6 +311,7 @@ export default function EditHabit() {
                             confirmTextIOS="Confirmar"
                             cancelTextIOS="Cancelar"
                             display="spinner"
+                            maximumDate={new Date()}
                         />
 
                         <DateTimePickerModal

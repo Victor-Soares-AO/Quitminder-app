@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { StyleSheet, ScrollView, View, Alert } from "react-native";
 import { router } from "expo-router";
 
-import { BellIcon, LockKeyIcon } from "phosphor-react-native";
+import { BellIcon, LockKeyIcon, CloudIcon } from "phosphor-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Header } from "@/components/Header";
@@ -63,6 +63,13 @@ export default function Settings() {
                         iconWeight="fill"
                         isSwitch={privacyLockEnabled}
                         onPress={() => handlePrivacyLockToggle(!privacyLockEnabled)}
+                    />
+
+                    <SettingsButton
+                        label="Sincronização"
+                        Icon={CloudIcon}
+                        iconWeight="fill"
+                        onPress={() => router.push("/settings/sync")}
                     />
                 </View>
 
