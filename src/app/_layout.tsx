@@ -1,4 +1,4 @@
-import React, { Suspense, useState, ReactNode } from "react";
+import { Suspense, ReactNode } from "react";
 
 import { Stack } from "expo-router";
 import { SQLiteProvider } from "expo-sqlite";
@@ -10,20 +10,21 @@ import {
     Inter_700Bold,
 } from "@expo-google-fonts/inter";
 
-import { Loading } from "@/components/Loading";
+import LockScreen from "./lock";
 
-import { migrate } from "@/database/migrations/migrate";
+import { Loading } from "@/components/Loading";
 
 import { HabitProvider } from "@/contexts/HabitContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ThemeProvider, useThemeContext } from "@/contexts/ThemeContext";
 import { PrivacyLockProvider, usePrivacyLock } from "@/contexts/PrivacyLockContext";
-import { SafeAreaView } from "react-native-safe-area-context";
+
 import { getColors } from "@/theme/getColors";
-import LockScreen from "./lock";
+import { migrate } from "@/database/migrations/migrate";
 import { useNotificationsInit } from "@/hooks/useNotificationsInit";
 
 function RootLayoutContent() {
+
     const { isDark } = useThemeContext();
     const { isLocked } = usePrivacyLock();
     const colors = getColors(isDark);
@@ -48,7 +49,9 @@ function RootLayoutContent() {
             >
                 <Stack.Screen name="onboarding" />
                 <Stack.Screen name="index" />
-                <Stack.Screen name="edit-habit/[id]" />
+                {/*
+                <Stack.Screen name="create-habit/edit/[id]" />
+                */}
                 <Stack.Screen name="(tabs)" />
                 <Stack.Screen
                     name="create-habit"

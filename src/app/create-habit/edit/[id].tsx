@@ -1,5 +1,5 @@
+import { useState, useEffect } from "react";
 import { router, useLocalSearchParams } from "expo-router";
-import React, { useState, useEffect } from "react";
 import {
     View,
     Text,
@@ -15,10 +15,8 @@ import {
 
 import * as PhosphorIcons from "phosphor-react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import { Header } from "@/components/Header";
 import { Title } from "@/components/Text/Title";
 import { HabitInput } from "@/components/HabitInput";
 import { PrimaryButton } from "@/components/PrimaryButton";
@@ -30,11 +28,11 @@ import { formatDuration } from "@/utils/formatDuration";
 import { useHabitDatabase } from "@/database/useHabitDatabase";
 import { useAffirmationDatabase } from "@/database/useAffirmationDatabase";
 import { getIconCategories } from "@/constants/icons/getIconCategories";
-import { currencies, Currency } from "@/constants/currencies";
+import { currencies } from "@/constants/currencies";
 import { useLanguage } from "@/contexts/useLanguage";
 
 export default function EditHabit() {
-    const insets = useSafeAreaInsets();
+
     const params = useLocalSearchParams();
     const { language } = useLanguage();
 
@@ -51,6 +49,11 @@ export default function EditHabit() {
     const [time, setTime] = useState(0);
     const [formattedDate, setFormattedDate] = useState("");
     const [formattedTime, setFormattedTime] = useState("");
+    // Inicializar com uma data fixa e independente para o seletor de tempo
+    const [timePickerDate, setTimePickerDate] = useState<Date>(() => {
+        const fixedDate = new Date(2024, 0, 1, 0, 0, 0, 0);
+        return fixedDate;
+    });
     const [amount, setAmount] = useState(0);
     const [amountDisplay, setAmountDisplay] = useState("");
     const [defaultCurrency, setDefaultCurrency] = useState("AOA");
@@ -129,6 +132,17 @@ export default function EditHabit() {
     };
 
     const showTimePicker = () => {
+        // Sempre criar uma data completamente nova e independente
+        // Usar uma data base fixa para garantir que não há dependência com a data selecionada
+        const baseDate = new Date(2024, 0, 1, 0, 0, 0, 0); // Data fixa: 1 de janeiro de 2024, meia-noite
+        if (time > 0) {
+            // Converter minutos totais para horas e minutos
+            const hours = Math.floor(time / 60);
+            const minutes = time % 60;
+            baseDate.setHours(hours, minutes, 0, 0);
+        }
+        // Criar uma nova instância completamente independente e isolada
+        setTimePickerDate(new Date(baseDate.getTime()));
         setTimePickerVisibility(true);
     };
 
@@ -168,6 +182,11 @@ export default function EditHabit() {
 
         const totalMinutes = hours * 60 + minutes;
         setTime(totalMinutes);
+
+        // Criar uma nova data fixa com apenas as horas e minutos selecionados
+        // Isso garante que não há dependência com qualquer outra data
+        const newTimeDate = new Date(2024, 0, 1, hours, minutes, 0, 0);
+        setTimePickerDate(newTimeDate);
 
         // Gera o texto formatado
         const formatted = formatDuration(totalMinutes);
@@ -315,8 +334,12 @@ export default function EditHabit() {
                         />
 
                         <DateTimePickerModal
+                            key="time-picker-independent"
                             isVisible={isTimePickerVisible}
                             mode="time"
+                            date={timePickerDate}
+                            minimumDate={new Date(2024, 0, 1, 0, 0, 0, 0)}
+                            maximumDate={new Date(2024, 0, 1, 23, 59, 0, 0)}
                             onConfirm={handleTimePickerConfirm}
                             onCancel={() => setTimePickerVisibility(false)}
                             confirmTextIOS="Confirmar"
