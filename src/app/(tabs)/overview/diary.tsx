@@ -10,12 +10,12 @@ import {
 
 import { PlusIcon } from "phosphor-react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { 
-    ClockIcon, 
-    CurrencyDollarIcon, 
-    NoteIcon, 
-    XCircleIcon, 
-    CheckCircleIcon 
+import {
+    ClockIcon,
+    CurrencyDollarIcon,
+    NoteIcon,
+    XCircleIcon,
+    CheckCircleIcon
 } from "phosphor-react-native";
 
 import { Header } from "@/components/Header";
@@ -242,14 +242,7 @@ export default function Diary() {
     });
 
     return (
-        <View
-            style={[
-                styles.container,
-                {
-                    paddingTop: insets.top + 80,
-                }
-            ]}
-        >
+        <View style={[styles.container, { paddingTop: insets.top + 80, }]}>
             <Header transparent />
 
             <SectionList
@@ -265,7 +258,7 @@ export default function Diary() {
                 ListEmptyComponent={
                     <View style={styles.emptyContainer}>
                         <NoteIcon size={80} color={colors.text.secondary} />
-                        
+
                         <Text style={styles.emptyText}>
                             Nenhum registro ainda.
                         </Text>

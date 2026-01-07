@@ -94,6 +94,11 @@ export default function TabsLayout() {
                     name="overview/affirmations"
                     options={{ href: null, tabBarStyle: { display: "none" } }}
                 />
+
+                <Tabs.Screen
+                    name="overview/journey-analysis"
+                    options={{ href: null, tabBarStyle: { display: "none" } }}
+                />
             </Tabs>
     );
 }

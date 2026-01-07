@@ -9,7 +9,8 @@ import {
     ChatCenteredDotsIcon,
     ExportIcon,
     HeartbeatIcon,
-    LightbulbFilamentIcon
+    LightbulbFilamentIcon,
+    PencilSimpleIcon
 } from "phosphor-react-native";
 
 import { Loading } from "@/components/Loading";
@@ -25,6 +26,7 @@ import { Header } from "@/components/Header";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Heading } from "@/components/Text/Heading";
 import { useTranslation } from "@/hooks/useTranslation";
+import { IconButton } from "@/components/IconButton";
 
 const { width } = Dimensions.get("window");
 
@@ -152,7 +154,12 @@ export default function Overview() {
 
     return (
         <React.Fragment>
-            <Header transparent />
+            <Header transparent>
+                <IconButton
+                    Icon={PencilSimpleIcon}
+                    onPress={() => router.push(`/create-habit/edit/${habitId}`)}
+                />
+            </Header>
 
             <ScrollView style={styles.container} bounces={false}>
                 {/* Highlight */}
@@ -222,50 +229,31 @@ export default function Overview() {
                             onPress={() => router.navigate("/(tabs)/overview/affirmations")}
                         />
 
-                        {/*
-                        <SettingButton
-                            Icon={HeartbeatIcon}
-                            title={t("overview.diagnostic")}
-                            backgroundColor="#6366F1"
-                        />
-                        */}
-
                         <SettingButton
                             Icon={LightbulbFilamentIcon}
                             title={t("overview.reasons")}
                             backgroundColor="#FF453A"
-                            rounded="bottom"
                             onPress={() => router.navigate("/(tabs)/overview/reasons")}
+                        />
+
+                        <SettingButton
+                            Icon={HeartbeatIcon}
+                            title="Análise da Jornada"
+                            backgroundColor="#6366F1"
+                            rounded="bottom"
+                            onPress={() => router.push(`/(tabs)/overview/journey-analysis?id=${habitId}`)}
                         />
                     </View>
 
                     <Text style={styles.groupTitle}>
                         {t("overview.options")}
                     </Text>
-                    
-                    {/*
-                    <View style={styles.group}>
-                        <SettingButton
-                            Icon={ExportIcon}
-                            iconWeight="bold"
-                            title={t("overview.shareProgress")}
-                            backgroundColor="#3A3A3C"
-                            rounded="full"
-                        />
-                    </View>
-                    */}
 
-                    <View style={styles.buttonGroup}>
-                        <PrimaryButton
-                            label={t("overview.editHabit")}
-                            onPress={() => router.push(`/create-habit/edit/${habitId}`)}
-                        />
-
-                        <PrimaryButton
-                            label={t("overview.deleteHabit")}
-                            onPress={handleDeleteHabit}
-                        />
-                    </View>
+                    <PrimaryButton
+                        label={t("overview.deleteHabit")}
+                        onPress={handleDeleteHabit}
+                        Icon={PhosphorIcons.TrashIcon}
+                    />
                 </View>
             </ScrollView>
         </React.Fragment>
@@ -309,6 +297,6 @@ const styles = StyleSheet.create({
     },
     buttonGroup: {
         gap: 12,
-        marginTop: 24
+        //marginTop: 24
     }
 })
