@@ -22,6 +22,7 @@ import { CaretLeft, CaretRight, X, CheckCircleIcon, XCircleIcon, ClockIcon, Curr
 import { formatDuration } from "@/utils/formatDuration";
 import { router } from "expo-router";
 import { useTranslation } from "@/hooks/useTranslation";
+import { normalizeDateToYYYYMMDD, parseDateStringToYYYYMMDD, isToday } from "@/utils/dateUtils";
 
 type DayStatus = "empty" | "abstinence" | "relapse";
 
@@ -118,12 +119,13 @@ export default function Calendar() {
         // Adicionar dias do mês atual
         for (let day = 1; day <= daysInMonth; day++) {
             const date = new Date(year, month, day);
-            const dateKey = date.toISOString().split('T')[0];
+            // CORREÇÃO: Usar normalização local em vez de toISOString() que causa bug de timezone
+            const dateKey = normalizeDateToYYYYMMDD(date);
 
             // Buscar registros deste dia
+            // CORREÇÃO: Comparar strings YYYY-MM-DD diretamente, sem depender de timezone
             const dayRecords = recordsData.filter((record) => {
-                const recordDate = new Date(record.date_time);
-                const recordDateKey = recordDate.toISOString().split('T')[0];
+                const recordDateKey = parseDateStringToYYYYMMDD(record.date_time);
                 return recordDateKey === dateKey;
             });
 
@@ -185,9 +187,8 @@ export default function Calendar() {
     };
 
     const renderDay = (dayData: DayData, index: number) => {
-        const isToday =
-            dayData.isCurrentMonth &&
-            dayData.date.toDateString() === new Date().toDateString();
+        // CORREÇÃO: Usar função utilitária que compara apenas o dia, sem depender de timezone
+        const isTodayDay = dayData.isCurrentMonth && isToday(dayData.date);
 
         return (
             <TouchableOpacity
@@ -195,17 +196,20 @@ export default function Calendar() {
                 style={[
                     styles.day,
                     !dayData.isCurrentMonth && styles.dayOtherMonth,
-                    isToday && styles.dayToday,
+                    isTodayDay && styles.dayToday,
+                    dayData.isCurrentMonth && dayData.status === "relapse" && styles.dayWithRelapse,
+                    dayData.isCurrentMonth && dayData.status === "abstinence" && styles.dayWithAbstinence,
                 ]}
                 onPress={() => handleDayPress(dayData)}
                 disabled={!dayData.isCurrentMonth || dayData.records.length === 0}
-                activeOpacity={0.7}
+                activeOpacity={0.6}
             >
                 <Text
                     style={[
                         styles.dayText,
                         !dayData.isCurrentMonth && styles.dayTextOtherMonth,
-                        isToday && styles.dayTextToday,
+                        isTodayDay && styles.dayTextToday,
+                        dayData.isCurrentMonth && dayData.status === "relapse" && styles.dayTextRelapse,
                     ]}
                 >
                     {dayData.day}
@@ -403,19 +407,27 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         marginTop: 24,
-        marginBottom: 24,
+        marginBottom: 20,
+        paddingHorizontal: 4,
     },
     monthNavButton: {
         padding: 8,
+        borderRadius: 8,
+        minWidth: 40,
+        minHeight: 40,
+        justifyContent: "center",
+        alignItems: "center",
     },
     monthText: {
-        fontSize: 18,
+        fontSize: 20,
         fontFamily: fontFamily.semibold,
         color: colors.text.primary,
+        letterSpacing: -0.3,
     },
     weekHeader: {
         flexDirection: "row",
-        marginBottom: 8,
+        marginBottom: 12,
+        paddingHorizontal: 4,
     },
     weekDay: {
         flex: 1,
@@ -423,13 +435,16 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
     },
     weekDayText: {
-        fontSize: 12,
-        fontFamily: fontFamily.medium,
+        fontSize: 11,
+        fontFamily: fontFamily.semibold,
         color: colors.text.secondary,
+        textTransform: "uppercase",
+        letterSpacing: 0.5,
     },
     calendarGrid: {
         flexDirection: "row",
         flexWrap: "wrap",
+        paddingHorizontal: 4,
     },
     day: {
         width: "14.28%",
@@ -437,31 +452,46 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         position: "relative",
+        marginVertical: 2,
+        borderRadius: 10,
     },
     dayOtherMonth: {
-        opacity: 0.3,
+        opacity: 0.25,
     },
     dayToday: {
         backgroundColor: colors.gray[100],
-        borderRadius: 8,
+        borderWidth: 2,
+        borderColor: colors.text.primary,
+    },
+    dayWithRelapse: {
+        backgroundColor: "rgba(255, 69, 58, 0.08)",
+    },
+    dayWithAbstinence: {
+        backgroundColor: "rgba(52, 199, 89, 0.08)",
     },
     dayText: {
-        fontSize: 14,
+        fontSize: 15,
         fontFamily: fontFamily.medium,
         color: colors.text.primary,
     },
     dayTextOtherMonth: {
         color: colors.text.tertiary,
+        fontFamily: fontFamily.regular,
     },
     dayTextToday: {
+        fontFamily: fontFamily.bold,
+        color: colors.text.primary,
+    },
+    dayTextRelapse: {
+        color: "#FF453A",
         fontFamily: fontFamily.semibold,
     },
     statusIndicator: {
         position: "absolute",
-        bottom: 4,
-        width: 6,
-        height: 6,
-        borderRadius: 3,
+        bottom: 6,
+        width: 5,
+        height: 5,
+        borderRadius: 2.5,
     },
     statusIndicatorAbstinence: {
         backgroundColor: "#34C759",
@@ -472,18 +502,21 @@ const styles = StyleSheet.create({
     legend: {
         flexDirection: "row",
         justifyContent: "center",
-        gap: 24,
-        marginTop: 24,
+        gap: 20,
+        marginTop: 20,
+        paddingTop: 16,
+        borderTopWidth: 1,
+        borderTopColor: colors.gray[100],
     },
     legendItem: {
         flexDirection: "row",
         alignItems: "center",
-        gap: 8,
+        gap: 6,
     },
     legendIndicator: {
-        width: 12,
-        height: 12,
-        borderRadius: 6,
+        width: 10,
+        height: 10,
+        borderRadius: 5,
     },
     modalOverlay: {
         flex: 1,

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useFocusEffect } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import {
     ChartLineUpIcon,
@@ -12,6 +12,10 @@ import { Header } from "@/components/Header";
 import { Loading } from "@/components/Loading";
 import { Title } from "@/components/Text/Title";
 import { Description } from "@/components/Text/Description";
+import { EmptyState } from "@/components/EmptyState";
+import { PrimaryButton } from "@/components/PrimaryButton";
+import { BookOpenTextIcon } from "phosphor-react-native";
+import { router } from "expo-router";
 
 import { colors, fontFamily } from "@/theme";
 import { useColors } from "@/hooks/useColors";
@@ -31,12 +35,9 @@ export default function JourneyAnalysisScreen() {
     const [analysis, setAnalysis] = useState<JourneyAnalysis | null>(null);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetchRecords();
-    }, [habitId]);
-
     const fetchRecords = async () => {
         try {
+            setLoading(true);
             const data = await database.getAllAsync<HabitRecordResponse>(`
                 SELECT *
                 FROM habit_records
@@ -53,9 +54,25 @@ export default function JourneyAnalysisScreen() {
         }
     };
 
+    // Carregar dados quando o habitId mudar
+    useEffect(() => {
+        fetchRecords();
+    }, [habitId]);
+
+    // Recarregar dados sempre que a tela receber foco (volta de outras telas)
+    useFocusEffect(
+        useCallback(() => {
+            fetchRecords();
+        }, [habitId])
+    );
+
     if (loading) {
         return <Loading />;
     }
+
+    // Verificar se há registros suficientes para análise
+    const hasRelapses = records.some(r => r.is_reset === 1);
+    const hasNoData = records.length === 0 || !hasRelapses;
 
     const styles = StyleSheet.create({
         container: {
@@ -130,18 +147,75 @@ export default function JourneyAnalysisScreen() {
             fontFamily: fontFamily.medium,
             color: colorsTheme.text.primary,
         },
-        triggerTag: {
-            backgroundColor: colorsTheme.gray[100],
-            paddingHorizontal: 12,
-            paddingVertical: 6,
+        triggerItem: {
+            backgroundColor: colorsTheme.background.primary,
             borderRadius: 12,
-            marginRight: 8,
-            marginTop: 8,
+            padding: 12,
+            borderWidth: 1,
+            borderColor: colorsTheme.gray[100],
         },
-        triggerText: {
-            fontSize: 13,
+        triggerContent: {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: 8,
+        },
+        triggerLabel: {
+            fontSize: 14,
+            fontFamily: fontFamily.semibold,
+            color: colorsTheme.text.primary,
+            flex: 1,
+        },
+        triggerTypeBadge: {
+            paddingHorizontal: 8,
+            paddingVertical: 4,
+            borderRadius: 8,
+            marginLeft: 8,
+        },
+        triggerTypeText: {
+            fontSize: 10,
+            fontFamily: fontFamily.semibold,
+            color: colorsTheme.white,
+            textTransform: 'uppercase',
+            letterSpacing: 0.5,
+        },
+        confidenceBar: {
+            height: 3,
+            backgroundColor: colorsTheme.gray[100],
+            borderRadius: 2,
+            overflow: 'hidden',
+        },
+        confidenceFill: {
+            height: '100%',
+            borderRadius: 2,
+        },
+        insightItem: {
+            backgroundColor: colorsTheme.background.primary,
+            borderRadius: 12,
+            padding: 16,
+            borderWidth: 1,
+            borderColor: colorsTheme.gray[100],
+        },
+        insightText: {
+            fontSize: 14,
             fontFamily: fontFamily.medium,
             color: colorsTheme.text.primary,
+            lineHeight: 20,
+            marginBottom: 12,
+        },
+        insightTriggers: {
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            gap: 8,
+        },
+        insightTriggerTag: {
+            paddingHorizontal: 10,
+            paddingVertical: 6,
+            borderRadius: 8,
+        },
+        insightTriggerText: {
+            fontSize: 12,
+            fontFamily: fontFamily.semibold,
         },
         emptyState: {
             padding: 24,
@@ -179,26 +253,67 @@ export default function JourneyAnalysisScreen() {
         return period.charAt(0).toUpperCase() + period.slice(1);
     };
 
+    const getTriggerTypeColor = (type: string) => {
+        switch (type) {
+            case 'temporal':
+                return '#0A84FF';
+            case 'emocional':
+                return '#FF9500';
+            case 'social':
+                return '#AF52DE';
+            case 'comportamental':
+                return '#34C759';
+            case 'contextual':
+                return '#5856D6';
+            default:
+                return colorsTheme.gray[400];
+        }
+    };
+
+    const getTriggerTypeLabel = (type: string) => {
+        switch (type) {
+            case 'temporal':
+                return 'Temporal';
+            case 'emocional':
+                return 'Emocional';
+            case 'social':
+                return 'Social';
+            case 'comportamental':
+                return 'Comportamental';
+            case 'contextual':
+                return 'Contextual';
+            default:
+                return type;
+        }
+    };
+
     return (
         <View style={[{ flex: 1 }]}>
             <Header transparent />
 
             <ScrollView style={[styles.container, { paddingTop: insets.top + 56, }]}>
                 <View style={styles.wrapper}>
-                    {/* Card de Risco Hoje */}
-                    {analysis && (
-                        <View style={styles.riskCard}>
-                            <Text style={[styles.riskScore, { color: getRiskColor(analysis.riskLevel) }]}>
-                                {analysis.riskScore}
-                            </Text>
-                            <Text style={[styles.riskLabel, { color: getRiskColor(analysis.riskLevel) }]}>
-                                Risco {analysis.riskLevel}
-                            </Text>
-                            <Text style={styles.riskDescription}>
-                                Com base no seu histórico recente
-                            </Text>
-                        </View>
-                    )}
+                    {hasNoData ? (
+                        <EmptyState
+                            title="Ainda não existem registos suficientes para analisar a sua jornada."
+                            message="Adicione registos diários para visualizar análises e padrões aqui."
+                        />
+                    ) : (
+                        <>
+                            {/* Card de Risco Hoje */}
+                            {analysis && (
+                                <View style={styles.riskCard}>
+                                    <Text style={[styles.riskScore, { color: getRiskColor(analysis.riskLevel) }]}>
+                                        {analysis.riskScore}
+                                    </Text>
+                                    <Text style={[styles.riskLabel, { color: getRiskColor(analysis.riskLevel) }]}>
+                                        Risco {analysis.riskLevel}
+                                    </Text>
+                                    <Text style={styles.riskDescription}>
+                                        Com base no seu histórico recente
+                                    </Text>
+                                </View>
+                            )}
 
                     {/* Card de Padrões Identificados */}
                     <View style={styles.card}>
@@ -267,26 +382,132 @@ export default function JourneyAnalysisScreen() {
                         )}
                     </View>
 
-                    {/* Card de Gatilhos Frequentes */}
-                    {analysis && analysis.frequentTriggers.length > 0 && (
-                        <View style={styles.card}>
-                            <Title fontWeight="SEMIBOLD">
-                                Gatilhos Frequentes
-                            </Title>
-                            <Description>
-                                Termos mais mencionados nos seus registros
-                            </Description>
+                            {/* Card de Insights Combinados */}
+                            {analysis && analysis.combinedInsights && analysis.combinedInsights.length > 0 && (
+                                <View style={styles.card}>
+                                    <Title fontWeight="SEMIBOLD">
+                                        Padrões Identificados
+                                    </Title>
+                                    <Description>
+                                        Combinações de gatilhos que aparecem juntos
+                                    </Description>
 
-                            <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 8 }}>
-                                {analysis.frequentTriggers.map((trigger, index) => (
-                                    <View key={index} style={styles.triggerTag}>
-                                        <Text style={styles.triggerText}>
-                                            {trigger}
-                                        </Text>
+                                    <View style={{ gap: 16, marginTop: 12 }}>
+                                        {analysis.combinedInsights.map((insight, index) => (
+                                            <View key={index} style={styles.insightItem}>
+                                                <Text style={styles.insightText}>
+                                                    {insight.text}
+                                                </Text>
+                                                <View style={styles.insightTriggers}>
+                                                    {insight.triggers.map((trigger, tIndex) => (
+                                                        <View 
+                                                            key={tIndex} 
+                                                            style={[
+                                                                styles.insightTriggerTag,
+                                                                { backgroundColor: getTriggerTypeColor(trigger.type) + '20' }
+                                                            ]}
+                                                        >
+                                                            <Text style={[
+                                                                styles.insightTriggerText,
+                                                                { color: getTriggerTypeColor(trigger.type) }
+                                                            ]}>
+                                                                {trigger.label}
+                                                            </Text>
+                                                        </View>
+                                                    ))}
+                                                </View>
+                                            </View>
+                                        ))}
                                     </View>
-                                ))}
+                                </View>
+                            )}
+
+                            {/* Card de Sugestão Contextual */}
+                            {analysis && analysis.contextualSuggestion && (
+                                <View style={styles.card}>
+                                    <Title fontWeight="SEMIBOLD">
+                                        Sugestão
+                                    </Title>
+                                    <Description style={{ marginTop: 8, lineHeight: 20, marginBottom: 16 }}>
+                                        {analysis.contextualSuggestion.text}
+                                    </Description>
+                                    <PrimaryButton
+                                        onPress={() => {
+                                            // Navegar para o hub educacional, passando a categoria relacionada se houver
+                                            const params = analysis.contextualSuggestion?.category 
+                                                ? { category: analysis.contextualSuggestion.category }
+                                                : {};
+                                            router.push({
+                                                pathname: '/educational-hub',
+                                                params
+                                            });
+                                        }}
+                                        Icon={BookOpenTextIcon}
+                                        label="Explorar conteúdos relacionados"
+                                        backgroundColor={colorsTheme.background.primary}
+                                    />
+                                </View>
+                            )}
+
+                            {/* Card do Hub Educacional (sempre visível) */}
+                            <View style={styles.card}>
+                                <Title fontWeight="SEMIBOLD">
+                                    Hub Educativo
+                                </Title>
+                                <Description style={{ marginTop: 8, lineHeight: 20, marginBottom: 16 }}>
+                                    Conteúdos organizados por intenção para apoiar sua jornada de autoconsciência e mudança.
+                                </Description>
+                                <PrimaryButton
+                                    onPress={() => router.push('/educational-hub')}
+                                    Icon={BookOpenTextIcon}
+                                    label="Explorar Hub Educativo"
+                                    backgroundColor={colorsTheme.background.primary}
+                                />
                             </View>
-                        </View>
+
+                            {/* Card de Gatilhos Frequentes */}
+                            {analysis && analysis.semanticTriggers && analysis.semanticTriggers.length > 0 && (
+                                <View style={styles.card}>
+                                    <Title fontWeight="SEMIBOLD">
+                                        Gatilhos Frequentes
+                                    </Title>
+                                    <Description>
+                                        Padrões identificados nos seus registros
+                                    </Description>
+
+                                    <View style={{ gap: 12, marginTop: 8 }}>
+                                        {analysis.semanticTriggers.map((trigger, index) => (
+                                            <View key={index} style={styles.triggerItem}>
+                                                <View style={styles.triggerContent}>
+                                                    <Text style={styles.triggerLabel}>
+                                                        {trigger.label}
+                                                    </Text>
+                                                    <View style={[
+                                                        styles.triggerTypeBadge,
+                                                        { backgroundColor: getTriggerTypeColor(trigger.type) }
+                                                    ]}>
+                                                        <Text style={styles.triggerTypeText}>
+                                                            {getTriggerTypeLabel(trigger.type)}
+                                                        </Text>
+                                                    </View>
+                                                </View>
+                                                <View style={styles.confidenceBar}>
+                                                    <View 
+                                                        style={[
+                                                            styles.confidenceFill,
+                                                            { 
+                                                                width: `${trigger.confidence * 100}%`,
+                                                                backgroundColor: getTriggerTypeColor(trigger.type)
+                                                            }
+                                                        ]} 
+                                                    />
+                                                </View>
+                                            </View>
+                                        ))}
+                                    </View>
+                                </View>
+                            )}
+                        </>
                     )}
                 </View>
             </ScrollView>

@@ -35,7 +35,7 @@ export default function EditRecord() {
     const { id } = useLocalSearchParams();
     const recordId = Number(id);
     const { habit, setHabit } = useHabit();
-    const { show, update, remove, getLastResetRecord } = useHabitRecordDatabase();
+    const { show, update, remove, getLastResetRecord, listByHabit } = useHabitRecordDatabase();
     const { update: updateHabit, show: showHabit } = useHabitDatabase();
 
     const [isEditing, setIsEditing] = useState(false);
@@ -109,36 +109,16 @@ export default function EditRecord() {
                 currency: habit.default_currency || null,
             });
 
-            // Lógica para atualizar last_relapse_date do hábito
-            if (willBeReset) {
-                // Se agora é reset, usar a data deste registro
-                await updateHabit(habit.id, {
-                    last_relapse_date: dateTime,
-                });
-            } else if (wasReset && !willBeReset) {
-                // Se mudou de reset para não-reset, buscar o último registro de recaída
-                const lastResetRecord = await getLastResetRecord(habit.id);
-                
-                if (lastResetRecord) {
-                    // Se existe outro registro de recaída, usar a data dele
-                    await updateHabit(habit.id, {
-                        last_relapse_date: new Date(lastResetRecord.date_time),
-                    });
-                } else {
-                    // Se não há mais registros de recaída, usar a data de criação do hábito
-                    const currentHabit = await showHabit(habit.id);
-                    if (currentHabit?.created_at) {
-                        await updateHabit(habit.id, {
-                            last_relapse_date: new Date(currentHabit.created_at),
-                        });
-                    }
-                }
-            } else if (wasReset && willBeReset) {
-                // Se já era reset e continua reset, atualizar a data se necessário
-                await updateHabit(habit.id, {
-                    last_relapse_date: dateTime,
-                });
-            }
+            // Recalcular last_relapse_date baseado em TODOS os registros
+            // Isso garante que sempre use a recaída cronologicamente mais recente
+            const allRecords = await listByHabit(habit.id);
+            const { calculateLastRelapseDate } = await import("@/utils/calculateLastRelapse");
+            const lastRelapseDate = calculateLastRelapseDate(allRecords);
+            
+            // Atualizar last_relapse_date do hábito com a recaída mais recente
+            await updateHabit(habit.id, {
+                last_relapse_date: lastRelapseDate ? new Date(lastRelapseDate) : null,
+            });
 
             // Recarregar o hábito no contexto
             const updatedHabit = await showHabit(habit.id);
@@ -175,30 +155,21 @@ export default function EditRecord() {
                         try {
                             await remove(recordId);
 
-                            // Se o registro apagado era uma recaída, recalcular last_relapse_date
-                            if (wasReset) {
-                                const lastResetRecord = await getLastResetRecord(habit.id);
-                                
-                                if (lastResetRecord) {
-                                    // Se existe outro registro de recaída, usar a data dele
-                                    await updateHabit(habit.id, {
-                                        last_relapse_date: new Date(lastResetRecord.date_time),
-                                    });
-                                } else {
-                                    // Se não há mais registros de recaída, usar a data de criação do hábito
-                                    const updatedHabit = await showHabit(habit.id);
-                                    if (updatedHabit?.created_at) {
-                                        await updateHabit(habit.id, {
-                                            last_relapse_date: new Date(updatedHabit.created_at),
-                                        });
-                                    }
-                                }
+                            // Recalcular last_relapse_date baseado em TODOS os registros
+                            // Isso garante que sempre use a recaída cronologicamente mais recente
+                            const allRecords = await listByHabit(habit.id);
+                            const { calculateLastRelapseDate } = await import("@/utils/calculateLastRelapse");
+                            const lastRelapseDate = calculateLastRelapseDate(allRecords);
+                            
+                            // Atualizar last_relapse_date do hábito com a recaída mais recente
+                            await updateHabit(habit.id, {
+                                last_relapse_date: lastRelapseDate ? new Date(lastRelapseDate) : null,
+                            });
 
-                                // Recarregar o hábito no contexto
-                                const updatedHabit = await showHabit(habit.id);
-                                if (updatedHabit) {
-                                    setHabit(updatedHabit);
-                                }
+                            // Recarregar o hábito no contexto
+                            const updatedHabit = await showHabit(habit.id);
+                            if (updatedHabit) {
+                                setHabit(updatedHabit);
                             }
 
                             router.back();

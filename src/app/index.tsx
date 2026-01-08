@@ -15,11 +15,10 @@ import { PrimaryButton } from "@/components/PrimaryButton";
 import { QuoteOfTheDay } from "@/components/QuoteOfTheDay";
 
 import { colors } from "@/theme";
-import { HabitResponseDTO } from "@/dtos/habit.dto";
 import { ONBOARDING_COLLECTION } from "@/storage/storageConfig";
 import { useHabitDatabase } from "@/database/useHabitDatabase";
+import { useHabitRecordDatabase, HabitRecordResponse } from "@/database/useHabitRecordDatabase";
 import { useHabit } from "@/contexts/useHabit";
-import GlassContainerDemo from "@/components/GlassContainerDemo";
 import { useTranslation } from "@/hooks/useTranslation";
 
 export type HabitCardProps = {
@@ -28,6 +27,7 @@ export type HabitCardProps = {
     cover: string;
     color: string;
     lastRelapseDate: string;
+    records?: HabitRecordResponse[]; // Adicionar records para cálculo preciso
 };
 
 
@@ -39,6 +39,7 @@ export default function Index() {
     const [habits, setHabits] = useState<HabitCardProps[]>([]);
 
     const habitDatabase = useHabitDatabase();
+    const { listByHabit } = useHabitRecordDatabase();
     const { setHabit } = useHabit();
     const { t } = useTranslation();
 
@@ -65,13 +66,31 @@ export default function Index() {
 
             const response = await habitDatabase.list();
 
-            const formatted = response.map((item) => ({
-                id: String(item.id),
-                name: item.name,
-                color: item.color,
-                cover: item.cover,
-                lastRelapseDate: item.last_relapse_date
-            }));
+            // Carregar registros de cada hábito para cálculo preciso da última recaída
+            const formatted = await Promise.all(
+                response.map(async (item) => {
+                    try {
+                        const records = await listByHabit(item.id);
+                        return {
+                            id: String(item.id),
+                            name: item.name,
+                            color: item.color,
+                            cover: item.cover,
+                            lastRelapseDate: item.last_relapse_date,
+                            records // Adicionar records para cálculo preciso
+                        };
+                    } catch (error) {
+                        console.error(`Erro ao carregar registros do hábito ${item.id}:`, error);
+                        return {
+                            id: String(item.id),
+                            name: item.name,
+                            color: item.color,
+                            cover: item.cover,
+                            lastRelapseDate: item.last_relapse_date
+                        };
+                    }
+                })
+            );
 
             setHabits(formatted);
         } catch (error) {
@@ -109,6 +128,7 @@ export default function Index() {
                             cover={item.cover}
                             name={item.name}
                             lastRelapseDate={item.lastRelapseDate}
+                            records={item.records}
                             // onPress={() => router.navigate(`/(tabs)/overview/${item.id}`)}
                             onPress={async () => {
                                 try {
@@ -131,7 +151,7 @@ export default function Index() {
                         <View style={{ paddingTop: 80 }}>
                             <HomeHeader />
                             <QuoteOfTheDay />
-                            <View style={{ paddingHorizontal: 16, marginTop: 16 }}>
+                            <View style={{ paddingHorizontal: 16, marginTop: 16, gap: 12 }}>
                                 <PrimaryButton
                                     onPress={() => router.navigate('/create-habit')}
                                     Icon={PlusIcon}

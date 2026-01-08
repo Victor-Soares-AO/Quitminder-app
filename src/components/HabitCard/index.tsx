@@ -10,15 +10,17 @@ import { calculateAbstinence } from "@/utils/calculateAbstinence";
 import { useTranslation } from "@/hooks/useTranslation";
 import { StyleSheet } from "react-native";
 import { fontFamily } from "@/theme";
+import { HabitRecordResponse } from "@/database/useHabitRecordDatabase";
 
 type Props = TouchableOpacityProps & {
     name: string;
     cover: string;
     color: string;
-    lastRelapseDate: string;
+    lastRelapseDate?: string | null; // Mantido para compatibilidade
+    records?: HabitRecordResponse[]; // Prioridade: usar records para cálculo preciso
 }
 
-export function HabitCard({ name, cover = 'StarIcon', color, lastRelapseDate, ...rest }: Props) {
+export function HabitCard({ name, cover = 'StarIcon', color, lastRelapseDate, records, ...rest }: Props) {
     const { t } = useTranslation();
     const colors = useColors();
     const IconComponent = PhosphorIcons[cover];
@@ -61,13 +63,23 @@ export function HabitCard({ name, cover = 'StarIcon', color, lastRelapseDate, ..
     });
 
     // Atualiza o contador em tempo real
+    // PRIORIDADE: Se records for fornecido, calcular a partir dos registros reais
+    // Isso garante que sempre use a recaída cronologicamente mais recente
     useEffect(() => {
-        const update = () => setAbstinenceTime(calculateAbstinence(lastRelapseDate));
+        const update = () => {
+            if (records && records.length > 0) {
+                // Calcular a partir dos registros reais (sempre usa a recaída mais recente)
+                setAbstinenceTime(calculateAbstinence(null, records));
+            } else {
+                // Fallback: usar lastRelapseDate se records não disponível
+                setAbstinenceTime(calculateAbstinence(lastRelapseDate));
+            }
+        };
         update(); // calcula imediatamente
         const interval = setInterval(update, 1000);
 
         return () => clearInterval(interval);
-    }, [lastRelapseDate]);
+    }, [lastRelapseDate, records]);
 
     return (
         <TouchableOpacity

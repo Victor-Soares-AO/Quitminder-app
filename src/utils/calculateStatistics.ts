@@ -26,15 +26,15 @@ function formatAbstinencePeriod(ms: number): string {
     return `${minutes} minuto${minutes !== 1 ? "s" : ""}`;
 }
 
+import { getAllRelapsesOrdered, getLastRelapse } from "./calculateLastRelapse";
+
 export function calculateStatistics(
     records: HabitRecordResponse[],
     habitCreatedAt: string,
-    habitLastRelapseDate: string | null
+    habitLastRelapseDate: string | null // Mantido para compatibilidade, mas não usado
 ): Statistics {
-    // Filtrar apenas recaídas (is_reset = 1) e ordenar por data
-    const relapses = records
-        .filter((r) => r.is_reset === 1)
-        .sort((a, b) => new Date(a.date_time).getTime() - new Date(b.date_time).getTime());
+    // Usar função centralizada para garantir ordenação correta
+    const relapses = getAllRelapsesOrdered(records);
 
     const totalRelapses = relapses.length;
 
@@ -67,12 +67,16 @@ export function calculateStatistics(
             }
         }
 
-        // Período final: da última recaída até agora (ou até habitLastRelapseDate se diferente)
-        const lastRelapse = new Date(relapses[relapses.length - 1].date_time);
-        const endDate = new Date(); // Sempre usar a data atual para o período final
-        const finalPeriod = endDate.getTime() - lastRelapse.getTime();
-        if (finalPeriod > 0) {
-            abstinencePeriods.push(finalPeriod);
+        // Período final: da última recaída até agora
+        // Usar função centralizada para garantir que pegamos a recaída mais recente
+        const lastRelapseRecord = getLastRelapse(records);
+        if (lastRelapseRecord) {
+            const lastRelapse = new Date(lastRelapseRecord.date_time);
+            const endDate = new Date(); // Sempre usar a data atual para o período final
+            const finalPeriod = endDate.getTime() - lastRelapse.getTime();
+            if (finalPeriod > 0) {
+                abstinencePeriods.push(finalPeriod);
+            }
         }
     }
 

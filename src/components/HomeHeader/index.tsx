@@ -14,12 +14,11 @@ export function HomeHeader() {
                 QuitMinder
             </Text>
 
-
             <View style={styles.wrapper}>
                 <IconButton
                     Icon={BookBookmarkIcon}
                     IconWeight="fill"
-                    onPress={() => router.navigate('/settings')}
+                    onPress={() => router.push('/educational-hub')}
                 />
 
                 <IconButton

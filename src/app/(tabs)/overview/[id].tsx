@@ -22,6 +22,7 @@ import { colors, fontFamily } from "@/theme";
 import { HabitResponseDTO } from "@/dtos/habit.dto";
 import { useHabitDatabase } from "@/database/useHabitDatabase";
 import { useAffirmationDatabase } from "@/database/useAffirmationDatabase";
+import { useHabitRecordDatabase, HabitRecordResponse } from "@/database/useHabitRecordDatabase";
 import { Header } from "@/components/Header";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Heading } from "@/components/Text/Heading";
@@ -35,6 +36,7 @@ export default function Overview() {
     const insets = useSafeAreaInsets();
 
     const [habit, setHabit] = useState<HabitResponseDTO>(null);
+    const [records, setRecords] = useState<HabitRecordResponse[]>([]);
 
     const [affirmations, setAffirmations] = useState<string[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -42,6 +44,7 @@ export default function Overview() {
     const slideAnim = useRef(new Animated.Value(0)).current;
 
     const affirmationDatabase = useAffirmationDatabase();
+    const { listByHabit } = useHabitRecordDatabase();
 
     const { id } = useLocalSearchParams();
     const habitId = Number(id);
@@ -82,14 +85,25 @@ export default function Overview() {
         }
     };
 
+    const fetchRecords = async () => {
+        try {
+            const data = await listByHabit(habitId);
+            setRecords(data);
+        } catch (error) {
+            console.error("Erro ao buscar registros:", error);
+        }
+    };
+
     useEffect(() => {
         fetchHabit();
+        fetchRecords();
     }, [habitId]);
 
-    // Recarregar hábito quando a tela recebe foco (volta de outras telas)
+    // Recarregar hábito e registros quando a tela recebe foco (volta de outras telas)
     useFocusEffect(
         useCallback(() => {
             fetchHabit();
+            fetchRecords(); // Recarregar registros para cálculo preciso da última recaída
         }, [habitId])
     );
 
@@ -207,7 +221,7 @@ export default function Overview() {
 
                 {/* Conteúdo */}
                 <View style={styles.wrapper}>
-                    <AbstinenceCard lastRelapseDate={habit.last_relapse_date} />
+                    <AbstinenceCard records={records} lastRelapseDate={habit.last_relapse_date} />
 
                     <Text style={styles.groupTitle}>
                         {t("overview.myJourney")}

@@ -30,7 +30,7 @@ import { useHabitDatabase } from "@/database/useHabitDatabase";
 export default function CreateRecord() {
     const insets = useSafeAreaInsets();
     const { habit, setHabit } = useHabit();
-    const { create } = useHabitRecordDatabase();
+    const { create, listByHabit } = useHabitRecordDatabase();
     const { update: updateHabit, show: showHabit } = useHabitDatabase();
 
     const [title, setTitle] = useState("");
@@ -64,17 +64,21 @@ export default function CreateRecord() {
                 currency: habit.default_currency || null,
             });
 
-            // Se is_reset = 1, atualizar last_relapse_date do hábito
-            if (isReset) {
-                await updateHabit(habit.id, {
-                    last_relapse_date: dateTime,
-                });
+            // Recalcular last_relapse_date baseado em TODOS os registros
+            // Isso garante que sempre use a recaída cronologicamente mais recente
+            const allRecords = await listByHabit(habit.id);
+            const { calculateLastRelapseDate } = await import("@/utils/calculateLastRelapse");
+            const lastRelapseDate = calculateLastRelapseDate(allRecords);
+            
+            // Atualizar last_relapse_date do hábito com a recaída mais recente
+            await updateHabit(habit.id, {
+                last_relapse_date: lastRelapseDate ? new Date(lastRelapseDate) : null,
+            });
 
-                // Recarregar o hábito no contexto para atualizar a tela Overview
-                const updatedHabit = await showHabit(habit.id);
-                if (updatedHabit) {
-                    setHabit(updatedHabit);
-                }
+            // Recarregar o hábito no contexto para atualizar a tela Overview
+            const updatedHabit = await showHabit(habit.id);
+            if (updatedHabit) {
+                setHabit(updatedHabit);
             }
 
             router.back();

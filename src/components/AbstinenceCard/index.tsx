@@ -10,20 +10,36 @@ import { Heading } from "@/components/Text/Heading";
 import { calculateAbstinence } from "@/utils/calculateAbstinence";
 import { useColors } from "@/hooks/useColors";
 import { StyleSheet } from "react-native";
+import { HabitRecordResponse } from "@/database/useHabitRecordDatabase";
 
-export function AbstinenceCard({ lastRelapseDate }) {
+type Props = {
+    lastRelapseDate?: string | null; // Mantido para compatibilidade
+    records?: HabitRecordResponse[]; // Prioridade: usar records para cálculo preciso
+};
+
+export function AbstinenceCard({ lastRelapseDate, records }: Props) {
     const colors = useColors();
     const [abstinenceTime, setAbstinenceTime] = useState("0d 0h 0m 0s");
 
     // Atualiza o contador em tempo real
+    // PRIORIDADE: Se records for fornecido, calcular a partir dos registros reais
+    // Isso garante que sempre use a recaída cronologicamente mais recente
     useEffect(() => {
-        const update = () => setAbstinenceTime(calculateAbstinence(lastRelapseDate));
+        const update = () => {
+            if (records && records.length > 0) {
+                // Calcular a partir dos registros reais (sempre usa a recaída mais recente)
+                setAbstinenceTime(calculateAbstinence(null, records));
+            } else {
+                // Fallback: usar lastRelapseDate se records não disponível
+                setAbstinenceTime(calculateAbstinence(lastRelapseDate));
+            }
+        };
         update();
 
         const interval = setInterval(update, 1000);
 
         return () => clearInterval(interval);
-    }, [lastRelapseDate]);
+    }, [lastRelapseDate, records]);
 
     const styles = StyleSheet.create({
         container: {
