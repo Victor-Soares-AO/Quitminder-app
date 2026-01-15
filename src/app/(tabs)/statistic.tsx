@@ -1,30 +1,47 @@
-import { useState, useEffect, useCallback } from "react";
-import { ProgressCard } from "@/components/Card/ProgressCard";
-import { Header } from "@/components/Header";
-import { Heading } from "@/components/Text/Heading";
-import { IconButton } from "@/components/IconButton";
-import { Description } from "@/components/Text/Description";
-import { Title } from "@/components/Text/Title";
-import { useHabit } from "@/contexts/useHabit";
-import { colors } from "@/theme";
-import { calculateStatistics } from "@/utils/calculateStatistics";
-import { useHabitRecordDatabase } from "@/database/useHabitRecordDatabase";
-import { ArrowLeftIcon, ClockIcon, CreditCardIcon, HourglassHighIcon, HourglassLowIcon, HourglassMediumIcon, InfinityIconIcon, StarIcon } from "phosphor-react-native";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useFocusEffect } from "expo-router";
-import { useTranslation } from "@/hooks/useTranslation";
-import { ChartCard } from "@/components/Chart/ChartCard";
-import { HorizontalBarChart } from "@/components/Chart/HorizontalBarChart";
-import { Sparkline } from "@/components/Chart/Sparkline";
+
+import { useState, useEffect, useCallback } from "react";
+import { View, StyleSheet, ScrollView } from "react-native";
+
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { 
+    ClockIcon, 
+    CreditCardIcon, 
+    HourglassHighIcon, 
+    HourglassLowIcon, 
+    HourglassMediumIcon 
+} from "phosphor-react-native";
+
+import { Header } from "@/components/Header";
+import { Title } from "@/components/Text/Title";
+import { Heading } from "@/components/Text/Heading";
 import { EmptyState } from "@/components/EmptyState";
-import { getRelapsesByDayOfWeek, getRelapsesByPeriodOfDay, getIntervalsBetweenRelapses } from "@/utils/chartData";
+import { ChartCard } from "@/components/Chart/ChartCard";
+import { Description } from "@/components/Text/Description";
+import { ProgressCard } from "@/components/Card/ProgressCard";
+import { HorizontalBarChart } from "@/components/Chart/HorizontalBarChart";
+
+import { colors } from "@/theme";
+import { useHabit } from "@/contexts/useHabit";
+
+import { useHabitRecordDatabase } from "@/database/useHabitRecordDatabase";
+import { useTranslation } from "@/hooks/useTranslation";
+import { 
+    getRelapsesByDayOfWeek, 
+    getRelapsesByPeriodOfDay, 
+    getIntervalsBetweenRelapses 
+} from "@/utils/chartData";
+
+import { formatDateToDayMonth } from "@/utils/formatDate";
+import { calculateStatistics } from "@/utils/calculateStatistics";
+import { calculateLastRelapseDate } from "@/utils/calculateLastRelapse";
 import { generateDayOfWeekInsight, generatePeriodOfDayInsight } from "@/utils/chartInsights";
 import { simplifyIntervalEvolution, generateSimpleEvolutionInsight } from "@/utils/simplifyIntervalEvolution";
-import { calculateLastRelapseDate } from "@/utils/calculateLastRelapse";
-import { formatDateToDayMonth } from "@/utils/formatDate";
+
+import { Repeat2, Star } from "lucide-react-native";
 
 export default function Statistic() {
+    const insets = useSafeAreaInsets();
     const { habit } = useHabit();
     const { listByHabit } = useHabitRecordDatabase();
     const { t } = useTranslation();
@@ -57,10 +74,10 @@ export default function Statistic() {
     };
 
     // Calcular última recaída a partir dos registros reais (sempre usa a mais recente)
-    const lastRelapseDate = records.length > 0 
+    const lastRelapseDate = records.length > 0
         ? calculateLastRelapseDate(records)
         : habit?.last_relapse_date;
-    const lastRelapse = lastRelapseDate 
+    const lastRelapse = lastRelapseDate
         ? formatDateToDayMonth(lastRelapseDate)
         : "—";
 
@@ -77,20 +94,25 @@ export default function Statistic() {
     const startDate = formatDateToDayMonth(habit?.created_at);
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: colors.background.primary }}>
-            <Header />
-            <ScrollView style={[styles.container]}>
+        <>
+            <Header transparent />
+
+            <ScrollView
+                style={[
+                    styles.container,
+                    {
+                        backgroundColor: colors.background.primary,
+                        paddingTop: insets.top + 56
+                    }
+                ]}
+            >
                 <Heading fontSize="LARGE">
                     {t("statistics.title")}
                 </Heading>
 
                 <View style={styles.summaryCardWrapper}>
                     <View style={styles.summaryCard}>
-                        <StarIcon
-                            size={24}
-                            color={colors.gray[700]}
-                            weight="bold"
-                        />
+                        <Star size={24} color={colors.gray[700]} />
 
                         <View style={styles.summaryCardTextWrapper}>
                             <Description>
@@ -104,11 +126,7 @@ export default function Statistic() {
                     </View>
 
                     <View style={styles.summaryCard}>
-                        <InfinityIconIcon
-                            size={24}
-                            color={colors.gray[700]}
-                            weight="bold"
-                        />
+                        <Repeat2 size={24} color={colors.gray[700]} />
 
                         <View style={styles.summaryCardTextWrapper}>
                             <Description>
@@ -128,7 +146,7 @@ export default function Statistic() {
 
                 <View style={styles.progressCardsWrapper}>
                     <ProgressCard
-                        Icon={InfinityIconIcon}
+                        Icon={Repeat2}
                         title={t("statistics.totalRelapses")}
                         value={`${statistics.totalRelapses} ${statistics.totalRelapses !== 1 ? t("statistics.relapses") : t("statistics.relapse")}`}
                     />
@@ -177,94 +195,96 @@ export default function Statistic() {
                     Análise Interpretativa
                 </Title>
 
-                {/* Verificar se há registros com recaídas */}
-                {(() => {
-                    const hasRelapses = records.some(r => r.is_reset === 1);
-                    
-                    if (records.length === 0 || !hasRelapses) {
+                <View style={styles.progressCardsWrapper}>
+                    {/* Verificar se há registros com recaídas */}
+                    {(() => {
+                        const hasRelapses = records.some(r => r.is_reset === 1);
+
+                        if (records.length === 0 || !hasRelapses) {
+                            return (
+                                <EmptyState
+                                    title="Ainda não existem registos suficientes para análise."
+                                    message="Adicione registos diários para visualizar estatísticas e gráficos aqui."
+                                    compact
+                                />
+                            );
+                        }
+
                         return (
-                            <EmptyState
-                                title="Ainda não existem registos suficientes para análise."
-                                message="Adicione registos diários para visualizar estatísticas e gráficos aqui."
-                                compact
-                            />
-                        );
-                    }
+                            <>
+                                {/* Gráfico: Recaídas por Dia da Semana */}
+                                {(() => {
+                                    const dayData = getRelapsesByDayOfWeek(records);
+                                    const dayBarData = dayData.map(d => ({ label: d.day, value: d.count }));
+                                    const insight = generateDayOfWeekInsight(dayData);
 
-                    return (
-                        <>
-                            {/* Gráfico: Recaídas por Dia da Semana */}
-                            {(() => {
-                                const dayData = getRelapsesByDayOfWeek(records);
-                                const dayBarData = dayData.map(d => ({ label: d.day, value: d.count }));
-                                const insight = generateDayOfWeekInsight(dayData);
-                                
-                                if (!insight) return null;
-                                
-                                return (
-                                    <ChartCard
-                                        title="Recaídas por Dia da Semana"
-                                        headline={insight.headline}
-                                        subtext={insight.subtext}
-                                    >
-                                        <HorizontalBarChart data={dayBarData} compact />
-                                    </ChartCard>
-                                );
-                            })()}
+                                    if (!insight) return null;
 
-                            {/* Gráfico: Recaídas por Período do Dia */}
-                            {(() => {
-                                const periodData = getRelapsesByPeriodOfDay(records);
-                                const periodBarData = periodData.map(d => ({ label: d.period, value: d.count }));
-                                const insight = generatePeriodOfDayInsight(periodData);
-                                
-                                if (!insight) return null;
-                                
-                                return (
-                                    <ChartCard
-                                        title="Recaídas por Período do Dia"
-                                        headline={insight.headline}
-                                        subtext={insight.subtext}
-                                    >
-                                        <HorizontalBarChart data={periodBarData} compact />
-                                    </ChartCard>
-                                );
-                            })()}
-
-                            {/* Gráfico: Evolução do Intervalo Entre Recaídas (Simplificado) */}
-                            {(() => {
-                                const intervalData = getIntervalsBetweenRelapses(records);
-                                
-                                if (intervalData.length >= 3) {
-                                    // Simplificar para 2-3 pontos representativos
-                                    const simplified = simplifyIntervalEvolution(intervalData);
-                                    const insight = generateSimpleEvolutionInsight(intervalData);
-                                    
-                                    if (!insight || simplified.length === 0) return null;
-                                    
-                                    // Converter para formato de barras horizontais
-                                    const barData = simplified.map(item => ({
-                                        label: item.label,
-                                        value: item.value
-                                    }));
-                                    
                                     return (
                                         <ChartCard
-                                            title="Evolução do Intervalo Entre Recaídas"
+                                            title="Recaídas por Dia da Semana"
                                             headline={insight.headline}
                                             subtext={insight.subtext}
                                         >
-                                            <HorizontalBarChart data={barData} compact />
+                                            <HorizontalBarChart data={dayBarData} compact />
                                         </ChartCard>
                                     );
-                                }
-                                return null;
-                            })()}
-                        </>
-                    );
-                })()}
+                                })()}
+
+                                {/* Gráfico: Recaídas por Período do Dia */}
+                                {(() => {
+                                    const periodData = getRelapsesByPeriodOfDay(records);
+                                    const periodBarData = periodData.map(d => ({ label: d.period, value: d.count }));
+                                    const insight = generatePeriodOfDayInsight(periodData);
+
+                                    if (!insight) return null;
+
+                                    return (
+                                        <ChartCard
+                                            title="Recaídas por Período do Dia"
+                                            headline={insight.headline}
+                                            subtext={insight.subtext}
+                                        >
+                                            <HorizontalBarChart data={periodBarData} compact />
+                                        </ChartCard>
+                                    );
+                                })()}
+
+                                {/* Gráfico: Evolução do Intervalo Entre Recaídas (Simplificado) */}
+                                {(() => {
+                                    const intervalData = getIntervalsBetweenRelapses(records);
+
+                                    if (intervalData.length >= 3) {
+                                        // Simplificar para 2-3 pontos representativos
+                                        const simplified = simplifyIntervalEvolution(intervalData);
+                                        const insight = generateSimpleEvolutionInsight(intervalData);
+
+                                        if (!insight || simplified.length === 0) return null;
+
+                                        // Converter para formato de barras horizontais
+                                        const barData = simplified.map(item => ({
+                                            label: item.label,
+                                            value: item.value
+                                        }));
+
+                                        return (
+                                            <ChartCard
+                                                title="Evolução do Intervalo Entre Recaídas"
+                                                headline={insight.headline}
+                                                subtext={insight.subtext}
+                                            >
+                                                <HorizontalBarChart data={barData} compact />
+                                            </ChartCard>
+                                        );
+                                    }
+                                    return null;
+                                })()}
+                            </>
+                        );
+                    })()}
+                </View>
             </ScrollView>
-        </SafeAreaView>
+        </>
     )
 }
 

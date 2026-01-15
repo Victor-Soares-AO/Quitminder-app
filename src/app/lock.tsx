@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FingerprintIcon, LockIcon } from "phosphor-react-native";
 import { usePrivacyLock } from "@/contexts/PrivacyLockContext";
 import { useColors } from "@/hooks/useColors";
 import { Heading } from "@/components/Text/Heading";
-import { Description } from "@/components/Text/Description";
 import { useTranslation } from "@/hooks/useTranslation";
 import { fontFamily } from "@/theme";
 

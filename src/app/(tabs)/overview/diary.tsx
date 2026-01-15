@@ -5,7 +5,7 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    SectionList,
+    SectionList
 } from "react-native";
 
 import { PlusIcon } from "phosphor-react-native";
@@ -36,6 +36,7 @@ type GroupedRecords = {
 };
 
 export default function Diary() {
+
     const insets = useSafeAreaInsets();
     const { habit } = useHabit();
     const { listByHabit } = useHabitRecordDatabase();
@@ -175,74 +176,8 @@ export default function Diary() {
         </View>
     );
 
-    const styles = StyleSheet.create({
-        container: {
-            flex: 1,
-            backgroundColor: colors.background.primary,
-        },
-        sectionHeader: {
-            marginTop: 24,
-            marginBottom: 12,
-        },
-        card: {
-            backgroundColor: colors.background.secondary,
-            borderRadius: 12,
-            padding: 16,
-            marginBottom: 12,
-        },
-        cardHeader: {
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-        },
-        cardHeaderLeft: {
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 8,
-        },
-        timeText: {
-            fontSize: 14,
-            fontFamily: "Inter-Medium",
-            color: colors.text.secondary,
-        },
-        statusText: {
-            fontSize: 12,
-            fontFamily: "Inter-Medium",
-            color: colors.text.secondary,
-        },
-        cardFooter: {
-            flexDirection: "row",
-            gap: 16,
-            marginTop: 12,
-        },
-        infoItem: {
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 4,
-        },
-        emptyContainer: {
-            alignItems: "center",
-            justifyContent: "center",
-            paddingVertical: 80,
-        },
-        emptyText: {
-            fontSize: 20,
-            fontFamily: fontFamily.semibold,
-            color: colors.text.primary,
-            marginTop: 16,
-        },
-        button: {
-            position: "absolute",
-            bottom: 32,
-            right: 24,
-            backgroundColor: colors.text.primary,
-            borderRadius: 999,
-            padding: 16,
-        },
-    });
-
     return (
-        <View style={[styles.container, { paddingTop: insets.top + 80, }]}>
+        <>
             <Header transparent />
 
             <SectionList
@@ -252,8 +187,9 @@ export default function Diary() {
                 renderSectionHeader={renderSectionHeader}
                 contentContainerStyle={{
                     padding: 16,
-                    paddingTop: 0,
                     paddingBottom: 100,
+                    paddingTop: insets.top + 56,
+                    backgroundColor: colors.background.primary
                 }}
                 ListEmptyComponent={
                     <View style={styles.emptyContainer}>
@@ -283,7 +219,7 @@ export default function Diary() {
                             Diário de Atividades
                         </Heading>
 
-                        <Title color="SECONDARY" style={{ marginTop: 8 }}>
+                        <Title color="SECONDARY">
                             Registre suas atividades diárias e acompanhe seu progresso.
                         </Title>
                     </View>
@@ -302,6 +238,68 @@ export default function Diary() {
                     weight="bold"
                 />
             </TouchableOpacity>
-        </View>
+        </>
     );
 }
+
+const styles = StyleSheet.create({
+    sectionHeader: {
+        marginTop: 24,
+        marginBottom: 12,
+    },
+    card: {
+        backgroundColor: colors.background.secondary,
+        borderRadius: 12,
+        padding: 16,
+        marginBottom: 12,
+    },
+    cardHeader: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    cardHeaderLeft: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8,
+    },
+    timeText: {
+        fontSize: 14,
+        fontFamily: "Inter-Medium",
+        color: colors.text.secondary,
+    },
+    statusText: {
+        fontSize: 12,
+        fontFamily: "Inter-Medium",
+        color: colors.text.secondary,
+    },
+    cardFooter: {
+        flexDirection: "row",
+        gap: 16,
+        marginTop: 12,
+    },
+    infoItem: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 4,
+    },
+    emptyContainer: {
+        alignItems: "center",
+        justifyContent: "center",
+        paddingVertical: 80,
+    },
+    emptyText: {
+        fontSize: 20,
+        fontFamily: fontFamily.semibold,
+        color: colors.text.primary,
+        marginTop: 16,
+    },
+    button: {
+        position: "absolute",
+        bottom: 32,
+        right: 24,
+        backgroundColor: colors.text.primary,
+        borderRadius: 999,
+        padding: 16,
+    },
+});

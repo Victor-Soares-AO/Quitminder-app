@@ -13,13 +13,18 @@ type Props = {
     value: string;
     Icon: React.FC<IconProps>;
     iconWeight?: IconWeight;
+    backgroundColor?: string;
 }
 
-export function ProgressCard({title, value, Icon, iconWeight}:Props) {
+export function ProgressCard({title, value, Icon, iconWeight, backgroundColor}:Props) {
     return (
         <View style={styles.container}>
-            <View style={styles.icon}>
-                <Icon color={colors.gray[700]} size={20} weight={iconWeight} />
+            <View style={[styles.icon, backgroundColor && {backgroundColor}]}>
+                <Icon 
+                    size={20} 
+                    weight={iconWeight} 
+                    color={backgroundColor ? "#FFF" : colors.gray[700]} 
+                />
             </View>
 
             <View>

@@ -1,17 +1,13 @@
 import { Tabs } from "expo-router";
 import {
-    Calendar,
     CalendarBlankIcon,
-    CalendarDotsIcon,
     ChartBarIcon,
-    ChatCenteredDotsIcon,
-    Heart,
-    House,
     SquaresFourIcon
 } from "phosphor-react-native";
 
-import { colors } from "@/theme";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Calendar, ChartNoAxesColumnIncreasing, LayoutGrid } from "lucide-react-native";
+
+import { colors, fontFamily } from "@/theme";
 
 export default function TabsLayout() {
     return (
@@ -24,7 +20,15 @@ export default function TabsLayout() {
                         backgroundColor: colors.background.primary,
                         height: 88,
                         paddingTop: 8,
-                        borderTopColor: colors.gray[100]
+                        borderTopWidth: 1.75,
+                        borderTopColor: '#F1F1F1'
+                    },
+                    tabBarIconStyle: {
+                        marginBottom: 2,
+                    },
+                    tabBarLabelStyle: {
+                        fontFamily: fontFamily.semibold,
+                        fontSize: 11
                     }
                 }}
             >
@@ -32,10 +36,9 @@ export default function TabsLayout() {
                     name="overview/[id]"
                     options={{
                         title: "Visão Geral",
-                        tabBarIcon: ({ color, size }) => (
-                            <SquaresFourIcon
-                                weight="fill"
-                                size={size}
+                        tabBarIcon: ({ color }) => (
+                            <LayoutGrid
+                                size={24}
                                 color={color}
                             />
                         ),
@@ -46,10 +49,9 @@ export default function TabsLayout() {
                     name="statistic"
                     options={{
                         title: "Estatística",
-                        tabBarIcon: ({ color, size }) => (
-                            <ChartBarIcon
-                                weight="fill"
-                                size={size}
+                        tabBarIcon: ({ color }) => (
+                            <ChartNoAxesColumnIncreasing
+                                size={24}
                                 color={color}
                             />
                         ),
@@ -60,10 +62,9 @@ export default function TabsLayout() {
                     name="calendar"
                     options={{
                         title: "Calendário",
-                        tabBarIcon: ({ color, size }) => (
-                            <CalendarBlankIcon
-                                weight="fill"
-                                size={size}
+                        tabBarIcon: ({ color }) => (
+                            <Calendar
+                                size={24}
                                 color={color}
                             />
                         ),

@@ -33,7 +33,7 @@ export function SettingsButton({ label, Icon, iconWeight = "fill", isSwitch = fa
             {isSwitch ? <Switch
                 value={isSwitch}
                 onValueChange={rest.onPress ? () => rest.onPress?.() : () => {}}
-                trackColor={{ false: colors.gray[300], true: '#007FFA' }}
+                trackColor={{ false: colors.gray[300], true: colors.blue }}
                 thumbColor={colors.white}
             /> : <CaretRightIcon
                 size={16}

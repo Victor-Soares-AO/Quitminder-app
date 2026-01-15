@@ -28,7 +28,7 @@ function RootLayoutContent() {
     const { isDark } = useThemeContext();
     const { isLocked } = usePrivacyLock();
     const colors = getColors(isDark);
-    
+
     // Inicializar notificações quando o app abre
     useNotificationsInit();
 
@@ -42,17 +42,13 @@ function RootLayoutContent() {
             <Stack
                 screenOptions={{
                     headerShown: false,
-                    contentStyle: {
-                        backgroundColor: colors.background.primary
-                    },
+                    contentStyle: { backgroundColor: colors.background.primary }
                 }}
             >
                 <Stack.Screen name="onboarding" />
                 <Stack.Screen name="index" />
-                {/*
-                <Stack.Screen name="create-habit/edit/[id]" />
-                */}
                 <Stack.Screen name="(tabs)" />
+                 <Stack.Screen name="settings" />
                 <Stack.Screen
                     name="create-habit"
                     options={{
@@ -60,7 +56,6 @@ function RootLayoutContent() {
                         headerShown: false
                     }}
                 />
-                <Stack.Screen name="settings" />
             </Stack>
         </HabitProvider>
     );

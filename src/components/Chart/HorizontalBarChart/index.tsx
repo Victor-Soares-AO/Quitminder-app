@@ -1,7 +1,7 @@
-import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+
+import { colors, fontFamily } from "@/theme";
 import { useColors } from "@/hooks/useColors";
-import { fontFamily } from "@/theme";
 
 type BarData = {
     label: string;
@@ -11,14 +11,13 @@ type BarData = {
 type Props = {
     data: BarData[];
     maxValue?: number;
-    barColor?: string;
     showValues?: boolean;
     compact?: boolean;
 };
 
-export function HorizontalBarChart({ data, maxValue, barColor, showValues = true, compact = false }: Props) {
+export function HorizontalBarChart({ data, maxValue, showValues = true, compact = false }: Props) {
     const colorsTheme = useColors();
-    
+
     if (!data || data.length === 0) {
         return null;
     }
@@ -36,80 +35,26 @@ export function HorizontalBarChart({ data, maxValue, barColor, showValues = true
         );
     }
 
-    const defaultBarColor = barColor || colorsTheme.gray[400];
-    const barHeight = compact ? 20 : 24;
-    const spacing = compact ? 8 : 12;
-
-    const styles = StyleSheet.create({
-        container: {
-            marginTop: compact ? 12 : 16,
-        },
-        barItem: {
-            marginBottom: spacing,
-        },
-        barRow: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 8,
-        },
-        labelContainer: {
-            width: compact ? 60 : 70,
-        },
-        label: {
-            fontSize: compact ? 12 : 13,
-            fontFamily: fontFamily.medium,
-            color: colorsTheme.text.secondary,
-        },
-        barContainer: {
-            flex: 1,
-            height: barHeight,
-            backgroundColor: colorsTheme.gray[100],
-            borderRadius: 4,
-            overflow: 'hidden',
-        },
-        bar: {
-            height: '100%',
-            backgroundColor: defaultBarColor,
-            borderRadius: 4,
-            justifyContent: 'center',
-            alignItems: 'flex-end',
-            paddingRight: 6,
-        },
-        value: {
-            fontSize: compact ? 11 : 12,
-            fontFamily: fontFamily.semibold,
-            color: colorsTheme.text.primary,
-        },
-        emptyContainer: {
-            padding: 24,
-            alignItems: 'center',
-        },
-        emptyText: {
-            fontSize: 14,
-            fontFamily: fontFamily.medium,
-        },
-    });
-
     return (
-        <View style={styles.container}>
+        <View style={{ marginTop: compact ? 12 : 16 }}>
             {data.map((item, index) => {
+
                 const widthPercent = max > 0 ? (item.value / max) * 100 : 0;
-                
+
                 return (
-                    <View key={index} style={styles.barItem}>
+                    <View key={index} style={{ marginBottom: compact ? 8 : 12 }}>
                         <View style={styles.barRow}>
-                            <View style={styles.labelContainer}>
+                            <View style={{ width: compact ? 60 : 70, }}>
                                 <Text style={styles.label} numberOfLines={1}>
                                     {item.label}
                                 </Text>
                             </View>
-                            <View style={styles.barContainer}>
+
+                            <View style={[styles.barContainer, { height: compact ? 20 : 24 }]}>
                                 <View
                                     style={[
                                         styles.bar,
-                                        {
-                                            width: `${widthPercent}%`,
-                                        },
+                                        { width: `${widthPercent}%` }
                                     ]}
                                 >
                                     {showValues && item.value > 0 && widthPercent > 15 && (
@@ -119,6 +64,7 @@ export function HorizontalBarChart({ data, maxValue, barColor, showValues = true
                                     )}
                                 </View>
                             </View>
+
                             {showValues && item.value > 0 && widthPercent <= 15 && (
                                 <Text style={styles.value}>
                                     {item.value}
@@ -133,15 +79,41 @@ export function HorizontalBarChart({ data, maxValue, barColor, showValues = true
 }
 
 const styles = StyleSheet.create({
-    container: {},
-    barItem: {},
-    barRow: {},
-    labelContainer: {},
-    label: {},
-    barContainer: {},
-    bar: {},
-    value: {},
-    emptyContainer: {},
-    emptyText: {},
+    barRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+    },
+    label: {
+        fontSize: 12,
+        fontFamily: fontFamily.medium,
+        color: colors.text.secondary,
+    },
+    barContainer: {
+        flex: 1,
+        backgroundColor: colors.gray[100],
+        borderRadius: 4,
+        overflow: 'hidden',
+    },
+    bar: {
+        height: '100%',
+        backgroundColor: "#007FFA",
+        borderRadius: 4,
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+        paddingRight: 6,
+    },
+    value: {
+        fontSize: 14,
+        fontFamily: fontFamily.semibold,
+        color: colors.white,
+    },
+    emptyContainer: {
+        padding: 24,
+        alignItems: 'center',
+    },
+    emptyText: {
+        fontSize: 14,
+        fontFamily: fontFamily.medium,
+    },
 });
-

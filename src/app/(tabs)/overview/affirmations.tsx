@@ -8,7 +8,6 @@ import {
     TouchableOpacity,
 } from "react-native";
 import { Header } from "@/components/Header";
-import { IconButton } from "@/components/IconButton";
 import {
     PlusIcon,
     Trash,
@@ -21,6 +20,8 @@ import { Heading } from "@/components/Text/Heading";
 import { Title } from "@/components/Text/Title";
 import { Description } from "@/components/Text/Description";
 import { useColors } from "@/hooks/useColors";
+import { Trash2 } from "lucide-react-native";
+import { colors } from "@/theme";
 
 export default function Affirmations() {
     const insets = useSafeAreaInsets();
@@ -167,60 +168,26 @@ export default function Affirmations() {
         fetchAffirmations();
     }, [habit]);
 
-    const styles = StyleSheet.create({
-        container: {
-            flex: 1,
-            padding: 16,
-            backgroundColor: colors.background.primary,
-        },
-        card: {
-            flexDirection: "row",
-            paddingHorizontal: 16,
-            paddingVertical: 20,
-            backgroundColor: colors.background.secondary,
-            borderRadius: 12,
-            marginBottom: 16,
-        },
-        textWrapper: {
-            marginHorizontal: 8,
-            gap: 8
-        },
-        checkbox: {
-            width: 24,
-            height: 24,
-            borderRadius: 6,
-            borderWidth: 1.5,
-            borderColor: colors.text.secondary,
-            backgroundColor: colors.white,
-            justifyContent: "center",
-            alignItems: "center",
-        },
-        button: {
-            position: "absolute",
-            bottom: 32,
-            right: 24,
-            backgroundColor: colors.text.primary,
-            borderRadius: 999,
-            padding: 16,
-        },
-    });
-
     return (
-        <View
-            style={[
-                styles.container,
-                {
-                    paddingTop: insets.top + 80,
-                }
-            ]}
-        >
+        <>
             <Header transparent>
                 {selectedIds.length > 0 && (
-                    <IconButton
-                        Icon={Trash}
-                        IconWeight="bold"
+                    <TouchableOpacity
+                        style={{
+                            width: 40,
+                            height: 40,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            borderRadius: 999,
+                            backgroundColor: colors.background.secondary
+                        }}
                         onPress={handleDeleteSelected}
-                    />
+                    >
+                        <Trash2
+                            size={20}
+                            color={colors.text.primary}
+                        />
+                    </TouchableOpacity>
                 )}
             </Header>
 
@@ -289,6 +256,8 @@ export default function Affirmations() {
                         flexGrow: 1,
                         paddingBottom: 40,
                         backgroundColor: colors.background.primary,
+                        paddingTop: insets.top + 56,
+                        paddingHorizontal: 16
                     }
                 ]}
             />
@@ -305,8 +274,39 @@ export default function Affirmations() {
                     weight="bold"
                 />
             </TouchableOpacity>
-        </View>
+        </>
     );
 }
 
-// Styles serão criados dinamicamente no componente
+const styles = StyleSheet.create({
+    card: {
+        flexDirection: "row",
+        paddingHorizontal: 16,
+        paddingVertical: 20,
+        backgroundColor: colors.background.secondary,
+        borderRadius: 12,
+        marginBottom: 16,
+    },
+    textWrapper: {
+        marginHorizontal: 8,
+        gap: 8
+    },
+    checkbox: {
+        width: 24,
+        height: 24,
+        borderRadius: 6,
+        borderWidth: 1.5,
+        borderColor: colors.text.secondary,
+        backgroundColor: colors.white,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    button: {
+        position: "absolute",
+        bottom: 32,
+        right: 24,
+        backgroundColor: colors.text.primary,
+        borderRadius: 999,
+        padding: 16,
+    },
+});

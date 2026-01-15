@@ -32,7 +32,7 @@ export type EducationalCategory = {
 export const EDUCATIONAL_HUB: EducationalCategory[] = [
     {
         id: 'emotional-triggers',
-        label: 'Entender Gatilhos Emocionais',
+        label: 'Entender Gatilhos Emocionais 🧠',
         description: 'Conteúdos sobre como emoções influenciam decisões e comportamentos',
         intention: 'Ajudar a identificar e compreender a relação entre estados emocionais e padrões comportamentais',
         contents: [
@@ -66,7 +66,7 @@ export const EDUCATIONAL_HUB: EducationalCategory[] = [
     },
     {
         id: 'impulsivity',
-        label: 'Lidar com Impulsividade',
+        label: 'Lidar com Impulsividade 🛑',
         description: 'Estratégias para aumentar pausa entre impulso e ação',
         intention: 'Desenvolver habilidades para criar espaço entre o impulso e a decisão',
         contents: [
@@ -100,7 +100,7 @@ export const EDUCATIONAL_HUB: EducationalCategory[] = [
     },
     {
         id: 'support-routines',
-        label: 'Criar Rotinas de Suporte',
+        label: 'Criar Rotinas de Suporte 📅',
         description: 'Como estruturar hábitos que fortalecem o autocontrole',
         intention: 'Construir rotinas que oferecem estrutura e reduzem exposição a gatilhos',
         contents: [
@@ -134,7 +134,7 @@ export const EDUCATIONAL_HUB: EducationalCategory[] = [
     },
     {
         id: 'self-control',
-        label: 'Fortalecer Autocontrole',
+        label: 'Fortalecer Autocontrole 💪',
         description: 'Estratégias baseadas em evidências para aumentar resiliência',
         intention: 'Desenvolver capacidade de manter decisões alinhadas com objetivos de longo prazo',
         contents: [
@@ -168,7 +168,7 @@ export const EDUCATIONAL_HUB: EducationalCategory[] = [
     },
     {
         id: 'social-context',
-        label: 'Contextos Sociais',
+        label: 'Contextos Sociais 👥',
         description: 'Como ambientes e relacionamentos influenciam comportamentos',
         intention: 'Entender e navegar pressões sociais e ambientes que aumentam exposição',
         contents: [
@@ -202,7 +202,7 @@ export const EDUCATIONAL_HUB: EducationalCategory[] = [
     },
     {
         id: 'stress-management',
-        label: 'Gerenciamento de Estresse',
+        label: 'Gerenciamento de Estresse 😌',
         description: 'Técnicas para reduzir impacto do estresse em decisões',
         intention: 'Desenvolver habilidades para gerenciar estresse de forma construtiva',
         contents: [

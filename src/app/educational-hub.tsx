@@ -17,6 +17,7 @@ import { colors, fontFamily } from "@/theme";
 import { useColors } from "@/hooks/useColors";
 import { EDUCATIONAL_HUB, EducationalCategory, EducationalContent } from "@/data/educationalHub";
 import { useTranslation } from "@/hooks/useTranslation";
+import { Heading } from "@/components/Text/Heading";
 
 export default function EducationalHub() {
     const insets = useSafeAreaInsets();
@@ -99,23 +100,20 @@ export default function EducationalHub() {
             backgroundColor: colorsTheme.background.primary,
         },
         content: {
+            flex: 1,
+            backgroundColor: colorsTheme.background.primary,
             paddingHorizontal: 16,
             paddingVertical: 24,
         },
         header: {
             marginBottom: 24,
+            gap: 8
         },
         headerTitle: {
             fontSize: 28,
             fontFamily: fontFamily.bold,
             color: colorsTheme.text.primary,
             marginBottom: 8,
-        },
-        headerDescription: {
-            fontSize: 16,
-            fontFamily: fontFamily.regular,
-            color: colorsTheme.text.secondary,
-            lineHeight: 24,
         },
         categoryCard: {
             backgroundColor: colorsTheme.background.secondary,
@@ -195,27 +193,23 @@ export default function EducationalHub() {
 
     if (selectedCategory) {
         return (
-            <View style={[styles.container, { paddingTop: insets.top }]}>
-                <Header transparent>
-                    <TouchableOpacity 
-                        style={styles.backButton}
-                        onPress={() => setSelectedCategory(null)}
-                    >
-                        <ArrowLeftIcon size={24} color={colorsTheme.text.primary} weight="bold" />
-                        <Text style={styles.backButtonText}>Voltar</Text>
-                    </TouchableOpacity>
-                </Header>
+            <View style={[styles.container, { paddingTop: insets.top + 32 }]}>
+                <Header transparent/>
+                
                 <ScrollView style={styles.content}>
                     <View style={styles.header}>
                         <Title fontWeight="SEMIBOLD" fontSize="LARGE">
                             {selectedCategory.label}
                         </Title>
+
                         <Description style={{ marginTop: 8 }}>
                             {selectedCategory.description}
                         </Description>
+
+                        {/*
                         <Text style={styles.categoryIntention}>
                             {selectedCategory.intention}
-                        </Text>
+                        </Text>*/}
                     </View>
 
                     {selectedCategory.contents.map((content) => {
@@ -258,16 +252,17 @@ export default function EducationalHub() {
     }
 
     return (
-        <View style={[styles.container, { paddingTop: insets.top }]}>
-            <Header />
-            <ScrollView style={[styles.content, { marginTop: 60 }]}>
+        <>
+            <Header transparent />
+            <ScrollView style={[styles.content, { paddingTop: insets.top + 56 }]}>
                 <View style={styles.header}>
-                    <Text style={styles.headerTitle}>
+                    <Heading fontSize="LARGE">
                         Hub Educativo
-                    </Text>
-                    <Text style={styles.headerDescription}>
-                        Conteúdos organizados por intenção para apoiar sua jornada de autoconsciência e mudança.
-                    </Text>
+                    </Heading>
+
+                    <Title color="SECONDARY">
+                        Conteúdos organizados para apoiar sua jornada de autoconsciência e mudança.
+                    </Title>
                 </View>
 
                 {EDUCATIONAL_HUB.map((category) => (
@@ -282,19 +277,24 @@ export default function EducationalHub() {
                                 {category.label}
                             </Text>
                         </View>
-                        <Text style={styles.categoryDescription}>
+
+                        <Description style={styles.categoryDescription}>
                             {category.description}
-                        </Text>
+                        </Description>
+                        {/*
                         <Text style={styles.categoryIntention}>
                             {category.intention}
                         </Text>
+                        */}
+                        <View style={{marginTop: 8}}>
                         <Description>
                             {category.contents.length} {category.contents.length === 1 ? 'conteúdo' : 'conteúdos'} disponíveis
                         </Description>
+                        </View>
                     </TouchableOpacity>
                 ))}
             </ScrollView>
-        </View>
+        </>
     );
 }
 

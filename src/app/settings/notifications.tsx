@@ -107,32 +107,37 @@ export default function NotificationsSettings() {
                         {t("settings.notifications")}
                     </Heading>
 
-                    <Title color="SECONDARY" style={styles.description}>
+                    <Title color="SECONDARY">
                         Receba lembretes diários para acompanhar seus hábitos e manter sua motivação.
                     </Title>
                 </View>
 
-                <View style={[styles.section, { backgroundColor: colors.background.secondary }]}>
-                    <View style={styles.switchRow}>
-                        <View style={styles.switchInfo}>
-                            <Title fontSize="LARGE">Ativar Notificações</Title>
-                            <Description>
-                                Receba lembretes diários sobre seus hábitos
-                            </Description>
-                        </View>
+                <View
+                    style={[
+                        styles.section,
+                        {
+                            paddingBottom: 16,
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            backgroundColor: colors.background.secondary,
+                        }
+                    ]}
+                >
+                    <Title fontSize="LARGE">
+                        Ativar Notificações
+                    </Title>
 
-                        <Switch
-                            value={notificationsEnabled}
-                            onValueChange={handleToggleNotifications}
-                            trackColor={{ false: colors.gray[300], true: colors.text.primary }}
-                            thumbColor={colors.white}
-                        />
-                    </View>
+                    <Switch
+                        value={notificationsEnabled}
+                        onValueChange={handleToggleNotifications}
+                        trackColor={{ false: colors.gray[300], true: colors.blue }}
+                        thumbColor={colors.white}
+                    />
                 </View>
 
                 {notificationsEnabled && (
                     <View style={[styles.section, { backgroundColor: colors.background.secondary }]}>
-                        <Title fontSize="MEDIUM" style={styles.sectionTitle}>
+                        <Title fontSize="LARGE" style={styles.sectionTitle}>
                             Horário da Notificação
                         </Title>
 
@@ -185,11 +190,11 @@ const styles = StyleSheet.create({
         marginBottom: 24,
         gap: 4
     },
-    description: {
-        marginBottom: 32,
-        fontSize: 16,
-        lineHeight: 24
-    },
+    // description: {
+    //     marginBottom: 32,
+    //     fontSize: 16,
+    //     lineHeight: 24
+    // },
     section: {
         borderRadius: 12,
         padding: 16,
@@ -201,10 +206,6 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
     },
-    switchInfo: {
-        flex: 1,
-        marginRight: 16,
-    },
     sectionTitle: {
         marginBottom: 8,
     },
@@ -212,4 +213,3 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
 });
-

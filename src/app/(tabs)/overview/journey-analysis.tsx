@@ -1,27 +1,23 @@
-import React, { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { useLocalSearchParams, useFocusEffect } from "expo-router";
+import { router, useLocalSearchParams, useFocusEffect } from "expo-router";
+
 import { useSQLiteContext } from "expo-sqlite";
-import {
-    ChartLineUpIcon,
-    ClockIcon,
-    TrendUpIcon
-} from "phosphor-react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { ChartLineUpIcon, ClockIcon, TrendUpIcon } from "phosphor-react-native";
 
 import { Header } from "@/components/Header";
 import { Loading } from "@/components/Loading";
 import { Title } from "@/components/Text/Title";
-import { Description } from "@/components/Text/Description";
 import { EmptyState } from "@/components/EmptyState";
-import { PrimaryButton } from "@/components/PrimaryButton";
 import { BookOpenTextIcon } from "phosphor-react-native";
-import { router } from "expo-router";
+import { PrimaryButton } from "@/components/PrimaryButton";
+import { Description } from "@/components/Text/Description";
 
 import { colors, fontFamily } from "@/theme";
 import { useColors } from "@/hooks/useColors";
 import { HabitRecordResponse } from "@/database/useHabitRecordDatabase";
 import { analyzeJourney, JourneyAnalysis } from "@/utils/analyzeJourney";
-import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function JourneyAnalysisScreen() {
 
@@ -74,161 +70,6 @@ export default function JourneyAnalysisScreen() {
     const hasRelapses = records.some(r => r.is_reset === 1);
     const hasNoData = records.length === 0 || !hasRelapses;
 
-    const styles = StyleSheet.create({
-        container: {
-            flex: 1,
-            paddingTop: 56,
-            backgroundColor: colorsTheme.background.primary,
-        },
-        wrapper: {
-            paddingHorizontal: 16,
-            paddingVertical: 24,
-            gap: 24,
-        },
-        card: {
-            backgroundColor: colorsTheme.background.secondary,
-            borderRadius: 20,
-            padding: 20,
-            gap: 16,
-        },
-        riskCard: {
-            backgroundColor: colorsTheme.background.secondary,
-            borderRadius: 20,
-            padding: 24,
-            alignItems: 'center',
-            gap: 12,
-        },
-        riskScore: {
-            fontSize: 48,
-            fontFamily: fontFamily.bold,
-            color: colorsTheme.text.primary,
-        },
-        riskLabel: {
-            fontSize: 18,
-            fontFamily: fontFamily.semibold,
-            color: colorsTheme.text.secondary,
-        },
-        riskDescription: {
-            fontSize: 14,
-            fontFamily: fontFamily.medium,
-            color: colorsTheme.text.secondary,
-            textAlign: 'center',
-            marginTop: 8,
-        },
-        sectionTitle: {
-            fontSize: 16,
-            fontFamily: fontFamily.semibold,
-            color: colorsTheme.text.primary,
-            marginBottom: 4,
-        },
-        sectionDescription: {
-            fontSize: 14,
-            fontFamily: fontFamily.medium,
-            color: colorsTheme.text.secondary,
-            lineHeight: 20,
-        },
-        patternItem: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 12,
-            marginTop: 12,
-        },
-        patternIcon: {
-            width: 40,
-            height: 40,
-            borderRadius: 20,
-            backgroundColor: colorsTheme.gray[100],
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
-        patternText: {
-            flex: 1,
-            fontSize: 14,
-            fontFamily: fontFamily.medium,
-            color: colorsTheme.text.primary,
-        },
-        triggerItem: {
-            backgroundColor: colorsTheme.background.primary,
-            borderRadius: 12,
-            padding: 12,
-            borderWidth: 1,
-            borderColor: colorsTheme.gray[100],
-        },
-        triggerContent: {
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: 8,
-        },
-        triggerLabel: {
-            fontSize: 14,
-            fontFamily: fontFamily.semibold,
-            color: colorsTheme.text.primary,
-            flex: 1,
-        },
-        triggerTypeBadge: {
-            paddingHorizontal: 8,
-            paddingVertical: 4,
-            borderRadius: 8,
-            marginLeft: 8,
-        },
-        triggerTypeText: {
-            fontSize: 10,
-            fontFamily: fontFamily.semibold,
-            color: colorsTheme.white,
-            textTransform: 'uppercase',
-            letterSpacing: 0.5,
-        },
-        confidenceBar: {
-            height: 3,
-            backgroundColor: colorsTheme.gray[100],
-            borderRadius: 2,
-            overflow: 'hidden',
-        },
-        confidenceFill: {
-            height: '100%',
-            borderRadius: 2,
-        },
-        insightItem: {
-            backgroundColor: colorsTheme.background.primary,
-            borderRadius: 12,
-            padding: 16,
-            borderWidth: 1,
-            borderColor: colorsTheme.gray[100],
-        },
-        insightText: {
-            fontSize: 14,
-            fontFamily: fontFamily.medium,
-            color: colorsTheme.text.primary,
-            lineHeight: 20,
-            marginBottom: 12,
-        },
-        insightTriggers: {
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            gap: 8,
-        },
-        insightTriggerTag: {
-            paddingHorizontal: 10,
-            paddingVertical: 6,
-            borderRadius: 8,
-        },
-        insightTriggerText: {
-            fontSize: 12,
-            fontFamily: fontFamily.semibold,
-        },
-        emptyState: {
-            padding: 24,
-            alignItems: 'center',
-            gap: 8,
-        },
-        emptyText: {
-            fontSize: 14,
-            fontFamily: fontFamily.medium,
-            color: colorsTheme.text.secondary,
-            textAlign: 'center',
-        },
-    });
 
     const getRiskColor = (level: string) => {
         switch (level) {
@@ -315,72 +156,72 @@ export default function JourneyAnalysisScreen() {
                                 </View>
                             )}
 
-                    {/* Card de Padrões Identificados */}
-                    <View style={styles.card}>
-                        <Title fontWeight="SEMIBOLD">
-                            Padrões Identificados
-                        </Title>
-                        <Description>
-                            Análise dos seus registros de recaídas
-                        </Description>
+                            {/* Card de Padrões Identificados */}
+                            <View style={styles.card}>
+                                <Title fontWeight="SEMIBOLD">
+                                    Padrões Identificados
+                                </Title>
+                                <Description>
+                                    Análise dos seus registros de recaídas
+                                </Description>
 
-                        {analysis && (
-                            <View style={{ gap: 8 }}>
-                                {analysis.mostRelapseDay && (
-                                    <View style={styles.patternItem}>
-                                        <View style={styles.patternIcon}>
-                                            <ChartLineUpIcon
-                                                size={20}
-                                                color={colorsTheme.gray[700]}
-                                                weight="fill"
-                                            />
-                                        </View>
-                                        <Text style={styles.patternText}>
-                                            Dia mais crítico: <Text style={{ fontFamily: fontFamily.semibold }}>{getDayName(analysis.mostRelapseDay)}</Text>
-                                        </Text>
-                                    </View>
-                                )}
+                                {analysis && (
+                                    <View style={{ gap: 8 }}>
+                                        {analysis.mostRelapseDay && (
+                                            <View style={styles.patternItem}>
+                                                <View style={styles.patternIcon}>
+                                                    <ChartLineUpIcon
+                                                        size={20}
+                                                        color={colorsTheme.gray[700]}
+                                                        weight="fill"
+                                                    />
+                                                </View>
+                                                <Text style={styles.patternText}>
+                                                    Dia mais crítico: <Text style={{ fontFamily: fontFamily.semibold }}>{getDayName(analysis.mostRelapseDay)}</Text>
+                                                </Text>
+                                            </View>
+                                        )}
 
-                                {analysis.mostCriticalPeriod && (
-                                    <View style={styles.patternItem}>
-                                        <View style={styles.patternIcon}>
-                                            <ClockIcon
-                                                size={20}
-                                                color={colorsTheme.gray[700]}
-                                                weight="fill"
-                                            />
-                                        </View>
-                                        <Text style={styles.patternText}>
-                                            Período mais crítico: <Text style={{ fontFamily: fontFamily.semibold }}>{getPeriodName(analysis.mostCriticalPeriod)}</Text>
-                                        </Text>
-                                    </View>
-                                )}
+                                        {analysis.mostCriticalPeriod && (
+                                            <View style={styles.patternItem}>
+                                                <View style={styles.patternIcon}>
+                                                    <ClockIcon
+                                                        size={20}
+                                                        color={colorsTheme.gray[700]}
+                                                        weight="fill"
+                                                    />
+                                                </View>
+                                                <Text style={styles.patternText}>
+                                                    Período mais crítico: <Text style={{ fontFamily: fontFamily.semibold }}>{getPeriodName(analysis.mostCriticalPeriod)}</Text>
+                                                </Text>
+                                            </View>
+                                        )}
 
-                                {analysis.averageIntervalBetweenRelapses !== null && (
-                                    <View style={styles.patternItem}>
-                                        <View style={styles.patternIcon}>
-                                            <TrendUpIcon
-                                                size={20}
-                                                color={colorsTheme.gray[700]}
-                                                weight="fill"
-                                            />
-                                        </View>
-                                        <Text style={styles.patternText}>
-                                            Intervalo médio entre recaídas: <Text style={{ fontFamily: fontFamily.semibold }}>{analysis.averageIntervalBetweenRelapses} dias</Text>
-                                        </Text>
-                                    </View>
-                                )}
+                                        {analysis.averageIntervalBetweenRelapses !== null && (
+                                            <View style={styles.patternItem}>
+                                                <View style={styles.patternIcon}>
+                                                    <TrendUpIcon
+                                                        size={20}
+                                                        color={colorsTheme.gray[700]}
+                                                        weight="fill"
+                                                    />
+                                                </View>
+                                                <Text style={styles.patternText}>
+                                                    Intervalo médio entre recaídas: <Text style={{ fontFamily: fontFamily.semibold }}>{analysis.averageIntervalBetweenRelapses} dias</Text>
+                                                </Text>
+                                            </View>
+                                        )}
 
-                                {!analysis.mostRelapseDay && !analysis.mostCriticalPeriod && analysis.averageIntervalBetweenRelapses === null && (
-                                    <View style={styles.emptyState}>
-                                        <Text style={styles.emptyText}>
-                                            Não há dados suficientes para identificar padrões
-                                        </Text>
+                                        {!analysis.mostRelapseDay && !analysis.mostCriticalPeriod && analysis.averageIntervalBetweenRelapses === null && (
+                                            <View style={styles.emptyState}>
+                                                <Text style={styles.emptyText}>
+                                                    Não há dados suficientes para identificar padrões
+                                                </Text>
+                                            </View>
+                                        )}
                                     </View>
                                 )}
                             </View>
-                        )}
-                    </View>
 
                             {/* Card de Insights Combinados */}
                             {analysis && analysis.combinedInsights && analysis.combinedInsights.length > 0 && (
@@ -400,8 +241,8 @@ export default function JourneyAnalysisScreen() {
                                                 </Text>
                                                 <View style={styles.insightTriggers}>
                                                     {insight.triggers.map((trigger, tIndex) => (
-                                                        <View 
-                                                            key={tIndex} 
+                                                        <View
+                                                            key={tIndex}
                                                             style={[
                                                                 styles.insightTriggerTag,
                                                                 { backgroundColor: getTriggerTypeColor(trigger.type) + '20' }
@@ -434,7 +275,7 @@ export default function JourneyAnalysisScreen() {
                                     <PrimaryButton
                                         onPress={() => {
                                             // Navegar para o hub educacional, passando a categoria relacionada se houver
-                                            const params = analysis.contextualSuggestion?.category 
+                                            const params = analysis.contextualSuggestion?.category
                                                 ? { category: analysis.contextualSuggestion.category }
                                                 : {};
                                             router.push({
@@ -450,6 +291,7 @@ export default function JourneyAnalysisScreen() {
                             )}
 
                             {/* Card do Hub Educacional (sempre visível) */}
+                            {/*
                             <View style={styles.card}>
                                 <Title fontWeight="SEMIBOLD">
                                     Hub Educativo
@@ -464,6 +306,7 @@ export default function JourneyAnalysisScreen() {
                                     backgroundColor={colorsTheme.background.primary}
                                 />
                             </View>
+                            */}
 
                             {/* Card de Gatilhos Frequentes */}
                             {analysis && analysis.semanticTriggers && analysis.semanticTriggers.length > 0 && (
@@ -492,14 +335,14 @@ export default function JourneyAnalysisScreen() {
                                                     </View>
                                                 </View>
                                                 <View style={styles.confidenceBar}>
-                                                    <View 
+                                                    <View
                                                         style={[
                                                             styles.confidenceFill,
-                                                            { 
+                                                            {
                                                                 width: `${trigger.confidence * 100}%`,
                                                                 backgroundColor: getTriggerTypeColor(trigger.type)
                                                             }
-                                                        ]} 
+                                                        ]}
                                                     />
                                                 </View>
                                             </View>
@@ -515,3 +358,158 @@ export default function JourneyAnalysisScreen() {
     );
 }
 
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingTop: 56,
+        backgroundColor: colors.background.primary,
+    },
+    wrapper: {
+        paddingHorizontal: 16,
+        paddingVertical: 24,
+        gap: 24,
+    },
+    card: {
+        backgroundColor: colors.background.secondary,
+        borderRadius: 20,
+        padding: 20,
+        gap: 16,
+    },
+    riskCard: {
+        backgroundColor: colors.background.secondary,
+        borderRadius: 20,
+        padding: 24,
+        alignItems: 'center',
+        gap: 12,
+    },
+    riskScore: {
+        fontSize: 48,
+        fontFamily: fontFamily.bold,
+        color: colors.text.primary,
+    },
+    riskLabel: {
+        fontSize: 18,
+        fontFamily: fontFamily.semibold,
+        color: colors.text.secondary,
+    },
+    riskDescription: {
+        fontSize: 14,
+        fontFamily: fontFamily.medium,
+        color: colors.text.secondary,
+        textAlign: 'center',
+        marginTop: 8,
+    },
+    sectionTitle: {
+        fontSize: 16,
+        fontFamily: fontFamily.semibold,
+        color: colors.text.primary,
+        marginBottom: 4,
+    },
+    sectionDescription: {
+        fontSize: 14,
+        fontFamily: fontFamily.medium,
+        color: colors.text.secondary,
+        lineHeight: 20,
+    },
+    patternItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
+        marginTop: 12,
+    },
+    patternIcon: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: colors.gray[100],
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    patternText: {
+        flex: 1,
+        fontSize: 14,
+        fontFamily: fontFamily.medium,
+        color: colors.text.primary,
+    },
+    triggerItem: {
+        backgroundColor: colors.background.primary,
+        borderRadius: 12,
+        padding: 12,
+        borderWidth: 1,
+        borderColor: colors.gray[100],
+    },
+    triggerContent: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 8,
+    },
+    triggerLabel: {
+        fontSize: 14,
+        fontFamily: fontFamily.semibold,
+        color: colors.text.primary,
+        flex: 1,
+    },
+    triggerTypeBadge: {
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        borderRadius: 8,
+        marginLeft: 8,
+    },
+    triggerTypeText: {
+        fontSize: 10,
+        fontFamily: fontFamily.semibold,
+        color: colors.white,
+        textTransform: 'uppercase',
+        letterSpacing: 0.5,
+    },
+    confidenceBar: {
+        height: 3,
+        backgroundColor: colors.gray[100],
+        borderRadius: 2,
+        overflow: 'hidden',
+    },
+    confidenceFill: {
+        height: '100%',
+        borderRadius: 2,
+    },
+    insightItem: {
+        backgroundColor: colors.background.primary,
+        borderRadius: 12,
+        padding: 16,
+        borderWidth: 1,
+        borderColor: colors.gray[100],
+    },
+    insightText: {
+        fontSize: 14,
+        fontFamily: fontFamily.medium,
+        color: colors.text.primary,
+        lineHeight: 20,
+        marginBottom: 12,
+    },
+    insightTriggers: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 8,
+    },
+    insightTriggerTag: {
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        borderRadius: 8,
+    },
+    insightTriggerText: {
+        fontSize: 12,
+        fontFamily: fontFamily.semibold,
+    },
+    emptyState: {
+        padding: 24,
+        alignItems: 'center',
+        gap: 8,
+    },
+    emptyText: {
+        fontSize: 14,
+        fontFamily: fontFamily.medium,
+        color: colors.text.secondary,
+        textAlign: 'center',
+    },
+});

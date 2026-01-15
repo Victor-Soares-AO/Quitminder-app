@@ -1,11 +1,12 @@
 // Cores do modo claro
 export const lightColors = {
     background: {
-        primary: "#FEFFFF",
-        secondary: "#F8F8F8",
+        primary: "#FFFFFF",
+        secondary: "#F7F7F7",
     },
+    lineBorder: "#E5E5E5",
     text: {
-        primary: "#1C1C1E",
+        primary: "#16232B",
         secondary: "#666666",
         tertiary: "#CCCCCC",
     },
@@ -22,6 +23,7 @@ export const lightColors = {
     },
     white: "#ffffff",
     black: "#000000",
+    blue: "#007FFA"
 };
 
 // Cores do modo escuro
@@ -30,6 +32,7 @@ export const darkColors = {
         primary: "#000000",
         secondary: "#1C1C1E",
     },
+    lineBorder: "#E5E5E5",
     text: {
         primary: "#FEFFFF",
         secondary: "#AFB1B8",
@@ -48,6 +51,7 @@ export const darkColors = {
     },
     white: "#ffffff",
     black: "#000000",
+    blue: "#007FFA"
 };
 
 // Exportar cores padrão (modo claro) para compatibilidade

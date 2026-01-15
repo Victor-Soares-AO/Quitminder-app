@@ -174,7 +174,7 @@ export const translations = {
             options: "Opções",
             shareProgress: "Partilhar Progresso",
             editHabit: "Editar Hábito",
-            deleteHabit: "Deletar Hábito",
+            deleteHabit: "Apagar Hábito",
         },
         // Quote
         quote: {

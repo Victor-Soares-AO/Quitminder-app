@@ -1,33 +1,36 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
-import { View, Text, StyleSheet, ScrollView, Alert, Animated, Dimensions } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Alert, Animated, Dimensions, TouchableOpacity } from "react-native";
 
+import { Pencil, SquarePen, Trash2 } from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import * as PhosphorIcons from "phosphor-react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
     BookOpenTextIcon,
     ChatCenteredDotsIcon,
-    ExportIcon,
     HeartbeatIcon,
     LightbulbFilamentIcon,
     PencilSimpleIcon
 } from "phosphor-react-native";
 
+import { Header } from "@/components/Header";
 import { Loading } from "@/components/Loading";
+import { Heading } from "@/components/Text/Heading";
+import { IconButton } from "@/components/IconButton";
 import { SettingButton } from "@/components/SettingButton";
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { AbstinenceCard } from "@/components/AbstinenceCard";
 
 import { colors, fontFamily } from "@/theme";
 import { HabitResponseDTO } from "@/dtos/habit.dto";
+import { useTranslation } from "@/hooks/useTranslation";
+
 import { useHabitDatabase } from "@/database/useHabitDatabase";
 import { useAffirmationDatabase } from "@/database/useAffirmationDatabase";
 import { useHabitRecordDatabase, HabitRecordResponse } from "@/database/useHabitRecordDatabase";
-import { Header } from "@/components/Header";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Heading } from "@/components/Text/Heading";
-import { useTranslation } from "@/hooks/useTranslation";
-import { IconButton } from "@/components/IconButton";
+import { Description } from "@/components/Text/Description";
+import { Title } from "@/components/Text/Title";
 
 const { width } = Dimensions.get("window");
 
@@ -168,17 +171,28 @@ export default function Overview() {
 
     return (
         <React.Fragment>
-            <Header transparent>
-                <IconButton
-                    Icon={PencilSimpleIcon}
+            <Header iconBGType="SECONDARY" transparent>
+                <TouchableOpacity
+                    style={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: colors.white,
+                        paddingHorizontal: 20,
+                        height: 40,
+                        borderRadius: 999
+                    }}
                     onPress={() => router.push(`/create-habit/edit/${habitId}`)}
-                />
+                >
+                    <Title>
+                        Editar
+                    </Title>
+                </TouchableOpacity>
             </Header>
 
             <ScrollView style={styles.container} bounces={false}>
                 {/* Highlight */}
                 <LinearGradient
-                    colors={["#DCE6ED", "#F1F4F5"]}
+                    colors={["#F7F7F7", "#F7F7F7"]}
                     start={{ x: 0, y: 0.5 }}
                     end={{ x: 1, y: 0.5 }}
                     style={{
@@ -221,7 +235,10 @@ export default function Overview() {
 
                 {/* Conteúdo */}
                 <View style={styles.wrapper}>
-                    <AbstinenceCard records={records} lastRelapseDate={habit.last_relapse_date} />
+                    <AbstinenceCard 
+                        records={records} 
+                        lastRelapseDate={habit.last_relapse_date} 
+                    />
 
                     <Text style={styles.groupTitle}>
                         {t("overview.myJourney")}
@@ -252,7 +269,7 @@ export default function Overview() {
 
                         <SettingButton
                             Icon={HeartbeatIcon}
-                            title="Análise da Jornada"
+                            title="Análise Comportamental"
                             backgroundColor="#6366F1"
                             rounded="bottom"
                             onPress={() => router.push(`/(tabs)/overview/journey-analysis?id=${habitId}`)}
@@ -266,7 +283,7 @@ export default function Overview() {
                     <PrimaryButton
                         label={t("overview.deleteHabit")}
                         onPress={handleDeleteHabit}
-                        Icon={PhosphorIcons.TrashIcon}
+                        Icon={Trash2}
                     />
                 </View>
             </ScrollView>
@@ -283,6 +300,8 @@ const styles = StyleSheet.create({
         backgroundColor: colors.background.primary,
         paddingVertical: 24,
         paddingHorizontal: 16,
+        borderTopLeftRadius: 24,
+        borderTopRightRadius: 24
     },
     habitCover: {
         width: 96,
