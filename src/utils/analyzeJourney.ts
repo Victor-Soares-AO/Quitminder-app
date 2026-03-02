@@ -35,8 +35,9 @@ export type JourneyAnalysis = {
 /**
  * Identifica o dia da semana com maior número de recaídas
  */
+
 export function getMostRelapseDay(records: HabitRecordResponse[]): DayOfWeek | null {
-    // Usar função centralizada para garantir ordenação correta
+    
     const relapses = getAllRelapsesOrdered(records);
     
     if (relapses.length === 0) return null;
@@ -45,7 +46,7 @@ export function getMostRelapseDay(records: HabitRecordResponse[]): DayOfWeek | n
     
     relapses.forEach(record => {
         const date = new Date(record.date_time);
-        const dayOfWeek = date.getDay(); // 0 = domingo, 6 = sábado
+        const dayOfWeek = date.getDay();
         dayCount[dayOfWeek] = (dayCount[dayOfWeek] || 0) + 1;
     });
 
@@ -182,10 +183,9 @@ export function calculateRiskScore(records: HabitRecordResponse[]): { score: num
         return { score: 0, level: 'Baixo' };
     }
 
-    // Fatores de risco
     let riskScore = 0;
 
-    // 1. Frequência de recaídas (últimos 30 dias)
+    // 1. Frequência de recaídas dos últimos 30 dias
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
     
@@ -197,7 +197,7 @@ export function calculateRiskScore(records: HabitRecordResponse[]): { score: num
     // Máximo 40 pontos por frequência (mais de 5 recaídas = 40 pontos)
     riskScore += Math.min(recentRelapses * 8, 40);
 
-    // 2. Proximidade da última recaída (quanto mais recente, maior o risco)
+    // 2. Proximidade da última recaída, quanto mais recente, maior o risco
     // Usar função centralizada para garantir que pegamos a recaída mais recente
     const lastRelapseRecord = getLastRelapse(records);
 

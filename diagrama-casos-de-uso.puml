@@ -1,0 +1,111 @@
+@startuml QuitMinder - Diagrama de Casos de Uso
+!theme plain
+left to right direction
+skinparam packageStyle rectangle
+skinparam useCase {
+  BackgroundColor #E8F4FD
+  BorderColor #0A84FF
+  ArrowColor #0A84FF
+}
+skinparam actor {
+  BackgroundColor #F7F7F7
+  BorderColor #8E8E93
+}
+
+actor "Usuário" as User
+
+rectangle "QuitMinder" {
+
+  package "Onboarding e Acesso" {
+    usecase "Concluir onboarding" as UC_ONBOARDING
+    usecase "Desbloquear app\n(biometria)" as UC_UNLOCK
+  }
+
+  package "Hábitos" {
+    usecase "Criar hábito" as UC_CREATE_HABIT
+    usecase "Editar hábito" as UC_EDIT_HABIT
+    usecase "Excluir hábito" as UC_DELETE_HABIT
+    usecase "Listar hábitos" as UC_LIST_HABITS
+    usecase "Visualizar visão geral\ndo hábito" as UC_OVERVIEW
+  }
+
+  package "Registros (Diário)" {
+    usecase "Registrar recaída/evento" as UC_CREATE_RECORD
+    usecase "Editar registro" as UC_EDIT_RECORD
+    usecase "Excluir registro" as UC_DELETE_RECORD
+    usecase "Visualizar diário" as UC_VIEW_DIARY
+    usecase "Visualizar detalhe\ndo registro" as UC_VIEW_RECORD
+  }
+
+  package "Razões e Afirmações" {
+    usecase "Gerenciar razões\n(adicionar/editar/excluir)" as UC_REASONS
+    usecase "Gerenciar afirmações\n(adicionar/editar/excluir)" as UC_AFFIRMATIONS
+  }
+
+  package "Visualização e Análise" {
+    usecase "Visualizar calendário" as UC_CALENDAR
+    usecase "Visualizar estatísticas" as UC_STATS
+    usecase "Visualizar análise\ncomportamental" as UC_JOURNEY
+    usecase "Consultar hub\neducacional" as UC_EDUCATIONAL
+  }
+
+  package "Configurações" {
+    usecase "Configurar notificações" as UC_NOTIFICATIONS
+    usecase "Ativar/desativar\nbloqueio de privacidade" as UC_PRIVACY_LOCK
+    usecase "Gerenciar sincronização" as UC_SYNC
+  }
+
+  package "Sincronização (Nuvem)" {
+    usecase "Fazer login" as UC_LOGIN
+    usecase "Cadastrar conta" as UC_SIGNUP
+    usecase "Fazer logout" as UC_LOGOUT
+    usecase "Enviar dados para nuvem" as UC_UPLOAD
+    usecase "Baixar dados da nuvem" as UC_DOWNLOAD
+    usecase "Sincronizar dados" as UC_SYNC_DATA
+    usecase "Resolver conflitos\nde sincronização" as UC_CONFLICTS
+  }
+}
+
+' Onboarding e Acesso
+User --> UC_ONBOARDING
+User --> UC_UNLOCK
+
+' Hábitos
+User --> UC_LIST_HABITS
+User --> UC_CREATE_HABIT
+User --> UC_OVERVIEW
+UC_OVERVIEW ..> UC_EDIT_HABIT : <<include>>
+UC_OVERVIEW ..> UC_DELETE_HABIT : <<include>>
+
+' Registros
+User --> UC_VIEW_DIARY
+UC_VIEW_DIARY ..> UC_CREATE_RECORD : <<include>>
+UC_VIEW_DIARY ..> UC_VIEW_RECORD : <<include>>
+UC_VIEW_RECORD ..> UC_EDIT_RECORD : <<include>>
+UC_VIEW_RECORD ..> UC_DELETE_RECORD : <<include>>
+
+' Razões e Afirmações
+UC_OVERVIEW ..> UC_REASONS : <<include>>
+UC_OVERVIEW ..> UC_AFFIRMATIONS : <<include>>
+
+' Calendário, Estatísticas, Análise
+User --> UC_CALENDAR
+User --> UC_STATS
+UC_OVERVIEW ..> UC_JOURNEY : <<include>>
+UC_JOURNEY ..> UC_EDUCATIONAL : <<extend>>
+
+' Configurações
+User --> UC_NOTIFICATIONS
+User --> UC_PRIVACY_LOCK
+User --> UC_SYNC
+
+' Sincronização
+UC_SYNC ..> UC_LOGIN : <<include>>
+UC_SYNC ..> UC_SIGNUP : <<extend>>
+UC_SYNC ..> UC_LOGOUT : <<include>>
+UC_SYNC ..> UC_UPLOAD : <<include>>
+UC_SYNC ..> UC_DOWNLOAD : <<include>>
+UC_SYNC ..> UC_SYNC_DATA : <<include>>
+UC_SYNC_DATA ..> UC_CONFLICTS : <<extend>>
+
+@enduml

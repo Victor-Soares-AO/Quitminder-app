@@ -5,7 +5,7 @@ export type HabitRecordCreate = {
     title?: string;
     note?: string;
     date_time: string;
-    is_reset: number; // 0 ou 1
+    is_reset: number;
     time_spent?: number;
     money_spent?: number;
     currency?: string;
