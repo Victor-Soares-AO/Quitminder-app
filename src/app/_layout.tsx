@@ -73,7 +73,7 @@ function AppProviders({ children }: { children: ReactNode }) {
     );
 }
 
-export default function RootLayout() {
+function RootLayout() {
     const [fontsLoaded] = useFonts({
         Inter_400Regular,
         Inter_500Medium,
@@ -99,3 +99,5 @@ export default function RootLayout() {
         </Suspense>
     )
 }
+
+export default RootLayout;

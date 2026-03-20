@@ -2,7 +2,7 @@ import { router, Redirect } from "expo-router";
 import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 import { useEffect, useState } from "react";
 
-import { InfinityIconIcon, LightningIcon, LockKeyIcon, X } from "phosphor-react-native";
+import { InfinityIcon, LightningIcon, LockKeyIcon, X } from "phosphor-react-native";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -85,7 +85,7 @@ export default function Onboarding() {
 
                 <View>
                     <OnboardingCard
-                        Icon={InfinityIconIcon}
+                        Icon={InfinityIcon}
                         iconWeight="bold"
                         backgroundColor="#0A9956"
                         heading="Retome o controle"
